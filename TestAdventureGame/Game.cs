@@ -15,7 +15,7 @@ namespace SpaceAdventure
 
         public static void StartGame()
         {
-            Dialog("          Space Adventure!", "green");
+            Dialog("       Space Adventure!", "darkmagenta");
             Dialog("\nWelcome to the galaxy of Triangulum!\n", "green");
             
             Console.WriteLine("You awoke to find your ship crashed on an unknown planet " +
@@ -44,8 +44,13 @@ namespace SpaceAdventure
                                         "\nOk maybe just Astrotron.\"");
                     PlayerName = "Astrotron";
                 }
+                else
+            {
             Console.WriteLine(" ");
             Dialog("Attendant:\"That is a really cool name " + PlayerName + "!\"");
+
+            }
+            Console.WriteLine(" ");
             Console.WriteLine("---Press enter to continue---");
             Console.ReadKey();
             Console.Clear();
@@ -73,6 +78,9 @@ namespace SpaceAdventure
                     break;
                 case "blue":
                     Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
+                case "darkmagenta":
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.White;
