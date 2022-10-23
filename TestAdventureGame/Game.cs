@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ public class Game
 
     public static void StartGame()
     {
-        Console.Title = "ASCII Art";
+        Console.Title = "Space Adventure";
         string title = @"
             
                           _____                         ___      _                 _                  
@@ -142,6 +143,32 @@ public class Game
 
 
 
+
+    //******************Working here!*********
+
+    public static void Choice2Casino()
+    {
+        
+    }
+
+    public static void AfterChoice1()
+    {
+        Console.WriteLine("You walk into the ship bazaar and look around in awe at all of the ships");
+        Console.WriteLine("Three ships grab your attention");
+
+    }
+
+
+    public static void CasinoOptions()
+    {
+        Console.Write("\nWould you like to test your luck at the slot machines? \n\n1) Yep, I am feeling lucky! \n2) I think I will pass this time\nResponse: ");
+        var input = Console.ReadLine();
+        input = Convert.ToString(input);
+        if (input == "1") { Console.Clear(); Casino.CasinoSlots(); }
+        else if (input == "2") Console.WriteLine("Ok, please come by later to test your luck. Have a great day!");
+        else Console.WriteLine($"Please press either 1 or 2. {CasinoOptions}");
+       
+    }
 
 
 

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceAdventure
+namespace SpaceAdventure;
+
+public class Items
 {
-    public class Items
-    {
 
 
-    }
 }

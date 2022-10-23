@@ -10,6 +10,7 @@ Game.NamePlayer();
 
 Game.Choice1();
 
+Game.CasinoOptions();
 
 
 
