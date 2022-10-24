@@ -11,7 +11,8 @@ namespace SpaceAdventure;
 
 public class Game
 {
-
+   
+       
     static string PlayerName = "Bob";
 
     public static void StartGame()
@@ -51,7 +52,7 @@ public class Game
     }
 
 
-    public static void NamePlayer()
+    public static void NamePlayer(Player player)
     {
 
         Console.WriteLine("Please enter a player name and press enter ");
@@ -73,6 +74,7 @@ public class Game
         Dialog("Attendant:\"That is a really cool name " + PlayerName + "!\"");
 
         }
+        player.Name = PlayerName;
         Console.WriteLine(" ");
         Console.WriteLine("---Press enter to continue---");
         Console.ReadKey();
@@ -113,38 +115,41 @@ public class Game
         Console.ResetColor();
     }
 
-    public static void Choice1()
-    {
-        Dialog($"Attendant:\"Would you be interested in a tour?\" \n");
-        Console.Write("What is your response? \n1) Absolutely \n2) Maybe later \n3) I'm just looking for a new ship\nResponse: ");
-        //Console.WriteLine("Please type 1, 2, or 3 and press enter");
-        var input = Console.ReadLine();
-        input = Convert.ToString(input);
-        if(input == "1")
-        {
-            Dialog($"Attendant: \"Great, follow me {PlayerName}!\"");
-            Console.WriteLine("You follow down a long corridor, taking in the grand structure and strange symbols..");
-            Dialog("Attendant: \"This is the ship bazaar.  It is the most visited portion of the trade hub.\" ");
-        }
-        else if(input == "2")
-        {
-            Dialog($"Attendant: \"Ok {PlayerName}, I will check back if you look lost. \nMost arrivals are looking to buy and sell ships. " +
-                "\nYou can find them right down that corridor." +
-                "\nHave a great adventure!\"");
-        }
-        else if(input == "3")
-        {
-            Dialog($"Attendant: \"The ship bazaar is right down this corridor.  Please let me know if you need further assistance." +
-                $"\nHave a great adventure {PlayerName}!\"");
-        }
-        else { Console.WriteLine("Please press 1, 2, or 3 and press enter"); Choice1(); }
-    }
+
 
 
 
 
 
     //******************Working here!*********
+
+    public static void MainArea(Player player)
+    {
+        Console.Clear();
+        Console.WriteLine("You are currently in the main hub next to the information booth.\n");
+        Console.Write("Where would you like to go?\n1) Ship Bazaar\n2) Casino\n3) Information Booth\nResponse: ");
+        var x = Console.ReadLine();
+        x = Convert.ToString(x);
+        if (x == "1") { ShipBazaar(); }
+        else if (x == "2") { CasinoOptions(player); }
+        else if (x == "3") { InfoBooth(player); }  
+        else
+        {
+            Console.WriteLine("Please enter either 1, 2, or 3.");
+            MainArea(player);
+        }
+    
+    }
+
+    public static void InfoBooth(Player player)
+    {
+        Choices.Choice1(player);
+    }
+
+    public static void ShipBazaar()
+    {
+
+    }
 
     public static void Choice2Casino()
     {
@@ -159,13 +164,19 @@ public class Game
     }
 
 
-    public static void CasinoOptions()
+    public static void CasinoOptions(Player player)
     {
-        Console.Write("\nWould you like to test your luck at the slot machines? \n\n1) Yep, I am feeling lucky! \n2) I think I will pass this time\nResponse: ");
+        Console.WriteLine("\nWelcome to the Casino!\nCurrently our tables are down.");
+        Console.Write("Would you like to test your luck at the slot machines? " +
+            "\n\n1) Yep, I am feeling lucky! \n2) I think I will pass this time\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
-        if (input == "1") { Console.Clear(); Casino.CasinoSlots(); }
-        else if (input == "2") Console.WriteLine("Ok, please come by later to test your luck. Have a great day!");
+        if (input == "1") { Console.Clear(); Casino.CasinoSlots(player); }
+        else if (input == "2")
+        {
+            Console.WriteLine("Ok, please come by later to test your luck. Have a great day!");
+            MainArea(player);
+        }
         else Console.WriteLine($"Please press either 1 or 2. {CasinoOptions}");
        
     }

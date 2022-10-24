@@ -6,11 +6,12 @@ using System.ComponentModel;
 
 Game.StartGame();
 Game.Starting();
-Game.NamePlayer();
+Player player = new Player("Bob", 100);
+Game.NamePlayer(player);
 
-Game.Choice1();
+Game.MainArea(player);
 
-Game.CasinoOptions();
+Game.CasinoOptions(player);
 
 
 
