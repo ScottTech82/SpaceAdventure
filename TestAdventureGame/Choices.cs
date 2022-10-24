@@ -9,6 +9,17 @@ namespace SpaceAdventure
     public class Choices
     {
 
+        /* Comments, Ideas, and Bug List.
+         * 
+         * Ideas
+         *  1. Put all conversations in a List or Dictionary then call the key or index depending on the user
+         *  selection.  Would this make it easier?
+         *     DONE! Did this -> a. or make a convo class with all the conversations.
+         * 
+         * BUGS!
+         *  None yet.
+         * 
+         */
 
 
 

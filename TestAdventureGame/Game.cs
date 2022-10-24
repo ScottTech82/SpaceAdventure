@@ -11,7 +11,34 @@ namespace SpaceAdventure;
 
 public class Game
 {
-   
+
+    /* Comments, Ideas, and Bug List.
+     * 
+     * Keep it simple to start!
+     * 
+     * Ideas
+     *  1. Move Title to its own class and call the method for it.  Maybe have other Titles down the road.
+     *  
+     *  2. ASCII draw a few ships, just 3 to start? In the items class?
+     *      a. with differing stats and credit cost
+     *      
+     *  3. Casino used to obtain more credits for now.
+     *  
+     *  4. Can I create a small mini shooting game with the ship?
+     * 
+     *  See more Ideas in invidual classes.
+     * 
+     * 
+     * BUGS!
+     *  TBD -will be listed here.
+     *  
+     * 
+     */
+
+
+
+
+
        
     static string PlayerName = "Bob";
 
@@ -130,7 +157,7 @@ public class Game
         Console.Write("Where would you like to go?\n1) Ship Bazaar\n2) Casino\n3) Information Booth\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
-        if (x == "1") { ShipBazaar(); }
+        if (x == "1") { ShipBazaar(player); }
         else if (x == "2") { CasinoOptions(player); }
         else if (x == "3") { InfoBooth(player); }  
         else
@@ -146,8 +173,33 @@ public class Game
         Choices.Choice1(player);
     }
 
-    public static void ShipBazaar()
+    public static void ShipBazaar(Player player)
     {
+        Console.WriteLine("\nYou enter the ship bazaar.  There are traders everywhere selling ship parts from top of the line" +
+            " aftermarket upgrades\n to thermal taped components that appear to be barely pieced together.");
+        Console.Write("\nYou find the area selling entire space ships (thermal tape excluded) and decide to browse available products" +
+            "\n\nWhich one would you like to view?\n1) The Vwing\n2) The TBDnamed\n3) Or exit back to main hub\nResponse: ");
+        var x = Console.ReadLine();
+        x = Convert.ToString(x);
+        if(x == "1")
+        {
+            Items.Vwing();
+            ShipBazaar(player);
+        }
+        else if(x == "2")
+        {
+            Items.BasicShip();
+            ShipBazaar(player);
+        }
+        else if(x == "3")
+        {
+            MainArea(player);
+        }
+        else
+        {
+            Console.WriteLine("Please enter either 1, 2, or 3");
+            ShipBazaar(player);
+        }
 
     }
 

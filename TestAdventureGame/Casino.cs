@@ -13,85 +13,34 @@ namespace SpaceAdventure;
 public class Casino
 {
 
+    /* Comments, Ideas, and Bug List.
+     * 
+     * 
+     * Ideas
+     *  1. Add bets & winning/losing calculations.
+     *  2. Create a blackjack table
+     *  3. Poker tables will be closed for an upcoming tournament, unless I have time later to complete it.
+     * 
+     * 
+     * BUG List
+     *  1. The expert level slot machine will display you won if there are 2 matching pairs.
+            ie.     | Star | Quasar | Quasar | Pulsar | Pulsar |
+            Displays you won, but this is not 3 matches or more. 
+            And is probably only if result1 does not match, since I did not specify all results having 3 or more.
+                Tried to have a little less && statements. Probably have to add more.
 
-    //I need to call this method 3 times, one for each row.
-    //that way the random should actually be randam all 3 times instead of all 3 at the same machine time.
-    
-    public static string SlotMachineSimple()
-    {
-        string[] selection = new string[] {"Asteroid", " Planet ", "  Star  ", " Nebula ", " Galaxy "};
-        Random random = new Random();
-        int rnd = random.Next(0, 5);
+     *  --Completed!-- 2. Selecting Ship Bazaar sends to the Casino, since I have not created the Method yet.
+     *  
+     */
 
-        var result = selection[rnd];
-        return result;   
-    }
 
-    public static string SlotMachineMed()
-    {
-        string[] selection = { "Asteroid", " Planet ", "  Star  ", " Nebula ", " Galaxy ", "SuperNova", " Pulsar ", " Quasar " };
-        Random random = new Random();
-        int rnd = random.Next(0, 8);
+    //update this to have a method that runs the simple slot machine with below code. Then make a medium one with 
+    //more reels and maybe even a really hard one?
 
-        var result = selection[rnd];
-        return result;
-    }
-
-    public static void SlotChoice1(Player player)
-    {
-        Console.Clear();
-        Game.Dialog("Would you like to try again?", "blue");
-        Console.Write("1) Yes \n2) No thanks\nResponse: ");
-        var input = Console.ReadLine();
-        input = Convert.ToString(input);
-        if (input == "1")
-        {
-            Console.Clear();
-            CasinoSlots(player);
-        }
-        else if (input == "2")
-        {
-            Console.WriteLine("\nThank you for playing, please come again.\n");
-            Console.Write("Would you like to play a different slot machine or exit the Casino?" +
-                "\n1) Different Slot Machine\n2) Exit the Casino\nResponse: ");
-            var x = Console.ReadLine();
-            x = Convert.ToString(x);
-            if (x == "1") { CasinoSlots(player); }
-            else if (x == "2") { Game.MainArea(player); }
-        }
-        else { Console.WriteLine($"Please press either 1 or 2."); SlotChoice1(player); }
-    }
-    public static void SlotChoice2(Player player)
-    {
-        Console.Clear();
-        Game.Dialog("Would you like to try again?", "blue");
-        Console.Write("1) Yes \n2) No thanks\nResponse: ");
-        var input = Console.ReadLine();
-        input = Convert.ToString(input);
-        if (input == "1")
-        {
-            Console.Clear();
-            MedSlot(player);
-}
-        else if (input == "2")
-        {
-            Console.WriteLine("\nThank you for playing, please come again.\n");
-            Console.Write("Would you like to play a different slot machine or exit the Casino?" +
-                "\n1) Different Slot Machine\n2) Exit the Casino\nResponse: ");
-            var x = Console.ReadLine();
-            x = Convert.ToString(x);
-            if(x == "1") { CasinoSlots(player); }
-            else if(x == "2") { Game.MainArea(player); }
-        }
-        else { Console.WriteLine($"Please press either 1 or 2."); SlotChoice2(player); }
-    }
-
-//update this to have a method that runs the simple slot machine with below code. Then make a medium one with 
-//more reels and maybe even a really hard one?
-public static void CasinoSlots(Player player)
+    public static void CasinoSlots(Player player)
     {
         //add in bet amounts and track in variables
-        Console.WriteLine("You enter the and read the sign.. \"Casino Slot Machines!\"" +
+        Console.WriteLine("You enter and read the sign.. \"Casino Slot Machines!\"" +
             "\nWe currently have two levels. The beginner level with 3 reels, and the expert with 5 reels");
         Console.Write("\nWhich would you like to play today?" +
             "\n1) Beginner\n2) Expert\n3) More information\nResponse: ");
@@ -101,8 +50,8 @@ public static void CasinoSlots(Player player)
         else if (input == "2") { MedSlot(player); }
         else if (input == "3")
         {
-            Console.WriteLine("\nAddional Info: The easy level slot machine requires that you get 2 matches to win" +
-                " and all 3 matches for the Jackpot.\nThe medium level slot machine requires 3 or 4 matches to win" +
+            Console.WriteLine("\nAddional Info: The beginner level slot machine requires that you get 2 matches to win" +
+                " and all 3 matches for the Jackpot.\nThe expert level slot machine requires 3 or 4 matches to win" +
                 " and all 5 matches for the Jackpot.\nSince the medium level is harder, the payouts are larger.\n");
             CasinoSlots(player);
         }
@@ -216,6 +165,81 @@ public static void CasinoSlots(Player player)
     }
 
 
+
+    //I need to call this method 3 times, one for each row.
+    //that way the random should actually be randam all 3 times instead of all 3 at the same machine time.
+
+    public static string SlotMachineSimple()
+    {
+        string[] selection = new string[] { "Asteroid", " Planet ", "  Star  ", " Nebula ", " Galaxy " };
+        Random random = new Random();
+        int rnd = random.Next(0, 5);
+
+        var result = selection[rnd];
+        return result;
+    }
+
+    public static string SlotMachineMed()
+    {
+        string[] selection = { "Asteroid", " Planet ", "  Star  ", " Nebula ", " Galaxy ", "SuperNova", " Pulsar ", " Quasar " };
+        Random random = new Random();
+        int rnd = random.Next(0, 8);
+
+        var result = selection[rnd];
+        return result;
+    }
+
+
+    public static void SlotChoice1(Player player)
+    {
+        Console.Clear();
+        Game.Dialog("Would you like to try again?", "blue");
+        Console.Write("1) Yes \n2) No thanks\nResponse: ");
+        var input = Console.ReadLine();
+        input = Convert.ToString(input);
+        if (input == "1")
+        {
+            Console.Clear();
+            CasinoSlots(player);
+        }
+        else if (input == "2")
+        {
+            Console.WriteLine("\nThank you for playing, please come again.\n");
+            Console.Write("Would you like to play a different slot machine or exit the Casino?" +
+                "\n1) Different Slot Machine\n2) Exit the Casino\nResponse: ");
+            var x = Console.ReadLine();
+            x = Convert.ToString(x);
+            if (x == "1") { CasinoSlots(player); }
+            else if (x == "2") { Game.MainArea(player); }
+        }
+        else { Console.WriteLine($"Please press either 1 or 2."); SlotChoice1(player); }
+    }
+
+
+    public static void SlotChoice2(Player player)
+    {
+        Console.Clear();
+        Game.Dialog("Would you like to try again?", "blue");
+        Console.Write("1) Yes \n2) No thanks\nResponse: ");
+        var input = Console.ReadLine();
+        input = Convert.ToString(input);
+        if (input == "1")
+        {
+            Console.Clear();
+            MedSlot(player);
+        }
+        else if (input == "2")
+        {
+            Console.WriteLine("\nThank you for playing, please come again.\n");
+            Console.Write("Would you like to play a different slot machine or exit the Casino?" +
+                "\n1) Different Slot Machine\n2) Exit the Casino\nResponse: ");
+            var x = Console.ReadLine();
+            x = Convert.ToString(x);
+            if (x == "1") { CasinoSlots(player); }
+            else if (x == "2") { Game.MainArea(player); }
+        }
+        else { Console.WriteLine($"Please press either 1 or 2."); SlotChoice2(player); }
+    }
 
 
 
