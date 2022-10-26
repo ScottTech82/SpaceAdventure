@@ -46,20 +46,16 @@ public class Items
 
     string Ship3 = @"
     
-            /\
-           |  |
-           |  |
-          /    \
-         /      \
-      |
-          
-
-
-
+             /\
+            /XX\
+       /\  / ** \  /\
+      /88\/  **  \/88\
+     / ||    **    || \
+     \ || _MMMMMM_ || /
+      \11/ VVVVVV \11/
+       \/   VVVV   \/
     ";
         Game.Dialog(Ship3, "darkmagenta");
-    
-
     }
 
 

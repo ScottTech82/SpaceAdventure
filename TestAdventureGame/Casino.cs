@@ -18,7 +18,8 @@ public class Casino
      * 
      * Ideas
      *  1. Add bets & winning/losing calculations.
-     *  2. Create a blackjack table
+     *  2. Create a blackjack table -probably the same with list and randoms for card draws.
+     *      Can I do 52 numbers (cards) then after its pulled from the list assign a type like heart or spade, etc?
      *  3. Poker tables will be closed for an upcoming tournament, unless I have time later to complete it.
      * 
      * 
@@ -241,7 +242,10 @@ public class Casino
         else { Console.WriteLine($"Please press either 1 or 2."); SlotChoice2(player); }
     }
 
-
+    public static void BlackJack()
+    {
+        List<int> cards = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+    }
 
 
 }

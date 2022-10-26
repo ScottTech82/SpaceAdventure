@@ -178,7 +178,7 @@ public class Game
         Console.WriteLine("\nYou enter the ship bazaar.  There are traders everywhere selling ship parts from top of the line" +
             " aftermarket upgrades\n to thermal taped components that appear to be barely pieced together.");
         Console.Write("\nYou find the area selling entire space ships (thermal tape excluded) and decide to browse available products" +
-            "\n\nWhich one would you like to view?\n1) The Vwing\n2) The TBDnamed\n3) Or exit back to main hub\nResponse: ");
+            "\n\nWhich one would you like to view?\n1) The Vwing\n2) The TBDnamed\n3) The ThirdShip\n4) Or exit back to main hub\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if(x == "1")
@@ -193,11 +193,16 @@ public class Game
         }
         else if(x == "3")
         {
+            Items.ThirdShip();
+            ShipBazaar(player);
+        }
+        else if(x == "4")
+        {
             MainArea(player);
         }
         else
         {
-            Console.WriteLine("Please enter either 1, 2, or 3");
+            Console.WriteLine("Please enter either 1, 2, 3, or 4");
             ShipBazaar(player);
         }
 

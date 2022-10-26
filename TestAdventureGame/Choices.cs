@@ -35,17 +35,20 @@ namespace SpaceAdventure
                 Game.Dialog($"Attendant: \"Great, follow me {player.Name}!\"");
                 Console.WriteLine("You follow down a long corridor, taking in the grand structure and strange symbols..");
                 Game.Dialog("Attendant: \"This is the ship bazaar.  It is the most visited portion of the trade hub.\" ");
+                Game.ShipBazaar(player);
             }
             else if (input == "2")
             {
                 Game.Dialog($"Attendant: \"Ok {player.Name}, I will check back if you look lost. \nMost arrivals are looking to buy and sell ships. " +
-                    "\nYou can find them right down that corridor." +
+                    "\nOr test their luck at the Casino." +
                     "\nHave a great adventure!\"");
+                Game.MainArea(player);
             }
             else if (input == "3")
             {
                 Game.Dialog($"Attendant: \"The ship bazaar is right down this corridor.  Please let me know if you need further assistance." +
                     $"\nHave a great adventure {player.Name}!\"");
+                Game.ShipBazaar(player);
             }
             else { Console.WriteLine("Please press 1, 2, or 3 and press enter"); Choice1(player); }
         }
