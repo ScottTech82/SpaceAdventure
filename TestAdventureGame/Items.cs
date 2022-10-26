@@ -41,6 +41,26 @@ public class Items
         Game.Dialog(Ship2, "darkmagenta");
     }
 
+    public static void ThirdShip ()
+    {
+
+    string Ship3 = @"
+    
+            /\
+           |  |
+           |  |
+          /    \
+         /      \
+      |
+          
+
+
+
+    ";
+        Game.Dialog(Ship3, "darkmagenta");
+    
+
+    }
 
 
 
