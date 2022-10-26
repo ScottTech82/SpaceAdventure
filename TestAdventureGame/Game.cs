@@ -73,16 +73,16 @@ public class Game
             "and have little memory of what happened." +
             "\nSome traders offered you a ride to the nearest trade hub. You accepted.\n");
 
-        Console.Write("As you walk into the entrance of the galactic trade hub.  The new arrival attendant welcomes you, \n");
+        Console.Write("As you walk into the entrance of the galactic trade hub.  The new arrival attendant welcomes you... \n");
         Game.Dialog($"\nAttendant:\"Hi-llo! and welcome to the Triangulum Galatic Trade Hub.\" " +
-                $"\n\"What is your name?\"");
+                $"\n\"What is your name?\"\n");
     }
 
 
     public static void NamePlayer(Player player)
     {
 
-        Console.WriteLine("Please enter a player name and press enter ");
+        Console.Write("Please enter a player name and press enter\nResponse:  ");
         PlayerName = Console.ReadLine()!;
         PlayerName = Convert.ToString(PlayerName)!;
         TextInfo myTi = new CultureInfo("en-US", false).TextInfo;
@@ -154,12 +154,12 @@ public class Game
     {
         Console.Clear();
         Console.WriteLine("You are currently in the main hub next to the information booth.\n");
-        Console.Write("Where would you like to go?\n1) Ship Bazaar\n2) Casino\n3) Information Booth\nResponse: ");
+        Console.Write("Where would you like to go?\n1) Information Booth\n2) Casino\n3) Ship Bazaar\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
-        if (x == "1") { ShipBazaar(player); }
+        if (x == "1") { InfoBooth(player); }
         else if (x == "2") { CasinoOptions(player); }
-        else if (x == "3") { InfoBooth(player); }  
+        else if (x == "3") { ShipBazaar(player); }  
         else
         {
             Console.WriteLine("Please enter either 1, 2, or 3.");
@@ -175,25 +175,26 @@ public class Game
 
     public static void ShipBazaar(Player player)
     {
-        Console.WriteLine("\nYou enter the ship bazaar.  There are traders everywhere selling ship parts from top of the line" +
-            " aftermarket upgrades\n to thermal taped components that appear to be barely pieced together.");
-        Console.Write("\nYou find the area selling entire space ships (thermal tape excluded) and decide to browse available products" +
-            "\n\nWhich one would you like to view?\n1) The Vwing\n2) The TBDnamed\n3) The ThirdShip\n4) Or exit back to main hub\nResponse: ");
+        Console.Clear();
+        Console.WriteLine("\nYou enter the ship bazaar.  There are traders everywhere selling ship parts, from top of the line\n" +
+            " aftermarket upgrades, to thermal taped components that appear to be barely pieced together.");
+        Console.Write("\nYou find the area selling space ships (thermal tape excluded) and decide to browse available products." +
+            "\n\nWhich one would you like to view?\n\n1) The SS-Vwing\n2) The SS-Falcon\n3) The SS-Leviathan\n4) Or exit back to main hub\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if(x == "1")
         {
-            Items.Vwing();
+            Items.SSVwing();
             ShipBazaar(player);
         }
         else if(x == "2")
         {
-            Items.BasicShip();
+            Items.SSFalcon();
             ShipBazaar(player);
         }
         else if(x == "3")
         {
-            Items.ThirdShip();
+            Items.SSLeviathan();
             ShipBazaar(player);
         }
         else if(x == "4")

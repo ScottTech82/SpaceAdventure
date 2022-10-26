@@ -9,9 +9,9 @@ namespace SpaceAdventure;
 public class Items
 {
 
-    public static void Vwing ()
+    public static void SSVwing ()
     {
-
+        Console.Clear();
     string Ship1 = @"
 
         /\      /\
@@ -22,12 +22,18 @@ public class Items
         \[]====[]/
            WWWW
      ";
-    Game.Dialog(Ship1, "darkmagenta");
+        Game.Dialog("\n\nThis is the SS-Vwing an interceptor class attack ship.");
+        Game.Dialog(Ship1, "darkmagenta");
+ 
+        Game.Dialog("Attack: 13\nDefense: 8\nSpeed: 13\nCost: 500 Credits");
+        Console.WriteLine("\n---Please press enter to continue---");
+        Console.ReadKey();
     }
+    
 
-    public static void BasicShip ()
+    public static void SSFalcon ()
     {
-
+        Console.Clear();
     string Ship2 = @"
 
             /\
@@ -35,27 +41,38 @@ public class Items
        /M  |  |  M\
       |88|_||||_|88|
       |88|=||||=|88|
-       \W| VXXV |W/
+       \W  VXXV  W/
             VV
      ";
+        Game.Dialog("\n\nThis is the SS-Falcon a typical type of ship, with basic abilities.");
         Game.Dialog(Ship2, "darkmagenta");
+        
+        Game.Dialog("Attack: 8\nDefense: 8\nSpeed: 8\nCost: 250 Credits");
+        Console.WriteLine("\n---Please press enter to continue---");
+        Console.ReadKey();
     }
 
-    public static void ThirdShip ()
+    public static void SSLeviathan ()
     {
-
+        Console.Clear();
     string Ship3 = @"
     
              /\
-            /XX\
-       /\  / ** \  /\
+            |  |
+            |XX|   
+       /\  |XXXX|  /\
       /88\/  **  \/88\
-     / ||    **    || \
-     \ || _MMMMMM_ || /
+     | ||   ****   || |
+     | || _MMMMMM_ || |
       \11/ VVVVVV \11/
-       \/   VVVV   \/
+       VV   VVVV   VV
     ";
+        Game.Dialog("\n\nThis is the SS-Leviathan a large capital class ship.");
         Game.Dialog(Ship3, "darkmagenta");
+        
+        Game.Dialog("Attack: 21\nDefense: 13\nSpeed: 5\nCost: 1150 Credits");
+        Console.WriteLine("\n---Please press enter to continue---");
+        Console.ReadKey();
     }
 
 
