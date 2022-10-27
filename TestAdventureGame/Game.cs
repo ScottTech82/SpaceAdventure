@@ -91,8 +91,9 @@ public class Game
 
             if(string.IsNullOrEmpty(PlayerName))
             {
-                Dialog("Attendant:\"Hmm.. no name, I will call you.. Astrotron, ruler of worlds! " +
-                                    "\nOk maybe just Astrotron.\"");
+            Dialog("Attendant:\"Hmm.. no name, I will call you.. Astrotron, ruler of worlds!\"");
+            Thread.Sleep(1000);
+            Dialog("Attendant:\"Ok maybe just Astrotron.\"");
                 PlayerName = "Astrotron";
             }
             else
@@ -102,7 +103,11 @@ public class Game
 
         }
         player.Name = PlayerName;
-        Console.WriteLine(" ");
+        Thread.Sleep(1000);
+        Dialog("\n\"One of the traders left these credits for you to get started.\"\n\"You can always come check your balance anytime" +
+            " at the information booth.\"");
+        Player.AddCredits(50);
+        Console.WriteLine($"You received 50 credits and your current credit balance is: {Player.PlayerCredits}");
         Console.WriteLine("---Press enter to continue---");
         Console.ReadKey();
         Console.Clear();
@@ -170,7 +175,27 @@ public class Game
 
     public static void InfoBooth(Player player)
     {
-        Choices.Choice1(player);
+        Dialog("Attendant:\"Would you like to check your current credit balance?\"");
+        Console.Write("Please select your response\n1) Yes\n2)No\nResponse: ");
+        var x = Console.ReadLine();
+        x = Convert.ToString(x);
+        if (x == "1")
+        {
+            Console.WriteLine($"Your current balance is {Player.PlayerCredits}");
+            if(Player.PlayerCredits <= 0)
+            {
+                Dialog("Here take 50 more credits on the house. Try not to lose it this time.");
+                Player.AddCredits(50);
+                Console.WriteLine($"Credit Balance = {Player.PlayerCredits}");
+            }
+        }
+        else if (x == "2") { Choices.Choice1(player); }
+
+        else
+        {
+            Console.WriteLine("Please enter either number 1, or 2.");
+            InfoBooth(player);
+        }
     }
 
     public static void ShipBazaar(Player player)
@@ -224,7 +249,7 @@ public class Game
 
     public static void CasinoOptions(Player player)
     {
-        Console.WriteLine("\nWelcome to the Casino!\nCurrently our tables are down.");
+        Console.WriteLine("\nWelcome to the Casino!\nCurrently our tables are closed for an upcoming tournament.");
         Console.Write("Would you like to test your luck at the slot machines? " +
             "\n\n1) Yep, I am feeling lucky! \n2) I think I will pass this time\nResponse: ");
         var input = Console.ReadLine();

@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 Game.StartGame();
 Game.Starting();
-Player player = new Player("Bob", 100);
+Player player = new Player("Bob");
 Game.NamePlayer(player);
 
 Game.MainArea(player);

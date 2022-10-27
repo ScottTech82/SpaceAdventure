@@ -9,15 +9,33 @@ namespace SpaceAdventure
     public class Player
     {
         public string Name { get; set; }
-        public decimal PlayerCredits { get; set; }
+        public static decimal PlayerCredits { get; set; }
 
-
-        public Player(string Name, decimal PlayerCredits)
+        
+        public Player(string Name)
         {
             this.Name = Name;
-            this.PlayerCredits = PlayerCredits;
+           
+        }
+        
+
+        public static bool AddCredits(decimal amount)
+        {
+            PlayerCredits += amount;
+            return true;
         }
 
+        public static bool RemoveCredits(decimal amount)
+        {
+            if (amount <= PlayerCredits)
+            {
+                PlayerCredits -= amount;
+                return true;
+            }
+            else { Console.WriteLine("It seems you do not have enough credits to cover that amount."); }
+            return false;
+
+        }
 
 
     }

@@ -66,7 +66,7 @@ public class Casino
 
     public static void SimpleSlot(Player player)
     {
-
+        var betx = Bet();
         Console.WriteLine("With the credits deposited, the reels begin to spin.");
         var result1 = SlotMachineSimple();
         Console.WriteLine($"\n  The first result is.... \n");
@@ -92,6 +92,10 @@ public class Casino
             //add in winnings variable and multiply it, putting the result in. 
             //the winnings will need to be added to the players total money in items.cs.
             Console.WriteLine("\nYOU WON!! Congratulations, enjoy your winnings!\n");
+            var multiplier = 5;
+            decimal x = betx * multiplier;
+            Player.AddCredits(x);
+            Console.WriteLine($"Your bet of {betx} x {multiplier} = {x}");
         }
         else if (result1 != result2 && result1 != result3 && result2 != result3)
         {
@@ -101,7 +105,12 @@ public class Casino
         else
         {
             Console.WriteLine("\nYou have two matches!\n");
+            var multiplier = 2;
+            decimal x = betx * multiplier;
+            Player.AddCredits(x);
+            Console.WriteLine($"Your bet of {betx} x {multiplier} = {x}");
         }
+        Console.WriteLine($"\nYour new credit balance is {Player.PlayerCredits}.");
         Console.Write("---Press enter to continue---");
         Console.ReadKey();
         SlotChoice1(player);
@@ -111,7 +120,7 @@ public class Casino
 
     public static void MedSlot(Player player)
     {
-
+        var betx = Bet();
         Console.WriteLine("With the credits deposited, the reels begin to spin.");
         var result1 = SlotMachineMed();
         Console.WriteLine($"\n  The first result is.... \n");
@@ -147,6 +156,10 @@ public class Casino
             //add in winnings variable and multiply it, putting the result in. 
             //the winnings will need to be added to the players total money in items.cs.
             Console.WriteLine("\nYOU WON THE JACKPOT!! Congratulations, enjoy your winnings!\n");
+            var multiplier = 10;
+            decimal x = betx * multiplier;
+            Player.AddCredits(x);
+            Console.WriteLine($"Your bet of {betx} x {multiplier} = {x}");
         }
         else if (result1 != result2 && result1 != result3 && result2 != result3 && result1 != result4 
             && result2 != result4 && result3 != result4)
@@ -158,7 +171,12 @@ public class Casino
         else
         {
             Console.WriteLine("\nYou win! Congrats, and enjoy your winnings!\n");
+            var multiplier = 4;
+            decimal x = betx * multiplier;
+            Player.AddCredits(x);
+            Console.WriteLine($"Your bet of {betx} x {multiplier} = {x}");
         }
+        Console.WriteLine($"\nYour new credit balance is {Player.PlayerCredits}.");
         Console.Write("---Press enter to continue---");
         Console.ReadKey();
         SlotChoice2(player);
@@ -190,6 +208,16 @@ public class Casino
         return result;
     }
 
+    public static decimal Bet()
+    {
+        Console.WriteLine("\nHow much are you willing to wager?");
+        Console.Write("Please enter an amount to bet.\nResponse: ");
+        var x = Console.ReadLine();
+        decimal intx = Convert.ToInt32(x);
+
+        Player.RemoveCredits(intx);
+        return intx;
+    }
 
     public static void SlotChoice1(Player player)
     {
