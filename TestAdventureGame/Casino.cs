@@ -66,7 +66,7 @@ public class Casino
 
     public static void SimpleSlot(Player player)
     {
-        var betx = Bet();
+        var betx = Bet(player);
         Console.WriteLine("With the credits deposited, the reels begin to spin.");
         var result1 = SlotMachineSimple();
         Console.WriteLine($"\n  The first result is.... \n");
@@ -94,8 +94,8 @@ public class Casino
             Console.WriteLine("\nYOU WON!! Congratulations, enjoy your winnings!\n");
             var multiplier = 5;
             decimal x = betx * multiplier;
-            Player.AddCredits(x);
-            Console.WriteLine($"Your bet of {betx} x {multiplier} = {x}");
+            Player.AddCredits(x, player);
+            Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
         }
         else if (result1 != result2 && result1 != result3 && result2 != result3)
         {
@@ -107,11 +107,12 @@ public class Casino
             Console.WriteLine("\nYou have two matches!\n");
             var multiplier = 2;
             decimal x = betx * multiplier;
-            Player.AddCredits(x);
-            Console.WriteLine($"Your bet of {betx} x {multiplier} = {x}");
+            Player.AddCredits(x, player);
+            Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
         }
-        Console.WriteLine($"\nYour new credit balance is {Player.PlayerCredits}.");
-        Console.Write("---Press enter to continue---");
+        Console.Write($"\nYour new credit balance is ");
+        Game.Dialog($"{Player.PlayerCredits} credits.", "blue");
+        Console.Write("\n---Press enter to continue---");
         Console.ReadKey();
         SlotChoice1(player);
 
@@ -120,7 +121,7 @@ public class Casino
 
     public static void MedSlot(Player player)
     {
-        var betx = Bet();
+        var betx = Bet(player);
         Console.WriteLine("With the credits deposited, the reels begin to spin.");
         var result1 = SlotMachineMed();
         Console.WriteLine($"\n  The first result is.... \n");
@@ -156,28 +157,51 @@ public class Casino
             //add in winnings variable and multiply it, putting the result in. 
             //the winnings will need to be added to the players total money in items.cs.
             Console.WriteLine("\nYOU WON THE JACKPOT!! Congratulations, enjoy your winnings!\n");
-            var multiplier = 10;
+            var multiplier = 6;
             decimal x = betx * multiplier;
-            Player.AddCredits(x);
-            Console.WriteLine($"Your bet of {betx} x {multiplier} = {x}");
+            Player.AddCredits(x, player);
+            Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
         }
-        else if (result1 != result2 && result1 != result3 && result2 != result3 && result1 != result4 
-            && result2 != result4 && result3 != result4)
+        else if (result1 != result2 && result1 != result3 && result1 != result4 && result1 != result5 ||
+            result1 != result2 && result1 != result3 && result1 != result4 ||
+            result1 != result2 && result1 != result3 && result1 != result5 ||
+            result1 != result2 && result1 != result5 && result1 != result4 ||
+            result1 != result5 && result1 != result3 && result1 != result4 ||
+            result2 != result1 && result2 != result3 && result2 != result4 && result2 != result5 ||
+            result2 != result1 && result2 != result3 && result2 != result4 ||
+            result2 != result1 && result2 != result3 && result2 != result5 ||
+            result2 != result1 && result2 != result5 && result2 != result4 ||
+            result2 != result5 && result2 != result3 && result2 != result4 ||
+            result3 != result1 && result3 != result2 && result3 != result4 && result3 != result5 ||
+            result3 != result1 && result3 != result2 && result3 != result4 ||
+            result3 != result1 && result3 != result2 && result3 != result5 ||
+            result3 != result1 && result3 != result5 && result3 != result4 ||
+            result3 != result5 && result3 != result2 && result3 != result4 ||
+            result4 != result1 && result4 != result2 && result4 != result3 && result4 != result5 ||
+            result4 != result1 && result4 != result2 && result4 != result5 ||
+            result4 != result1 && result4 != result5 && result4 != result3 ||
+            result4 != result5 && result4 != result2 && result4 != result3 ||
+            result5 != result1 && result5 != result2 && result5 != result3 && result5 != result4 ||
+            result5 != result1 && result5 != result2 && result5 != result4 ||
+            result5 != result1 && result5 != result4 && result5 != result3 ||
+            result5 != result4 && result5 != result2 && result5 != result3  )
         {
             //bet deducted from the total.
             Console.WriteLine("\nAww, you did not have 3 or more matches. Better luck next time!\n");
         }
+        //if 1
         
         else
         {
             Console.WriteLine("\nYou win! Congrats, and enjoy your winnings!\n");
-            var multiplier = 4;
+            var multiplier = 3;
             decimal x = betx * multiplier;
-            Player.AddCredits(x);
-            Console.WriteLine($"Your bet of {betx} x {multiplier} = {x}");
+            Player.AddCredits(x, player);
+            Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
         }
-        Console.WriteLine($"\nYour new credit balance is {Player.PlayerCredits}.");
-        Console.Write("---Press enter to continue---");
+        Console.Write($"\nYour new credit balance is ");
+        Game.Dialog($"{Player.PlayerCredits} credits.", "blue");
+        Console.Write("\n---Press enter to continue---");
         Console.ReadKey();
         SlotChoice2(player);
 
@@ -208,14 +232,15 @@ public class Casino
         return result;
     }
 
-    public static decimal Bet()
+    public static decimal Bet(Player player)
     {
-        Console.WriteLine("\nHow much are you willing to wager?");
-        Console.Write("Please enter an amount to bet.\nResponse: ");
+        Console.Write($"\nHow much are you willing to wager?");
+        Game.Dialog($"\nYour current balance is {Player.PlayerCredits}", "blue");
+        Console.Write("\nPlease enter an amount to bet.\nResponse: ");
         var x = Console.ReadLine();
         decimal intx = Convert.ToInt32(x);
 
-        Player.RemoveCredits(intx);
+        Player.RemoveCredits(intx, player);
         return intx;
     }
 

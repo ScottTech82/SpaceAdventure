@@ -49,7 +49,7 @@ public class Items
         Game.Dialog("\n\nThis is the SS-Falcon a typical type of ship, with basic abilities.");
         Game.Dialog(Ship2, "darkmagenta");
         
-        Game.Dialog("Attack: 8\nDefense: 8\nSpeed: 8\nCost: 250 Credits");
+        Game.Dialog("Attack: 5\nDefense: 8\nSpeed: 8\nCost: 250 Credits");
         Console.WriteLine("\n---Please press enter to continue---");
         Console.ReadKey();
     }

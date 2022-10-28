@@ -106,9 +106,10 @@ public class Game
         Thread.Sleep(1000);
         Dialog("\n\"One of the traders left these credits for you to get started.\"\n\"You can always come check your balance anytime" +
             " at the information booth.\"");
-        Player.AddCredits(50);
-        Console.WriteLine($"You received 50 credits and your current credit balance is: {Player.PlayerCredits}");
-        Console.WriteLine("---Press enter to continue---");
+        Player.AddCredits(50, player);
+        Console.Write($"You received 50 credits and your current credit balance is: ");
+        Dialog($"{Player.PlayerCredits}", "blue");
+        Console.WriteLine("\n---Press enter to continue---");
         Console.ReadKey();
         Console.Clear();
     }
@@ -175,19 +176,26 @@ public class Game
 
     public static void InfoBooth(Player player)
     {
-        Dialog("Attendant:\"Would you like to check your current credit balance?\"");
-        Console.Write("Please select your response\n1) Yes\n2)No\nResponse: ");
+        Dialog("Attendant:\"\nWould you like to check your current credit balance?\"");
+        Console.Write("Please select your response\n1) Yes\n2) No\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if (x == "1")
         {
-            Console.WriteLine($"Your current balance is {Player.PlayerCredits}");
+            Console.Write($"Your current balance is ");
+            Dialog($"{Player.PlayerCredits} credits", "blue");
             if(Player.PlayerCredits <= 0)
             {
                 Dialog("Here take 50 more credits on the house. Try not to lose it this time.");
-                Player.AddCredits(50);
-                Console.WriteLine($"Credit Balance = {Player.PlayerCredits}");
+                Player.AddCredits(50, player);
+                Dialog($"\nCredit Balance = {Player.PlayerCredits} credits", "blue");
+                Console.WriteLine("\n---Please press enter to continue---");
+                Console.ReadKey();
+                MainArea(player);
             }
+            Console.WriteLine("---Please press enter to continue---");
+            Console.ReadKey();
+            MainArea(player);
         }
         else if (x == "2") { Choices.Choice1(player); }
 

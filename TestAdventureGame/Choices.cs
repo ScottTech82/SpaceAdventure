@@ -34,11 +34,11 @@ namespace SpaceAdventure
             {
                 Game.Dialog($"\nAttendant: \"Great, follow me {player.Name}!\"\n");
                 Console.WriteLine("You follow down a long corridor, taking in the grand structure and strange symbols..\n");
-                Game.Dialog("Attendant: \"This is the ship bazaar.  There are many traders buying and selling ships as well as ship parts.\"\n" +
-                    "\"Over here we have our most visited portion of the trade hub, the Casino.\"\n\"Here you can test your luck at" +
-                    "the slot machines or card tables.\"\n\"Sometimes the card tables are closed for upcoming tournaments.\" ");
-                Game.Dialog("Attendant: \"\nIf you need anything else, please dont hesitate to ask\"");
-                Console.WriteLine("---Please press enter to continue---");
+                Game.Dialog("Attendant: \"This is the ship bazaar.  There are many traders buying and selling ships, as well as ship parts.\"\n" +
+                    "\"Over yhere we have our most visited portion of the trade hub, the Casino.\"\n\"There you can test your luck at" +
+                    " the slot machines or card tables.\"\n\"Sometimes the card tables are closed for upcoming tournaments.\" ");
+                Game.Dialog("\nAttendant: \"If you need anything else, please dont hesitate to ask\"");
+                Console.WriteLine("\n---Please press enter to continue---");
                 Console.ReadKey();
                 Game.MainArea(player);
             }
