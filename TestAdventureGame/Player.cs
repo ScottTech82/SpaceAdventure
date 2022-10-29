@@ -10,6 +10,7 @@ namespace SpaceAdventure
     {
         public string Name { get; set; }
         public static decimal PlayerCredits { get; set; }
+        public string? PlayerShip { get; set; }
 
         
         public Player(string Name)

@@ -15,6 +15,11 @@ public class Casino
 
     /* Comments, Ideas, and Bug List.
      * 
+     * Working in BlackJack
+     *      It prints out The dealer will randomly choose whether their Ace will count as 1 or 10, twice.
+     *      Then chose as 1. And shows dealer hand of Q | A | Q, 
+     *      then says again the dealer will randomly choose whether their Ace will count as 1 or 10, again.
+     *      
      * 
      * Ideas
      *  --Completed!-- 1. Add bets & winning/losing calculations.
@@ -45,7 +50,7 @@ public class Casino
             "\n1) Beginner\n2) Expert\n3) More information\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
-        if(input == "1") { SimpleSlot(player); }
+        if (input == "1") { SimpleSlot(player); }
         else if (input == "2") { MedSlot(player); }
         else if (input == "3")
         {
@@ -182,13 +187,13 @@ public class Casino
             result5 != result1 && result5 != result2 && result5 != result3 && result5 != result4 ||
             result5 != result1 && result5 != result2 && result5 != result4 ||
             result5 != result1 && result5 != result4 && result5 != result3 ||
-            result5 != result4 && result5 != result2 && result5 != result3  )
+            result5 != result4 && result5 != result2 && result5 != result3)
         {
             //bet deducted from the total.
             Console.WriteLine("\nAww, you did not have 3 or more matches. Better luck next time!\n");
         }
         //if 1
-        
+
         else
         {
             Console.WriteLine("\nYou win! Congrats, and enjoy your winnings!\n");
@@ -291,77 +296,167 @@ public class Casino
         else { Console.WriteLine($"Please press either 1 or 2."); SlotChoice2(player); }
     }
 
-    public static string BlackJack()
-    {
-        string[] Diamonds = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        string[] Hearts = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        string[] Spades = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        string[] Clubs = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
 
-        string[][] cards = new string[][]
-        { Diamonds, Hearts, Spades, Clubs};
-
-        Random rand = new Random();
-        var xr = rand.Next(0, 5);
-        Thread.Sleep(1000);
-        var xxr = rand.Next(0, 14);
-        var xresult = cards[xr];
-        var xxresult = xresult[xxr];
-        return xxresult + xresult;
-
-    }
 
     //the odds of randomly selecting the same number from the same array is slim, but possible.
     //need to think of a way to prevent this?
-    public static void PlayBlackJack()
-    {
-        Console.WriteLine("\nThe dealerbot shuffles the cards and begins dealing them out..");
-        var card1 = BlackJack();
-        Thread.Sleep(1000);
-        var cardDealer1 = BlackJack();
-        Thread.Sleep(1000);
-        var card2 = BlackJack();
-        Thread.Sleep(1000);
-        var cardDealer2 = BlackJack();
-        Console.WriteLine($"The Dealer is showing {cardDealer1} flipped over.");
-        Thread.Sleep(1000);
-        Console.WriteLine($"You look at your cards and you have {card1} and {card2}.");
-        var brs = BlackJackResponse1(card1, card2);
-        if (brs)
 
+    //Need a method that allows the dealer to take another card if below a certain level,
+    //but maybe, have it randomly choose, so the dealer isnt always super good? Need some mistakes coded in.
+
+    //another issue is the ability to hit multiple times. Put the players cards and dealers cards in a list?
+
+    public static void PlayBlackJack(Player player)
+    {
+
+        Console.WriteLine("\nThe dealerbot shuffles the cards..");
+
+        var card1 = Cards.BlackJackCards();
+        var suit1 = Cards.BlackJackSuit();
+        Thread.Sleep(500);
+        var cardD1 = Cards.BlackJackCards();
+        var suitD1 = Cards.BlackJackSuit();
+        Thread.Sleep(500);
+        var card2 = Cards.BlackJackCards();
+        var suit2 = Cards.BlackJackSuit();
+        Thread.Sleep(500);
+        var cardD2 = Cards.BlackJackCards();
+        var suitD2 = Cards.BlackJackSuit();
+
+        List<string> Pcards = new List<string>();
+        Pcards.Add(card1);
+        Pcards.Add(card2);
+        List<string> Pcardsuit = new List<string>();
+        Pcardsuit.Add(suit1);
+        Pcardsuit.Add(suit2);
+        List<string> Dcards = new List<string>();
+        Dcards.Add(cardD1);
+        Dcards.Add(cardD2);
+        List<string> Dcardsuit = new List<string>();
+        Dcardsuit.Add(suitD1);
+        Dcardsuit.Add(suitD2);
+
+        Console.WriteLine("The dealerbot has begun dealing the cards out...");
+        Thread.Sleep(500);
+        //probably separate the variable into a dialog for color. Change to console.write's.
+        Console.WriteLine($"The first card dealt to you is a {Pcards[0]}{Pcardsuit[0]}");
+        Thread.Sleep(3000);
+        Console.WriteLine($"\nThe Dealerbot takes their first card face down \nand deals your 2nd card, {Pcards[1]}{Pcardsuit[1]}");
+        Thread.Sleep(3000);
+        Console.WriteLine($"\nThe Dealerbot's second card is showing a {Dcards[1]}{Dcardsuit[1]} face up.");
+        Thread.Sleep(3000);
+        Console.WriteLine($"You look at your cards and you have {Pcards[0]}{Pcardsuit[0]} and {Pcards[1]}{Pcardsuit[1]}.");
+        Console.WriteLine("\n---Please press enter to continue---");
+        Console.ReadKey();
+        BlackJackTurn(Pcards, Dcards, Pcardsuit, Dcardsuit, player);
 
 
     }
-
-    public static string BlackJackResponse1(string card1, string card2)
+    public static void BlackJackTurn(List<string> Pcards, List<string> Dcards, List<string> Pcardsuit, List<string> Dcardsuit, Player player)
     {
-        Console.Write("What is your next move?\n1) Hit (request another card)\n2) Hold (keep your current cards)\nResponse: ");
+
+        var newC = BlackJackNewCard();
+        var newS = Cards.BlackJackSuit();
+        var card3 = "";
+        if (newC == "hold")
+        {
+            Console.Write($"\nYou decide to hold with your current hand of ");
+            foreach (var card in Pcards)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"| {card} ");
+                Console.ResetColor();
+            }
+            var newDcards = Cards.DealerHitHold(Dcards, player);
+            Console.Write($"\nThe dealer shows their hand of ");
+            foreach (var dcard in newDcards)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"| {dcard} ");
+                Console.ResetColor();
+            }
+            var pTotal = Cards.CardTotalPlayer(Pcards, player);
+            var dTotal = Cards.CardTotalDealer(newDcards, player);
+            BlackJackWinLose(pTotal, dTotal, player);
+        }
+        else
+        {
+            Pcards.Add(newC);
+            Pcardsuit.Add(newS);
+            Console.Write("You now have ");
+            foreach (var card in Pcards)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"| {card} ");
+                Console.ResetColor();
+            }
+
+            Console.WriteLine("\n---Please press enter to continue--");
+            Console.ReadKey();
+            var pTotal = Cards.CardTotalPlayer(Pcards, player);
+            if(pTotal > 21)
+            {
+                var dTotal = Cards.CardTotalDealer(Dcards, player);
+                BlackJackWinLose(pTotal, dTotal, player);
+            }
+            else 
+                BlackJackTurn(Pcards, Dcards, Pcardsuit, Dcardsuit, player);
+        }
+
+    }
+
+    public static string BlackJackNewCard()
+    {
+        Console.Write("\nWhat is your next move?\n1) Hit (request another card)\n2) Hold (keep your current cards)\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if (input == "1")
         {
             Console.WriteLine("You request another card.");
-            var card3 = BlackJack();
-            Console.WriteLine($"You now have {card1}, {card2}, and {card3}.");
+            var card3 = Cards.BlackJackCards();
+            Console.WriteLine($"The dealer flips over another card, it's a {card3}.");
             return card3;
         }
         else if (input == "2")
         {
-            Console.WriteLine("You decide to hold with your current hand.");
-            var hold = "2";
+            var hold = "hold";
             return hold;
-
         }
         else
         {
             Console.WriteLine("Please press either 1 or 2!");
-            BlackJackResponse1(card1, card2);
-
+            BlackJackNewCard();
         }
         var placeholder = "";
         return placeholder;
     }
 
 
+   
+
+
+    public static void BlackJackWinLose(int playerTotal, int dealerTotal, Player player)
+    {
+
+        Console.WriteLine($"\nYour total hand is {playerTotal} and the dealer's total hand is {dealerTotal}.");
+        if (playerTotal > 21)
+        {
+            Console.WriteLine("\nBust. Your total is over 21.");
+            Game.CasinoOptions(player); //should be would you like to play again option.
+        }
+
+        else if (playerTotal < dealerTotal)
+        {
+            Console.WriteLine("\nThe dealer's hand has totaled more than yours.  Please try again.");
+            Game.CasinoOptions(player);
+        }
+        else if (playerTotal > dealerTotal)
+        {
+            Console.WriteLine("\nCongratulations!  You beat the dealer and won this round!");
+            Game.CasinoOptions(player);
+        }
+
+    }
 }
+
 

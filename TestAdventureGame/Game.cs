@@ -268,7 +268,11 @@ public class Game
             Console.WriteLine("Ok, please come by later to test your luck. Have a great day!");
             MainArea(player);
         }
-        else Console.WriteLine($"Please press either 1 or 2. {CasinoOptions}");
+        else if (input == "8") { Casino.PlayBlackJack(player); } //temporary to test it out.
+        else
+        {
+            Console.WriteLine($"Please press either 1 or 2. {CasinoOptions}");
+        }
        
     }
 
