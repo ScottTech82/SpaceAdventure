@@ -17,13 +17,13 @@ public class Casino
      * 
      * 
      * Ideas
-     *  1. Add bets & winning/losing calculations.
-     *  2. Create a blackjack table -probably the same with list and randoms for card draws.
-     *      Can I do 52 numbers (cards) then after its pulled from the list assign a type like heart or spade, etc?
+     *  --Completed!-- 1. Add bets & winning/losing calculations.
+     *  2. Create a blackjack table --working on currently.
      *  3. Poker tables will be closed for an upcoming tournament, unless I have time later to complete it.
      * 
      * 
      * BUG List
+     *  --Completed!--  
      *  1. The expert level slot machine will display you won if there are 2 matching pairs.
             ie.     | Star | Quasar | Quasar | Pulsar | Pulsar |
             Displays you won, but this is not 3 matches or more. 
@@ -35,8 +35,6 @@ public class Casino
      */
 
 
-    //update this to have a method that runs the simple slot machine with below code. Then make a medium one with 
-    //more reels and maybe even a really hard one?
 
     public static void CasinoSlots(Player player)
     {
@@ -207,8 +205,6 @@ public class Casino
 
     }
 
-
-
     //I need to call this method 3 times, one for each row.
     //that way the random should actually be randam all 3 times instead of all 3 at the same machine time.
 
@@ -295,9 +291,75 @@ public class Casino
         else { Console.WriteLine($"Please press either 1 or 2."); SlotChoice2(player); }
     }
 
-    public static void BlackJack()
+    public static string BlackJack()
     {
-        List<int> cards = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+        string[] Diamonds = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] Hearts = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] Spades = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] Clubs = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+
+        string[][] cards = new string[][]
+        { Diamonds, Hearts, Spades, Clubs};
+
+        Random rand = new Random();
+        var xr = rand.Next(0, 5);
+        Thread.Sleep(1000);
+        var xxr = rand.Next(0, 14);
+        var xresult = cards[xr];
+        var xxresult = xresult[xxr];
+        return xxresult + xresult;
+
+    }
+
+    //the odds of randomly selecting the same number from the same array is slim, but possible.
+    //need to think of a way to prevent this?
+    public static void PlayBlackJack()
+    {
+        Console.WriteLine("\nThe dealerbot shuffles the cards and begins dealing them out..");
+        var card1 = BlackJack();
+        Thread.Sleep(1000);
+        var cardDealer1 = BlackJack();
+        Thread.Sleep(1000);
+        var card2 = BlackJack();
+        Thread.Sleep(1000);
+        var cardDealer2 = BlackJack();
+        Console.WriteLine($"The Dealer is showing {cardDealer1} flipped over.");
+        Thread.Sleep(1000);
+        Console.WriteLine($"You look at your cards and you have {card1} and {card2}.");
+        var brs = BlackJackResponse1(card1, card2);
+        if (brs)
+
+
+
+    }
+
+    public static string BlackJackResponse1(string card1, string card2)
+    {
+        Console.Write("What is your next move?\n1) Hit (request another card)\n2) Hold (keep your current cards)\nResponse: ");
+        var input = Console.ReadLine();
+        input = Convert.ToString(input);
+        if (input == "1")
+        {
+            Console.WriteLine("You request another card.");
+            var card3 = BlackJack();
+            Console.WriteLine($"You now have {card1}, {card2}, and {card3}.");
+            return card3;
+        }
+        else if (input == "2")
+        {
+            Console.WriteLine("You decide to hold with your current hand.");
+            var hold = "2";
+            return hold;
+
+        }
+        else
+        {
+            Console.WriteLine("Please press either 1 or 2!");
+            BlackJackResponse1(card1, card2);
+
+        }
+        var placeholder = "";
+        return placeholder;
     }
 
 
