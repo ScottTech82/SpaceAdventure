@@ -93,7 +93,7 @@ public class Game
             {
             Dialog("Attendant:\"Hmm.. no name, I will call you.. Astrotron, ruler of worlds!\"");
             Thread.Sleep(1000);
-            Dialog("Attendant:\"Ok maybe just Astrotron.\"");
+            Dialog("\"Ok maybe just Astrotron.\"");
                 PlayerName = "Astrotron";
             }
             else
@@ -104,11 +104,12 @@ public class Game
         }
         player.Name = PlayerName;
         Thread.Sleep(1000);
-        Dialog("\n\"One of the traders left these credits for you to get started.\"\n\"You can always come check your balance anytime" +
+        Dialog("\nAttendant:\"One of the traders left these credits for you to get started.\"\n\"You can always come check your balance anytime" +
             " at the information booth.\"");
         Player.AddCredits(50, player);
-        Console.Write($"You received 50 credits and your current credit balance is: ");
-        Dialog($"{Player.PlayerCredits}", "blue");
+        Thread.Sleep(500);
+        Console.Write($"\nYou received 50 credits.");
+        Dialog($"Player credit balance = {Player.PlayerCredits} credits", "blue");
         Console.WriteLine("\n---Press enter to continue---");
         Console.ReadKey();
         Console.Clear();
@@ -242,10 +243,6 @@ public class Game
 
     }
 
-    public static void Choice2Casino()
-    {
-        
-    }
 
     public static void AfterChoice1()
     {
@@ -257,21 +254,30 @@ public class Game
 
     public static void CasinoOptions(Player player)
     {
-        Console.WriteLine("\nWelcome to the Casino!\nCurrently our tables are closed for an upcoming tournament.");
-        Console.Write("Would you like to test your luck at the slot machines? " +
-            "\n\n1) Yep, I am feeling lucky! \n2) I think I will pass this time\nResponse: ");
+        Console.WriteLine("\nWelcome to the Casino!");
+        Console.WriteLine("\nCurrently our poker tables are closed for an upcoming tournament.");
+        Console.WriteLine("However, you can test your luck at the slot machines or blackjack table.");
+        Console.Write("\nWhich option would you like to choose?\n1) Slot Machines\n2) BlackJack\n3) Exit\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
-        if (input == "1") { Console.Clear(); Casino.CasinoSlots(player); }
+        if (input == "1") 
+        { 
+            Console.Clear(); 
+            Casino.CasinoSlots(player); 
+        }
         else if (input == "2")
+        {
+            Console.Clear();
+            Casino.PlayBlackJack(player);
+        }
+        else if (input == "3")
         {
             Console.WriteLine("Ok, please come by later to test your luck. Have a great day!");
             MainArea(player);
         }
-        else if (input == "8") { Casino.PlayBlackJack(player); } //temporary to test it out.
         else
         {
-            Console.WriteLine($"Please press either 1 or 2. {CasinoOptions}");
+            Console.WriteLine($"Please press either 1, 2, or 3. {CasinoOptions}");
         }
        
     }

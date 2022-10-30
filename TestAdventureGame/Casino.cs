@@ -308,18 +308,21 @@ public class Casino
 
     public static void PlayBlackJack(Player player)
     {
+        Console.WriteLine("\nWelcome to the BlackJack table!");
 
-        Console.WriteLine("\nThe dealerbot shuffles the cards..");
+        Console.WriteLine("\nYou notice the dealer is a robot.  This might be tricky or maybe you could outsmart it.");
+        var betx = Bet(player);
+        Console.WriteLine("\n\nThe dealer begins to shuffle the cards.\n");
 
         var card1 = Cards.BlackJackCards();
         var suit1 = Cards.BlackJackSuit();
-        Thread.Sleep(500);
+        Thread.Sleep(1000);
         var cardD1 = Cards.BlackJackCards();
         var suitD1 = Cards.BlackJackSuit();
         Thread.Sleep(500);
         var card2 = Cards.BlackJackCards();
         var suit2 = Cards.BlackJackSuit();
-        Thread.Sleep(500);
+        Thread.Sleep(1000);
         var cardD2 = Cards.BlackJackCards();
         var suitD2 = Cards.BlackJackSuit();
 
@@ -336,23 +339,27 @@ public class Casino
         Dcardsuit.Add(suitD1);
         Dcardsuit.Add(suitD2);
 
-        Console.WriteLine("The dealerbot has begun dealing the cards out...");
-        Thread.Sleep(500);
+        Console.WriteLine("After satisfied with the shuffle or according to their programming,\nthe dealer has begun dealing the cards out...");
+        Thread.Sleep(1500);
         //probably separate the variable into a dialog for color. Change to console.write's.
-        Console.WriteLine($"The first card dealt to you is a {Pcards[0]}{Pcardsuit[0]}");
+        Console.Write($"\nThe first card dealt to you is a ");
+        Game.Dialog($"| {Pcards[0]}{Pcardsuit[0]} |", "green");
         Thread.Sleep(3000);
-        Console.WriteLine($"\nThe Dealerbot takes their first card face down \nand deals your 2nd card, {Pcards[1]}{Pcardsuit[1]}");
+        Console.Write($"\nThe dealer takes their first card face down and then deals your 2nd card, ");
+        Game.Dialog($"| {Pcards[1]}{Pcardsuit[1]} |", "green");
         Thread.Sleep(3000);
-        Console.WriteLine($"\nThe Dealerbot's second card is showing a {Dcards[1]}{Dcardsuit[1]} face up.");
+        Console.Write($"The dealer's second card is placed face up showing, ");
+        Game.Dialog($"| {Dcards[1]}{Dcardsuit[1]} |", "green");
         Thread.Sleep(3000);
-        Console.WriteLine($"You look at your cards and you have {Pcards[0]}{Pcardsuit[0]} and {Pcards[1]}{Pcardsuit[1]}.");
-        Console.WriteLine("\n---Please press enter to continue---");
+        Console.Write($"\nYou look at your cards again before deciding what to do ");
+        Game.Dialog($"| {Pcards[0]}{Pcardsuit[0]} | {Pcards[1]}{Pcardsuit[1]} |", "green");
+        Console.WriteLine("\n\n---Please press enter to continue---");
         Console.ReadKey();
-        BlackJackTurn(Pcards, Dcards, Pcardsuit, Dcardsuit, player);
+        BlackJackTurn(betx, Pcards, Dcards, Pcardsuit, Dcardsuit, player);
 
 
     }
-    public static void BlackJackTurn(List<string> Pcards, List<string> Dcards, List<string> Pcardsuit, List<string> Dcardsuit, Player player)
+    public static void BlackJackTurn(decimal betx, List<string> Pcards, List<string> Dcards, List<string> Pcardsuit, List<string> Dcardsuit, Player player)
     {
 
         var newC = BlackJackNewCard();
@@ -361,46 +368,50 @@ public class Casino
         if (newC == "hold")
         {
             Console.Write($"\nYou decide to hold with your current hand of ");
+            Console.ForegroundColor = ConsoleColor.Green;
             foreach (var card in Pcards)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"| {card} ");
-                Console.ResetColor();
+                 Console.Write($"| {card} ");
             }
+            Console.Write("|");
+            Console.ResetColor();
+            Thread.Sleep(1000);
             var newDcards = Cards.DealerHitHold(Dcards, player);
             Console.Write($"\nThe dealer shows their hand of ");
+            Console.ForegroundColor = ConsoleColor.Green;
             foreach (var dcard in newDcards)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"| {dcard} ");
-                Console.ResetColor();
+                 Console.Write($"| {dcard} ");
             }
+            Console.Write("|");
+            Console.ResetColor();
+            Thread.Sleep(1000);
             var pTotal = Cards.CardTotalPlayer(Pcards, player);
             var dTotal = Cards.CardTotalDealer(newDcards, player);
-            BlackJackWinLose(pTotal, dTotal, player);
+            BlackJackWinLose(betx, pTotal, dTotal, player);
         }
         else
         {
             Pcards.Add(newC);
             Pcardsuit.Add(newS);
             Console.Write("You now have ");
+            Console.ForegroundColor = ConsoleColor.Green;
             foreach (var card in Pcards)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"| {card} ");
-                Console.ResetColor();
+                 Console.Write($"| {card} ");
             }
-
-            Console.WriteLine("\n---Please press enter to continue--");
+            Console.Write("|");
+            Console.ResetColor();
+            Console.WriteLine("\n\n---Please press enter to continue--");
             Console.ReadKey();
             var pTotal = Cards.CardTotalPlayer(Pcards, player);
             if(pTotal > 21)
             {
                 var dTotal = Cards.CardTotalDealer(Dcards, player);
-                BlackJackWinLose(pTotal, dTotal, player);
+                BlackJackWinLose(betx, pTotal, dTotal, player);
             }
             else 
-                BlackJackTurn(Pcards, Dcards, Pcardsuit, Dcardsuit, player);
+                BlackJackTurn(betx, Pcards, Dcards, Pcardsuit, Dcardsuit, player);
         }
 
     }
@@ -412,9 +423,11 @@ public class Casino
         input = Convert.ToString(input);
         if (input == "1")
         {
-            Console.WriteLine("You request another card.");
+            Console.WriteLine("\nYou request another card.");
             var card3 = Cards.BlackJackCards();
-            Console.WriteLine($"The dealer flips over another card, it's a {card3}.");
+            Thread.Sleep(2000);
+            Console.Write($"\nThe dealer flips over another card, it's a ");
+            Game.Dialog($"{card3}", "green");
             return card3;
         }
         else if (input == "2")
@@ -431,29 +444,65 @@ public class Casino
         return placeholder;
     }
 
-
+    public static void BlackJackPlayAgain(Player player)
+    {
+        Console.Clear();
+        Console.Write("Would you like to play BlackJack again?\n1) Yes\n2) No\nResponse: ");
+        var input = Console.ReadLine();
+        input = Convert.ToString(input);
+        if(input == "1")
+        {
+            PlayBlackJack(player);
+        }
+        else if(input == "2")
+        {
+            Game.CasinoOptions(player);
+        }
+        else
+        {
+            Console.WriteLine("\nPlease enter either 1, or 2.");
+            BlackJackPlayAgain(player);
+        }
+    }
    
 
 
-    public static void BlackJackWinLose(int playerTotal, int dealerTotal, Player player)
+    public static void BlackJackWinLose(decimal betx, int playerTotal, int dealerTotal, Player player)
     {
 
-        Console.WriteLine($"\nYour total hand is {playerTotal} and the dealer's total hand is {dealerTotal}.");
+        Console.WriteLine($"\n\nYour total hand is {playerTotal} and the dealer's total hand is {dealerTotal}.");
         if (playerTotal > 21)
         {
-            Console.WriteLine("\nBust. Your total is over 21.");
-            Game.CasinoOptions(player); //should be would you like to play again option.
+            Console.WriteLine("\nBust! Your total card value exceeds 21.");
+            Console.WriteLine("\n---Please press enter to continue---");
+            Console.ReadKey();
+            BlackJackPlayAgain(player); 
         }
 
         else if (playerTotal < dealerTotal)
         {
-            Console.WriteLine("\nThe dealer's hand has totaled more than yours.  Please try again.");
-            Game.CasinoOptions(player);
+            Console.WriteLine("\nThe dealer's hand has totaled more than yours, Dealer wins.  Please try again.");
+            Console.WriteLine("\n---Please press enter to continue---");
+            Console.ReadKey();
+            BlackJackPlayAgain(player);
         }
         else if (playerTotal > dealerTotal)
         {
             Console.WriteLine("\nCongratulations!  You beat the dealer and won this round!");
-            Game.CasinoOptions(player);
+            decimal multiplier = 4M;
+            decimal x = betx * multiplier;
+            Player.AddCredits(x, player);
+            Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
+            Console.WriteLine("\n---Please press enter to continue---");
+            Console.ReadKey();
+            BlackJackPlayAgain(player);
+        }
+        else if (playerTotal == dealerTotal)
+        {
+            Console.WriteLine("\nUnfortunately a tie goes to the dealer.  Please try again.");
+            Console.WriteLine("\n---Please press enter to continue---");
+            Console.ReadKey();
+            BlackJackPlayAgain(player);
         }
 
     }

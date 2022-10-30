@@ -28,7 +28,12 @@ namespace SpaceAdventure
 
         public static bool RemoveCredits(decimal amount, Player player)
         {
-            if (amount <= PlayerCredits)
+            if(amount >= 0)
+            {
+                Game.Dialog("\nPlease enter a valid amount of credits to wager.", "red");
+                Game.CasinoOptions(player);
+            }
+            else if (amount <= PlayerCredits)
             {
                 PlayerCredits -= amount;
                 return true;

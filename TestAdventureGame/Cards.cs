@@ -177,18 +177,37 @@ public class Cards
                 case "A":
                     Random rand = new Random();
                     var x = rand.Next(0, 2);
-                    Console.WriteLine("\nThe dealer will randomly choose whether their Ace will count as 1 or 10");
+                    
                     if (x == 1)
                     {
-                        var a = 1;
-                        Console.WriteLine($"\nThe dealer has chosen to count their Ace as {a}.");
+                        if(dealerCalc.Count > 2)
+                        {
+                            var a = 1;
+                            Console.WriteLine($"\nAfter drawing a new card the dealer has randomly re-chosen the value of A to be {a}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\nIn order to provide the player an option to win and" +
+                                $"\ngive the dealerbot more of a biological mistake factor, the dealerbot will randomly choose" +
+                                $" if A is equal to 1 or 11.");
+                        }
                         dealerCalc.Add(1);
                         break;
                     }
                     else if (x == 2)
                     {
-                        var a = 11;
-                        Console.WriteLine($"\nThe dealer has chosen to count their Ace as {a}.");
+                        if(dealerCalc.Count > 2)
+                        {
+                            var a = 11;
+                            Console.WriteLine($"\nAfter drawing a new card the dealer has randomly re-chosen the value of A to be {a}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\n\nIn order to provide the player an additional option to win and" +
+                                $"give the dealer \nmore of a mistake factor, the dealer will randomly choose" +
+                                $" if A is equal to 1 or 11.");
+                            Thread.Sleep(2000);
+                        }
                         dealerCalc.Add(11);
                         break;
                     }
@@ -206,6 +225,7 @@ public class Cards
         foreach (var dcalccard in dealerCalc)
         {
             dealerTotal += dcalccard;
+            
         }
         return dealerTotal;
 
@@ -215,11 +235,12 @@ public class Cards
     public static List<string> DealerHitHold(List<string> Dcards, Player player)
     {
         var x = CardTotalDealer(Dcards, player);
-        if(x >= 16)
+        if(x >= 16 && x <= 21)
         {
-            Console.WriteLine("\nThe dealer holds.");
+            
             return Dcards;
         }
+
         else
         {
             var newDcard = BlackJackCards();
