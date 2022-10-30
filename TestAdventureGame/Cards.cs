@@ -15,18 +15,19 @@ public class Cards
     {
         /* Didnt work, tried array in an array, or jaggedarray. But I should be able to do it with just 
          * two different arrays, one for suit one for cards and put them together in the return.
-        string[] Diamonds = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        string[] Hearts = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        string[] Spades = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        string[] Clubs = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+         * But then I cant really remove a number from the list.
+        string[] Diamonds = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] Hearts = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] Spades = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] Clubs = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
 
         string[][] cards = new string[][]
         { Diamonds, Hearts, Spades, Clubs};
         */
-        string[] cards = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] cards = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
         Random rand = new Random();
         Thread.Sleep(500);
-        var xxr = rand.Next(0, 14);
+        var xxr = rand.Next(0, 13);
         var card = cards[xxr];
         return card;
 
@@ -53,9 +54,7 @@ public class Cards
         {
             switch (card)
             {
-                case "1":
-                    playerCalc.Add(1);
-                    break;
+
                 case "2":
                     playerCalc.Add(2);
                     break;
@@ -93,7 +92,7 @@ public class Cards
                     playerCalc.Add(10);
                     break;
                 case "A":
-                    Console.Write("Would you like your Ace to count as a 1 or 11?\nResponse: ");
+                    Console.Write("\n\nWould you like your Ace to count as a 1 or 11?\nResponse: ");
                     var input = Console.ReadLine();
                     if (input == "1")
                     {
@@ -135,9 +134,7 @@ public class Cards
         {
             switch (dcard)
             {
-                case "1":
-                    dealerCalc.Add(1);
-                    break;
+
                 case "2":
                     dealerCalc.Add(2);
                     break;
@@ -176,7 +173,7 @@ public class Cards
                     break;
                 case "A":
                     Random rand = new Random();
-                    var x = rand.Next(0, 2);
+                    var x = rand.Next(1, 3);
                     
                     if (x == 1)
                     {
@@ -184,15 +181,17 @@ public class Cards
                         {
                             var a = 1;
                             Console.WriteLine($"\nAfter drawing a new card the dealer has randomly re-chosen the value of A to be {a}");
+                            dealerCalc.Add(1);
+                            break;
                         }
                         else
                         {
                             Console.WriteLine($"\nIn order to provide the player an option to win and" +
                                 $"\ngive the dealerbot more of a biological mistake factor, the dealerbot will randomly choose" +
                                 $" if A is equal to 1 or 11.");
+                            dealerCalc.Add(1);
+                            break;
                         }
-                        dealerCalc.Add(1);
-                        break;
                     }
                     else if (x == 2)
                     {
@@ -200,6 +199,8 @@ public class Cards
                         {
                             var a = 11;
                             Console.WriteLine($"\nAfter drawing a new card the dealer has randomly re-chosen the value of A to be {a}");
+                            dealerCalc.Add(11);
+                            break;
                         }
                         else
                         {
@@ -207,9 +208,9 @@ public class Cards
                                 $"give the dealer \nmore of a mistake factor, the dealer will randomly choose" +
                                 $" if A is equal to 1 or 11.");
                             Thread.Sleep(2000);
+                            dealerCalc.Add(11);
+                            break;
                         }
-                        dealerCalc.Add(11);
-                        break;
                     }
                     else
                     {
@@ -235,9 +236,9 @@ public class Cards
     public static List<string> DealerHitHold(List<string> Dcards, Player player)
     {
         var x = CardTotalDealer(Dcards, player);
-        if(x >= 16 && x <= 21)
+
+        if(x >= 15)
         {
-            
             return Dcards;
         }
 

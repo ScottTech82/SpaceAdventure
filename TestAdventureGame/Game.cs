@@ -109,7 +109,7 @@ public class Game
         Player.AddCredits(50, player);
         Thread.Sleep(500);
         Console.Write($"\nYou received 50 credits.");
-        Dialog($"Player credit balance = {Player.PlayerCredits} credits", "blue");
+        Dialog($"\nPlayer credit balance = {Player.PlayerCredits} credits", "blue");
         Console.WriteLine("\n---Press enter to continue---");
         Console.ReadKey();
         Console.Clear();
