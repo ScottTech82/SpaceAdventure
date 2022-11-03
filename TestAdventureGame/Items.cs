@@ -24,7 +24,7 @@ public class Items
         \[]====[]/
            WWWW
      ";
-        Game.Dialog("\n\nThis is the SS-Vwing an interceptor class attack ship.");
+        Game.Dialog("\n\nThis is the SS V-wing an interceptor class attack ship.");
         Game.Dialog(Ship1, "darkmagenta");
  
         Game.Dialog("Attack: 13\nDefense: 8\nSpeed: 13\nCost: 500 Credits");
@@ -46,7 +46,7 @@ public class Items
        \W  VXXV  W/
             VV
      ";
-        Game.Dialog("\n\nThis is the SS-Falcon a typical type of ship, with basic abilities.");
+        Game.Dialog("\n\nThis is the SS Falcon a typical type of ship, with basic abilities.");
         Game.Dialog(Ship2, "darkmagenta");
         
         Game.Dialog("Attack: 5\nDefense: 8\nSpeed: 8\nCost: 250 Credits");
@@ -69,7 +69,7 @@ public class Items
       \11/ VVVVVV \11/
        VV   VVVV   VV
     ";
-        Game.Dialog("\n\nThis is the SS-Leviathan a large capital class ship.");
+        Game.Dialog("\n\nThis is the SS Leviathan a large capital class ship.");
         Game.Dialog(Ship3, "darkmagenta");
         
         Game.Dialog("Attack: 21\nDefense: 13\nSpeed: 5\nCost: 1150 Credits");

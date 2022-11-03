@@ -11,61 +11,8 @@ namespace SpaceAdventure;
 
 public class Game
 {
+    static string PlayerName = "";
 
-    /* Comments, Ideas, and Bug List.
-     * 
-     * Keep it simple to start!
-     * 
-     * Ideas
-     *  1. Move Title to its own class and call the method for it.  Maybe have other Titles down the road.
-     *  
-     *  2. ASCII draw a few ships, just 3 to start? In the items class?
-     *      a. with differing stats and credit cost
-     *      
-     *  3. Casino used to obtain more credits for now.
-     *  
-     *  4. Can I create a small mini shooting game with the ship?
-     * 
-     *  See more Ideas in invidual classes.
-     * 
-     * 
-     * BUGS!
-     *  TBD -will be listed here.
-     *  
-     * 
-     */
-
-
-
-
-
-       
-    static string PlayerName = "Bob";
-
-    public static void StartGame()
-    {
-        Console.Title = "Space Adventure";
-        string title = @"
-            
-                          _____                         ___      _                 _                  
-                         /  ___|                       / _ \    | |               | |                 
-                         \ `--. _ __   __ _  ___ ___  / /_\ \ __| |_   _____ _ __ | |_ _   _ _ __ ___ 
-                          `--. \ '_ \ / _` |/ __/ _ \ |  _  |/ _` \ \ / / _ \ '_ \| __| | | | '__/ _ \
-                         /\__/ / |_) | (_| | (_|  __/ | | | | (_| |\ V /  __/ | | | |_| |_| | | |  __/
-                         \____/| .__/ \__,_|\___\___| \_| |_/\__,_| \_/ \___|_| |_|\__|\__,_|_|  \___|
-                               | |                                                                    
-                               |_|                                                                    
-
-            ";
-        
-        Dialog(title, "darkmagenta");
- 
-                          
-        Dialog("                                            Welcome to the Galaxy of Triangulum!", "green");
-        Console.WriteLine("\n-----Press Enter to begin-----");
-        Console.ReadKey();
-
-    }
 
     public static void Starting()
     {
@@ -92,7 +39,7 @@ public class Game
             if(string.IsNullOrEmpty(PlayerName))
             {
             Dialog("Attendant:\"Hmm.. no name, I will call you.. Astrotron, ruler of worlds!\"");
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             Dialog("\"Ok maybe just Astrotron.\"");
                 PlayerName = "Astrotron";
             }
@@ -103,53 +50,23 @@ public class Game
 
         }
         player.Name = PlayerName;
-        Thread.Sleep(1000);
-        Dialog("\nAttendant:\"One of the traders left these credits for you to get started.\"\n\"You can always come check your balance anytime" +
+        Thread.Sleep(500);
+        Dialog("\n\"One of the traders left these credits for you to get started.\"\n\"You can always come check your balance anytime" +
             " at the information booth.\"");
         Player.AddCredits(50, player);
-        Thread.Sleep(500);
-        Console.Write($"\nYou received 50 credits.");
+        Thread.Sleep(1000);
         Dialog($"\nPlayer credit balance = {Player.PlayerCredits} credits", "blue");
-        Console.WriteLine("\n---Press enter to continue---");
-        Console.ReadKey();
+        PressContinue();
         Console.Clear();
     }
 
-    public static void Dialog(string message)
+
+
+    public static void PressContinue()
     {
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine(message);
-        Console.ResetColor();
+        Dialog("\n\n---Please press enter to continue---", "darkyellow");
+        Console.ReadKey();
     }
-
-    public static void Dialog(string message, string color)
-    {
-        switch(color)
-        {
-            case "red":
-               Console.ForegroundColor = ConsoleColor.Red;
-               break;
-            case "green":
-                Console.ForegroundColor = ConsoleColor.Green;
-                break;
-            case "yellow":
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                break;
-            case "blue":
-                Console.ForegroundColor = ConsoleColor.Blue;
-                break;
-            case "darkmagenta":
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                break;
-            default:
-                Console.ForegroundColor = ConsoleColor.White;
-                break;
-        }
-        Console.WriteLine(message);
-        Console.ResetColor();
-    }
-
-
 
 
 
@@ -161,7 +78,7 @@ public class Game
     {
         Console.Clear();
         Console.WriteLine("You are currently in the main hub next to the information booth.\n");
-        Console.Write("Where would you like to go?\n1) Information Booth\n2) Casino\n3) Ship Bazaar\nResponse: ");
+        Console.Write("Where would you like to go?\n1) Information Booth\n2) Casino\n3) Ship Bazaar\n\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if (x == "1") { InfoBooth(player); }
@@ -177,25 +94,24 @@ public class Game
 
     public static void InfoBooth(Player player)
     {
-        Dialog("Attendant:\"\nWould you like to check your current credit balance?\"");
+        Dialog("\nAttendant:\"Would you like to check your current credit balance?\"");
         Console.Write("Please select your response\n1) Yes\n2) No\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if (x == "1")
         {
-            Console.Write($"Your current balance is ");
-            Dialog($"{Player.PlayerCredits} credits", "blue");
+            Player.PlayerBalance(player);
+
             if(Player.PlayerCredits <= 0)
             {
-                Dialog("Here take 50 more credits on the house. Try not to lose it this time.");
+                Dialog("\"Here take 50 more credits on the house. Try not to lose it this time.\"");
                 Player.AddCredits(50, player);
                 Dialog($"\nCredit Balance = {Player.PlayerCredits} credits", "blue");
                 Console.WriteLine("\n---Please press enter to continue---");
                 Console.ReadKey();
-                MainArea(player);
+                Choices.Choice1(player);
             }
-            Console.WriteLine("---Please press enter to continue---");
-            Console.ReadKey();
+            PressContinue();
             MainArea(player);
         }
         else if (x == "2") { Choices.Choice1(player); }
@@ -211,9 +127,10 @@ public class Game
     {
         Console.Clear();
         Console.WriteLine("\nYou enter the ship bazaar.  There are traders everywhere selling ship parts, from top of the line\n" +
-            " aftermarket upgrades, to thermal taped components that appear to be barely pieced together.");
+            "aftermarket upgrades, to thermal taped components that appear to be barely pieced together.");
+        Thread.Sleep(1000);
         Console.Write("\nYou find the area selling space ships (thermal tape excluded) and decide to browse available products." +
-            "\n\nWhich one would you like to view?\n\n1) The SS-Vwing\n2) The SS-Falcon\n3) The SS-Leviathan\n4) Or exit back to main hub\nResponse: ");
+            "\n\nWhich ship would you like to view?\n\n1) The SS V-wing\n2) The SS Falcon\n3) The SS Leviathan\n4) Exit back to main hub\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if(x == "1")
@@ -254,10 +171,11 @@ public class Game
 
     public static void CasinoOptions(Player player)
     {
+        Console.Clear();
         Console.WriteLine("\nWelcome to the Casino!");
         Console.WriteLine("\nCurrently our poker tables are closed for an upcoming tournament.");
-        Console.WriteLine("However, you can test your luck at the slot machines or blackjack table.");
-        Console.Write("\nWhich option would you like to choose?\n1) Slot Machines\n2) BlackJack\n3) Exit\nResponse: ");
+        Console.WriteLine("You can, however, test your luck at the slot machines or the blackjack table.");
+        Console.Write("\nWhich would you like to try?\n1) Slot Machines\n2) BlackJack\n3) Exit\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if (input == "1") 
@@ -283,6 +201,56 @@ public class Game
     }
 
 
+
+
+
+
+
+
+
+
+    public static void Dialog(string message)
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine(message);
+        Console.ResetColor();
+    }
+
+    public static void Dialog(string message, string color)
+    {
+        switch (color)
+        {
+            case "red":
+                Console.ForegroundColor = ConsoleColor.Red;
+                break;
+            case "green":
+                Console.ForegroundColor = ConsoleColor.Green;
+                break;
+            case "yellow":
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                break;
+            case "blue":
+                Console.ForegroundColor = ConsoleColor.Blue;
+                break;
+            case "darkmagenta":
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                break;
+            case "darkred":
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                break;
+            case "darkyellow":
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                break;
+            case "darkgreen":
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                break;
+            default:
+                Console.ForegroundColor = ConsoleColor.White;
+                break;
+        }
+        Console.WriteLine(message);
+        Console.ResetColor();
+    }
 
 
 

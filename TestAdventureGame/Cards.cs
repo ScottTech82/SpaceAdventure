@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,7 +10,15 @@ namespace SpaceAdventure;
 public class Cards
 {
 
+    public string Card { get; set; } 
+    public string Suit { get; set; }
 
+    public override string ToString()
+    {
+        return Card + Suit;
+    }
+    //the odds of randomly selecting the same number from the same array is slim, but possible.
+    //need to think of a way to prevent this?
 
     public static string BlackJackCards()
     {
@@ -106,8 +115,7 @@ public class Cards
                     }
                     else
                     {
-                        Game.Dialog("\nThat is not a valid response and it will default to a value of 1." +
-                            "\nPlease try to be more respectful in the future and type only the requested responses.", "red");
+                        Game.Dialog("\nThat is not a valid response and it will default to a value of 1.", "red");
                         playerCalc.Add(1);
                         break;
                     }
@@ -125,6 +133,7 @@ public class Cards
         return playerTotal;
       
     }
+
 
     public static int CardTotalDealer(List<string> Dcards, Player player)
     {
