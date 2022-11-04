@@ -28,8 +28,7 @@ public class Items
         Game.Dialog(Ship1, "darkmagenta");
  
         Game.Dialog("Attack: 13\nDefense: 8\nSpeed: 13\nCost: 500 Credits");
-        Console.WriteLine("\n---Please press enter to continue---");
-        Console.ReadKey();
+        Game.PressContinue();
     }
     
 
@@ -50,8 +49,7 @@ public class Items
         Game.Dialog(Ship2, "darkmagenta");
         
         Game.Dialog("Attack: 5\nDefense: 8\nSpeed: 8\nCost: 250 Credits");
-        Console.WriteLine("\n---Please press enter to continue---");
-        Console.ReadKey();
+        Game.PressContinue();
     }
 
     public static void SSLeviathan ()
@@ -73,8 +71,7 @@ public class Items
         Game.Dialog(Ship3, "darkmagenta");
         
         Game.Dialog("Attack: 21\nDefense: 13\nSpeed: 5\nCost: 1150 Credits");
-        Console.WriteLine("\n---Please press enter to continue---");
-        Console.ReadKey();
+        Game.PressContinue();
     }
 
 

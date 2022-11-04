@@ -95,7 +95,7 @@ public class Game
     public static void InfoBooth(Player player)
     {
         Dialog("\nAttendant:\"Would you like to check your current credit balance?\"");
-        Console.Write("Please select your response\n1) Yes\n2) No\nResponse: ");
+        Console.Write("Please select your response\n1) Yes\n2) No\n\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if (x == "1")
@@ -106,9 +106,8 @@ public class Game
             {
                 Dialog("\"Here take 50 more credits on the house. Try not to lose it this time.\"");
                 Player.AddCredits(50, player);
-                Dialog($"\nCredit Balance = {Player.PlayerCredits} credits", "blue");
-                Console.WriteLine("\n---Please press enter to continue---");
-                Console.ReadKey();
+                Player.PlayerBalance(player);
+                PressContinue();
                 Choices.Choice1(player);
             }
             PressContinue();
@@ -130,7 +129,7 @@ public class Game
             "aftermarket upgrades, to thermal taped components that appear to be barely pieced together.");
         Thread.Sleep(1000);
         Console.Write("\nYou find the area selling space ships (thermal tape excluded) and decide to browse available products." +
-            "\n\nWhich ship would you like to view?\n\n1) The SS V-wing\n2) The SS Falcon\n3) The SS Leviathan\n4) Exit back to main hub\nResponse: ");
+            "\n\nWhich ship would you like to view?\n\n1) The SS V-wing\n2) The SS Falcon\n3) The SS Leviathan\n4) Exit back to main hub\n\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if(x == "1")
@@ -175,7 +174,7 @@ public class Game
         Console.WriteLine("\nWelcome to the Casino!");
         Console.WriteLine("\nCurrently our poker tables are closed for an upcoming tournament.");
         Console.WriteLine("You can, however, test your luck at the slot machines or the blackjack table.");
-        Console.Write("\nWhich would you like to try?\n1) Slot Machines\n2) BlackJack\n3) Exit\nResponse: ");
+        Console.Write("\nWhich would you like to try?\n1) Slot Machines\n2) BlackJack\n3) Exit\n\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if (input == "1") 

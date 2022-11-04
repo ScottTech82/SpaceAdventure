@@ -18,7 +18,7 @@ public class Casino
     public static decimal Bet(Player player)
     {
         Console.Write($"\nHow much are you willing to wager?");
-        Game.Dialog($"\nYour current balance is {Player.PlayerCredits}", "blue");
+        Player.PlayerBalance(player);
         Console.Write("\nPlease enter an amount to bet.\nResponse: ");
         var x = Console.ReadLine();
         decimal intx = Convert.ToDecimal(x);
@@ -70,17 +70,17 @@ public class Casino
         Console.WriteLine("\nThe robotic dealer greets you and waits for your bet before continuing.");
         var betx = Bet(player);
         Console.WriteLine("\n\nThe dealer begins to shuffle the cards.");
-        Console.WriteLine("  (please wait for the shuffle and do not press enter..)\n");
+        Console.WriteLine("  (please do not press enter..)\n");
 
         var card1 = Cards.BlackJackCards();
         var suit1 = Cards.BlackJackSuit();
-        Thread.Sleep(1000);
+        Thread.Sleep(500);
         var cardD1 = Cards.BlackJackCards();
         var suitD1 = Cards.BlackJackSuit();
         Thread.Sleep(500);
         var card2 = Cards.BlackJackCards();
         var suit2 = Cards.BlackJackSuit();
-        Thread.Sleep(1000);
+        Thread.Sleep(500);
         var cardD2 = Cards.BlackJackCards();
         var suitD2 = Cards.BlackJackSuit();
 
@@ -115,8 +115,7 @@ public class Casino
         Console.Write($"\nYou look at your cards again before deciding what to do ");
         Game.Dialog($"| {Pcards[0]}{Pcardsuit[0]} | {Pcards[1]}{Pcardsuit[1]} |", "green");
 
-        Console.WriteLine("\n\n---Please press enter to continue---");
-        Console.ReadKey();
+        Game.PressContinue();
         BlackJackTurn(betx, Pcards, Dcards, Pcardsuit, Dcardsuit, player);
 
     }
@@ -163,8 +162,7 @@ public class Casino
             }
             Console.Write("|");
             Console.ResetColor();
-            Console.WriteLine("\n\n---Please press enter to continue--");
-            Console.ReadKey();
+            Game.PressContinue();
             var pTotal = Cards.CardTotalPlayer(Pcards, player);
             if(pTotal > 21)
             {
@@ -179,7 +177,7 @@ public class Casino
 
     public static string BlackJackNewCard()
     {
-        Console.Write("\nWhat is your next move?\n1) Hit (request another card)\n2) Hold (keep your current cards)\nResponse: ");
+        Console.Write("\nWhat is your next move?\n1) Hit (request another card)\n2) Hold (keep your current cards)\n\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if (input == "1")
@@ -208,7 +206,7 @@ public class Casino
     public static void BlackJackPlayAgain(Player player)
     {
         Console.Clear();
-        Console.Write("Would you like to play BlackJack again?\n1) Yes\n2) No\nResponse: ");
+        Console.Write("Would you like to play BlackJack again?\n1) Yes\n2) No\n\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if(input == "1")
@@ -235,9 +233,8 @@ public class Casino
         if (playerTotal > 21)
         {
             Console.WriteLine("\nBust! Your total card value exceeds 21.");
-            Game.Dialog($"Your current balance is {Player.PlayerCredits} credits", "blue");
-            Console.WriteLine("\n---Please press enter to continue---");
-            Console.ReadKey();
+            Player.PlayerBalance(player);
+            Game.PressContinue();
             BlackJackPlayAgain(player); 
         }
 
@@ -248,18 +245,16 @@ public class Casino
             decimal x = betx * multiplier;
             Player.AddCredits(x, player);
             Game.Dialog($"Your bet of {betx} x {multiplier} = {x} credits", "blue");
-            Game.Dialog($"\nYour current balance is {Player.PlayerCredits} credits", "blue");
-            Console.WriteLine("\n---Please press enter to continue---");
-            Console.ReadKey();
+            Player.PlayerBalance(player);
+            Game.PressContinue();
             BlackJackPlayAgain(player);
         }
 
         else if (playerTotal < dealerTotal)
         {
             Console.WriteLine("\nThe dealer's hand has totaled more than yours, Dealer wins.  Please try again.");
-            Game.Dialog($"Your current balance is {Player.PlayerCredits} credits", "blue");
-            Console.WriteLine("\n---Please press enter to continue---");
-            Console.ReadKey();
+            Player.PlayerBalance(player);
+            Game.PressContinue();
             BlackJackPlayAgain(player);
         }
         else if (playerTotal > dealerTotal)
@@ -269,9 +264,8 @@ public class Casino
             decimal x = betx * multiplier;
             Player.AddCredits(x, player);
             Game.Dialog($"Your bet of {betx} x {multiplier} = {x} credits", "blue");
-            Game.Dialog($"\nYour current balance is {Player.PlayerCredits} credits", "blue");
-            Console.WriteLine("\n---Please press enter to continue---");
-            Console.ReadKey();
+            Player.PlayerBalance(player);
+            Game.PressContinue();
             BlackJackPlayAgain(player);
         }
         else if (playerTotal == dealerTotal)
@@ -279,9 +273,8 @@ public class Casino
             Console.WriteLine("\nUnfortunately a tie goes to the dealer.  However, your bet has been returned back to you.");
             Player.AddCredits(betx, player);
             Game.Dialog($"Your bet of {betx} credits has been returned to you.", "blue");
-            Game.Dialog($"\nYour current balance is {Player.PlayerCredits} credits", "blue");
-            Console.WriteLine("\n---Please press enter to continue---");
-            Console.ReadKey();
+            Player.PlayerBalance(player);
+            Game.PressContinue();
             BlackJackPlayAgain(player);
         }
 

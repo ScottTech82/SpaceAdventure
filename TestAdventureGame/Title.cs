@@ -28,7 +28,7 @@ public class Title
 
 
         Game.Dialog("                                            Welcome to the Galaxy of Triangulum!", "green");
-        Console.WriteLine("\n-----Press Enter to begin-----");
+        Console.WriteLine("\n-----Press Enter to begin your adventure-----");
         Console.ReadKey();
 
     }
