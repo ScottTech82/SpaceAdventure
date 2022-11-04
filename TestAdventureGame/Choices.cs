@@ -17,7 +17,7 @@ namespace SpaceAdventure
         public static void Choice1(Player player)
         {
             Game.Dialog($"\nAttendant:\"Would you be interested in a tour?\" \n");
-            Console.Write("What is your response? \n1) Absolutely \n2) Maybe later \n3) I'm just looking for a new ship\nResponse: ");
+            Console.Write("What is your response? \n1) Absolutely \n2) Maybe later \n3) I'm just looking for a new ship\n\nResponse: ");
             //Console.WriteLine("Please type 1, 2, or 3 and press enter");
             var input = Console.ReadLine();
             input = Convert.ToString(input);

@@ -40,6 +40,7 @@ public class Cards
         var card = cards[xxr];
         return card;
 
+        
     }
     public static string BlackJackSuit()
     {
@@ -53,6 +54,18 @@ public class Cards
         var suit = cardsuit[xr];
         return suit;
     }
+    /*
+    public static string BlackJackDeck()
+    {
+        string[] cards = new string[] { "\U0001F0A1", "\U0001F0A2", "\U0001F0A3", "\U0001F0A4", "\U0001F0A5", "\U0001F0A6",
+        "\U0001F0A7", "\U0001F0A8", "\U0001F0A9", "\U0001F0AA", "\U0001F0AB", "\U0001F0AC", "\U0001F0AD", "\U0001F0AE" };
+        Random random = new Random();
+        Thread.Sleep(500);
+        var xxr = random.Next(0, 13);
+        var card = cards[xxr];
+        return card;
+    }
+    */
 
     public static int CardTotalPlayer(List<string> Pcards, Player player)
     {
@@ -183,54 +196,21 @@ public class Cards
                 case "A":
                     Random rand = new Random();
                     var x = rand.Next(1, 3);
-                    
                     if (x == 1)
                     {
-                        if(dealerCalc.Count > 2)
-                        {
-                            var a = 1;
-                            Console.WriteLine($"\nAfter drawing a new card the dealer has randomly re-chosen the value of A to be {a}");
-                            dealerCalc.Add(1);
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"\nIn order to provide the player an option to win and" +
-                                $"\ngive the dealerbot more of a biological mistake factor, the dealerbot will randomly choose" +
-                                $" if A is equal to 1 or 11.");
-                            dealerCalc.Add(1);
-                            break;
-                        }
-                    }
-                    else if (x == 2)
-                    {
-                        if(dealerCalc.Count > 2)
-                        {
-                            var a = 11;
-                            Console.WriteLine($"\nAfter drawing a new card the dealer has randomly re-chosen the value of A to be {a}");
-                            dealerCalc.Add(11);
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine($"\n\nIn order to provide the player an additional option to win and" +
-                                $"give the dealer \nmore of a mistake factor, the dealer will randomly choose" +
-                                $" if A is equal to 1 or 11.");
-                            Thread.Sleep(2000);
-                            dealerCalc.Add(11);
-                            break;
-                        }
-                    }
-                    else
-                    {
                         dealerCalc.Add(1);
+                        break;
+                    }
+                    else 
+                    {
+                        dealerCalc.Add(11);
                         break;
                     }
                 default:
                     break;
             }
         }
-    
+
         var dealerTotal = 0;
         foreach (var dcalccard in dealerCalc)
         {

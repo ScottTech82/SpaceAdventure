@@ -15,11 +15,10 @@ Console.ReadKey(); //stays at the bottom to keep the window open for now until a
 /* Comments, Ideas, and Bug List.
  * 
  * Working On
- * 1. Update the press enter cw to the presscontinue method.
- * 2. Update the player balance checks to the playerBalance method.
- * 3. Bug list for the aces. Need to move them outside of the switch statement.
- * 4. Overriding the ToString method to return the card number & card suite in all other methods.
- * 5. Move responses down a line
+ * 
+ * 1. Bug list for the aces. Need to move them outside of the switch statement.
+ * 2. Overriding the ToString method to return the card number & card suite in all other methods.
+ * 3. Could just list all cards options with suit in switch case, return them back together again.
  * 
  * 
  * Ideas

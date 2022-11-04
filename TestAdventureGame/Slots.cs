@@ -81,10 +81,8 @@ public class Slots
             Player.AddCredits(x, player);
             Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
         }
-        Console.Write($"\nYour new credit balance is ");
-        Game.Dialog($"{Player.PlayerCredits} credits.", "blue");
-        Console.Write("\n---Press enter to continue---");
-        Console.ReadKey();
+        Player.PlayerBalance(player);
+        Game.PressContinue();
         SlotChoice1(player);
 
 
@@ -170,10 +168,8 @@ public class Slots
             Player.AddCredits(x, player);
             Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
         }
-        Console.Write($"\nYour new credit balance is ");
-        Game.Dialog($"{Player.PlayerCredits} credits.", "blue");
-        Console.Write("\n---Press enter to continue---");
-        Console.ReadKey();
+        Player.PlayerBalance(player);
+        Game.PressContinue();
         SlotChoice2(player);
 
     }
@@ -184,7 +180,7 @@ public class Slots
     {
         Console.Clear();
         Game.Dialog("Would you like to try again?", "blue");
-        Console.Write("1) Yes \n2) No thanks\nResponse: ");
+        Console.Write("1) Yes \n2) No thanks\n\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if (input == "1")
@@ -195,12 +191,13 @@ public class Slots
         else if (input == "2")
         {
             Console.WriteLine("\nThank you for playing, please come again.\n");
-            Console.Write("Would you like to play a different slot machine or exit the Casino?" +
-                "\n1) Different Slot Machine\n2) Exit the Casino\nResponse: ");
+            Console.Write("Would you like to play a different slot machine, try blackjack, or exit the Casino?" +
+                "\n1) Different Slot Machine\n2) Try BlackJack\n3) Exit the Casino\n\nResponse: ");
             var x = Console.ReadLine();
             x = Convert.ToString(x);
             if (x == "1") { Casino.CasinoSlots(player); }
-            else if (x == "2") { Game.MainArea(player); }
+            else if (x == "2") { Casino.PlayBlackJack(player); }
+            else if (x == "3") { Game.MainArea(player); }
         }
         else { Console.WriteLine($"Please press either 1 or 2."); SlotChoice1(player); }
     }
@@ -210,7 +207,7 @@ public class Slots
     {
         Console.Clear();
         Game.Dialog("Would you like to try again?", "blue");
-        Console.Write("1) Yes \n2) No thanks\nResponse: ");
+        Console.Write("1) Yes \n2) No thanks\n\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if (input == "1")
@@ -222,7 +219,7 @@ public class Slots
         {
             Console.WriteLine("\nThank you for playing, please come again.\n");
             Console.Write("Would you like to play a different slot machine or exit the Casino?" +
-                "\n1) Different Slot Machine\n2) Exit the Casino\nResponse: ");
+                "\n1) Different Slot Machine\n2) Exit the Casino\n\nResponse: ");
             var x = Console.ReadLine();
             x = Convert.ToString(x);
             if (x == "1") { Casino.CasinoSlots(player); }
