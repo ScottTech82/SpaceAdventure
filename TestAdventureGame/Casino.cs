@@ -241,7 +241,7 @@ public class Casino
         else if (dealerTotal > 21)
         {
             Console.WriteLine($"\nThe dealers total of {dealerTotal} exceeds 21, the dealer has busted!");
-            decimal multiplier = 5M;
+            decimal multiplier = 7M;
             decimal x = betx * multiplier;
             Player.AddCredits(x, player);
             Game.Dialog($"Your bet of {betx} x {multiplier} = {x} credits", "blue");
@@ -260,7 +260,7 @@ public class Casino
         else if (playerTotal > dealerTotal)
         {
             Console.WriteLine("\nCongratulations!  You beat the dealer and won this round!");
-            decimal multiplier = 5M;
+            decimal multiplier = 7M;
             decimal x = betx * multiplier;
             Player.AddCredits(x, player);
             Game.Dialog($"Your bet of {betx} x {multiplier} = {x} credits", "blue");

@@ -150,7 +150,7 @@ public class Cards
 
     public static int CardTotalDealer(List<string> Dcards, Player player)
     {
-
+        int x = 0;
         List<int> dealerCalc = new List<int>();
         foreach (var dcard in Dcards)
         {
@@ -194,18 +194,10 @@ public class Cards
                     dealerCalc.Add(10);
                     break;
                 case "A":
-                    Random rand = new Random();
-                    var x = rand.Next(1, 3);
-                    if (x == 1)
-                    {
-                        dealerCalc.Add(1);
-                        break;
-                    }
-                    else 
-                    {
-                        dealerCalc.Add(11);
-                        break;
-                    }
+                    x = 11;
+                    dealerCalc.Add(x);
+                    break;
+                    
                 default:
                     break;
             }
@@ -215,6 +207,17 @@ public class Cards
         foreach (var dcalccard in dealerCalc)
         {
             dealerTotal += dcalccard;
+
+                if (dealerTotal > 21 && dealerCalc.Contains(11))
+                {
+                dealerCalc.Remove(11);
+                dealerCalc.Add(1);
+                dealerTotal = 0;
+                foreach(var dcalcard in dealerCalc)
+                {
+                    dealerTotal += dcalcard;
+                }
+                }
             
         }
         return dealerTotal;

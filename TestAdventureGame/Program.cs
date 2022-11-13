@@ -16,9 +16,8 @@ Console.ReadKey(); //stays at the bottom to keep the window open for now until a
  * 
  * Working On
  * 
- * 1. Bug list for the aces. Need to move them outside of the switch statement.
- * 2. Overriding the ToString method to return the card number & card suite in all other methods.
- * 3. Could just list all cards options with suit in switch case, return them back together again.
+ * 1. Overriding the ToString method to return the card number & card suite in all other methods.
+ * 2. Could just list all cards options with suit in switch case, return them back together again.
  * 
  * 
  * Ideas
@@ -29,8 +28,6 @@ Console.ReadKey(); //stays at the bottom to keep the window open for now until a
  * 
  * BUG List
  * 
- * When the dealer gets 2 Aces it fires the CW twice and then if they draw a card and now have > 2 cards
- * it will fire the other CW's twice for each Ace.  This needs to take place outside of the value assigning.
  * 
  * 
  * 
