@@ -60,7 +60,7 @@ public class Casino
 
 
      //Need a method that allows the dealer to take another card if below a certain level,
-    //but maybe, have it randomly choose, so the dealer isnt always super good? Need some mistakes coded in.
+    //but maybe, have it randomly choose, so the dealer isnt always super good?
 
 
     public static void PlayBlackJack(Player player)

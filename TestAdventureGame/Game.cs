@@ -69,11 +69,6 @@ public class Game
     }
 
 
-
-
-
-    //******************Working here!*********
-
     public static void MainArea(Player player)
     {
         Console.Clear();
@@ -166,14 +161,6 @@ public class Game
     }
 
 
-    public static void AfterChoice1()
-    {
-        Console.WriteLine("You walk into the ship bazaar and look around in awe at all of the ships");
-        Console.WriteLine("Three ships grab your attention");
-
-    }
-
-
     public static void CasinoOptions(Player player)
     {
         Console.Clear();
@@ -204,15 +191,6 @@ public class Game
         }
        
     }
-
-
-
-
-
-
-
-
-
 
     public static void Dialog(string message)
     {
@@ -256,6 +234,9 @@ public class Game
         Console.WriteLine(message);
         Console.ResetColor();
     }
+
+
+
 
 
 
