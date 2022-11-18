@@ -11,6 +11,7 @@ public class Player
     public string Name { get; set; }
     public static decimal PlayerCredits { get; set; }
     public string? PlayerShip { get; set; }
+    public string? ShipStats { get; set; }
 
     
     public Player(string Name)
@@ -68,16 +69,84 @@ public class Player
     public static void RemoveCreditsInsuff(Player player)
     {
         Console.Clear();
-        Console.WriteLine("Dealer: \"It seems you do not have enough credits to cover that amount.\"");
-        Console.Write($"\n\"Please use an amount that is equal to or less than your current balance.\"\n\"Or try your luck at another one of our games.\"");
+        Console.WriteLine("\"It seems you do not have enough credits to cover that amount.\"");
+        Console.Write($"\n\"Please use an amount that is equal to or less than your current balance.\"\n\"Or try your luck at one of our games to earn more credits.\"");
         PlayerBalance(player);
-        Console.WriteLine("\nYou are removed back to the casino entrance");
+        Console.WriteLine("\nYou are removed back to entrance");
         Game.PressContinue();
-        Game.CasinoOptions(player);
+        Game.MainArea(player);
     }
 
 
+    public static void AddShip(string ship, string shipstats, Player player)
+    {
+        if(player.PlayerShip != null)
+        {
+            Console.Clear();
+            Console.WriteLine($"You already have a space ship in the hangar, you will have to sell your current ship before purchasing a new one.");
+            SellShip(player);
+        }
+        player.PlayerShip += ship;
+        player.ShipStats += shipstats;
+        Console.Clear();
+        Game.Dialog($"\nYou have a new space ship!\n", "green");
+        Game.Dialog($"{ player.PlayerShip}", "darkmagenta");
+        Game.PressContinue();
+    }
 
+    public static void SellShip(Player player)
+    {
+        Console.WriteLine($"Would you like to sell your current ship?");
+        Console.Write("\n1) Yes\n2) No\nResponse: ");
+        var input = Console.ReadLine();
+        input = Convert.ToString(input);
+        if(input == "1")
+        {
+            if (player.PlayerShip == null)
+            {
+                Console.WriteLine("You have no current ship.");
+                Game.ShipBazaar(player);
+            }
+            else if (player.PlayerShip.Contains("V-wing")) {
+                AddCredits(500, player);
+                Console.WriteLine("You sold your ship and received 500 credits.");
+                PlayerBalance(player);
+                player.PlayerShip = null;
+                player.ShipStats = null;
+            }
+            else if (player.PlayerShip.Contains("Falcon"))
+            {
+                AddCredits(250, player);
+                Console.WriteLine("You sold your ship and received 250 credits.");
+                PlayerBalance(player);
+                player.PlayerShip = null;
+                player.ShipStats = null;
+            }
+            else if (player.PlayerShip.Contains("Leviathan"))
+            {
+                AddCredits(1150, player);
+                Console.WriteLine("You sold your ship and received 1150 credits.");
+                PlayerBalance(player);
+                player.PlayerShip = null;
+                player.ShipStats = null;
+            }
+            Game.PressContinue();
+            Game.ShipBazaar(player);
+        }
+        else
+        {
+            Console.WriteLine("\nNo problem, thanks for coming!");
+            Game.PressContinue();
+            Game.ShipBazaar(player);
+        }
+    }
 
+    public static void CheckShip(Player player)
+    {
+        Console.WriteLine("Your current ship is;");
+        Game.Dialog($"{player.PlayerShip}", "darkmagenta");
+        Game.Dialog($"{player.ShipStats}");
+
+    }
 
 }

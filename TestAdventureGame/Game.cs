@@ -94,8 +94,8 @@ public class Game
 
     public static void InfoBooth(Player player)
     {
-        Dialog("\nAttendant:\"Would you like to check your current credit balance?\"");
-        Console.Write("Please select your response\n1) Yes\n2) No\n\nResponse: ");
+        Dialog("\nAttendant:\"Would you like to check your current credit balance or see your space ship?\"");
+        Console.Write("Please select your response\n1) Check Balance\n2) See Space Ship\n3) Neither\n\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if (x == "1")
@@ -113,7 +113,13 @@ public class Game
             PressContinue();
             MainArea(player);
         }
-        else if (x == "2") { Choices.Choice1(player); }
+        else if (x == "2")
+        {
+            Player.CheckShip(player);
+            PressContinue();
+            MainArea(player);
+        }
+        else if (x == "3") { Choices.Choice1(player); }
 
         else
         {
@@ -134,17 +140,17 @@ public class Game
         x = Convert.ToString(x);
         if(x == "1")
         {
-            Items.SSVwing();
+            Items.SSVwing(player);
             ShipBazaar(player);
         }
         else if(x == "2")
         {
-            Items.SSFalcon();
+            Items.SSFalcon(player);
             ShipBazaar(player);
         }
         else if(x == "3")
         {
-            Items.SSLeviathan();
+            Items.SSLeviathan(player);
             ShipBazaar(player);
         }
         else if(x == "4")
