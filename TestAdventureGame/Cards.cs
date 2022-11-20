@@ -21,7 +21,7 @@ public class Cards
     //the odds of randomly selecting the same number from the same array is slim, but possible.
     //need to think of a way to prevent this? Use random to pull from List or Dictionary using remove and then push into stack
 
-
+    
     public static Stack<string> DeckShuffle()
     {
         Stack<string> deck = new Stack<string>(52);
@@ -50,35 +50,26 @@ public class Cards
         }
         return deck;
     }
+    
 
-    /*
+    
     public static string BlackJackCards()
     {
-        /* Didnt work, tried array in an array, or jaggedarray. But I should be able to do it with just 
-         * two different arrays, one for suit one for cards and put them together in the return.
-         *
-        string[] Diamonds = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        string[] Hearts = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        string[] Spades = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        string[] Clubs = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-
-        string[][] cards = new string[][]
-        { Diamonds, Hearts, Spades, Clubs};
-        */ /*
+        /* Using a stack was waaaaayyyyy too slooowwww.. */
         string[] cards = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
         Random rand = new Random();
         Thread.Sleep(500);
         var xxr = rand.Next(0, 13);
         var card = cards[xxr];
+
+
         return card;
 
         
     }
     public static string BlackJackSuit()
     {
-        //unicode hex is Heart = 2665, Diamond = 2666, Spade = 2660, Club = 2663, must use '\uXXXX' to print char to console.
-        //didnt work, could not return char.  Trying copy & paste the symbol as a string now.
-        //separating the suit and card number since the calculation was not reading correctly.
+
         string[] cardsuit = new string[] { "♥", "♦", "♠", "♣" };
         Random rand = new Random();
         Thread.Sleep(500);
@@ -86,7 +77,7 @@ public class Cards
         var suit = cardsuit[xr];
         return suit;
     }
-    */
+    
 
     public static int CardTotalPlayer(List<string> Pcards, Player player)
     {
