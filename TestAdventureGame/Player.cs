@@ -51,7 +51,7 @@ public class Player
 
     public static void PlayerBalance(Player player)
     {
-        Console.Write($"\nYour current balance is ");
+        Console.Write($"\nYour current balance is: ");
         Game.Dialog($"{PlayerCredits} credits.", "blue");
     }
 
