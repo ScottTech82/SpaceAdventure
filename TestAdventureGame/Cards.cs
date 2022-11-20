@@ -18,55 +18,29 @@ public class Cards
     {
         return Card + Suit;
     }
-    //the odds of randomly selecting the same number from the same array is slim, but possible.
-    //need to think of a way to prevent this? Use random to pull from List or Dictionary using remove and then push into stack
-
-    
-    public static Stack<string> DeckShuffle()
-    {
-        Stack<string> deck = new Stack<string>(52);
-        while(deck.Count < 52)
-        {
-
-        string[] bjcards = new [] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
-        Random rand = new Random();
-        Thread.Sleep(500);
-        var bjrando = rand.Next(0, 13);
-        var bjcard = bjcards[bjrando];
-        
-        string[] cardsuit = new string[] { "♥", "♦", "♠", "♣" };
-        Random rands = new Random();
-        Thread.Sleep(500);
-        var suitrand = rands.Next(0, 4);
-        var suit = cardsuit[suitrand];
-
-        var newbjcard = bjcard+suit;
-        if(!deck.Contains(newbjcard))
-            {
-                deck.Push(newbjcard);
-            }
-
-
-        }
-        return deck;
-    }
-    
+ 
 
     
     public static string BlackJackCards()
     {
-        /* Using a stack was waaaaayyyyy too slooowwww.. */
+        
         string[] cards = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
         Random rand = new Random();
         Thread.Sleep(500);
         var xxr = rand.Next(0, 13);
         var card = cards[xxr];
 
+        string[] cardsuit = new string[] { "♥", "♦", "♠", "♣" };
+        Random rands = new Random();
+        Thread.Sleep(500);
+        var xr = rands.Next(0, 4);
+        var suit = cardsuit[xr];
 
-        return card;
+        return card + suit;
 
         
     }
+    /*
     public static string BlackJackSuit()
     {
 
@@ -77,7 +51,47 @@ public class Cards
         var suit = cardsuit[xr];
         return suit;
     }
-    
+    */
+
+    public static List<string> DealerHitHold(List<string> Dcards, Player player)
+    {
+        var x = CardTotalDealer(Dcards, player);
+
+        if (x >= 16)
+        {
+            return Dcards;
+        }
+
+        else
+        {
+            var newDcard = BlackJackCards(); //deck.Pop();
+            newDcard = ChkCardExists(newDcard, Dcards);
+            Dcards.Add(newDcard);
+            DealerHitHold(Dcards, player);
+        }
+        return Dcards;
+
+    }
+
+    public static string ChkCardDup(string card1, string card2)
+    {
+        if(card2 == card1)
+        {
+            card2 = BlackJackCards();
+            ChkCardDup(card1, card2);
+        }
+        return card2;
+    }
+
+    public static string ChkCardExists(string card, List<string> cards)
+    {
+        if(cards.Contains(card))
+        {
+            card = BlackJackCards();
+            ChkCardExists(card, cards);
+        }
+        return card;
+    }
 
     public static int CardTotalPlayer(List<string> Pcards, Player player)
     {
@@ -315,25 +329,84 @@ public class Cards
 
     }
 
-    public static List<string> DealerHitHold(List<string> Dcards, Stack<string> deck, Player player)
+
+
+
+
+
+
+
+
+
+
+//Previously tried solutions, I like the current one the best.
+
+    /* Didnt work, tried array in an array, or jaggedarray. But I should be able to do it with just 
+         * two different arrays, one for suit one for cards and put them together in the return.
+         * But then I cant really remove a number from the list.
+         * But I could check for duplicates and have it re-random a new card.
+         * 
+        string[] Diamonds = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] Hearts = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] Spades = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[] Clubs = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        string[][] cards = new string[][]
+        { Diamonds, Hearts, Spades, Clubs};
+        */
+
+
+    //unicode hex is Heart = 2665, Diamond = 2666, Spade = 2660, Club = 2663, must use '\uXXXX' to print char to console.
+    //didnt work, could not return char.  copy & paste the symbol as a string instead.
+    //separating the suit and card number since the calculation was not reading correctly.
+/*
+public static string BlackJackDeck()
+{
+    string[] cards = new string[] { "\U0001F0A1", "\U0001F0A2", "\U0001F0A3", "\U0001F0A4", "\U0001F0A5", "\U0001F0A6",
+    "\U0001F0A7", "\U0001F0A8", "\U0001F0A9", "\U0001F0AA", "\U0001F0AB", "\U0001F0AC", "\U0001F0AD", "\U0001F0AE" };
+    Random random = new Random();
+    Thread.Sleep(500);
+    var xxr = random.Next(0, 13);
+    var card = cards[xxr];
+    return card;
+}
+*/
+
+    //the odds of randomly selecting the same number from the same array is slim, but possible.
+    //need to think of a way to prevent this?
+
+
+    /* Experimented with using a stack, but it was waaaaayyyyy too slooowwww..
+     * since it had to re-random whenever a duplicate was found and as got to 40 out of 52 possible results, thats extremely likely
+     * 
+    public static Stack<string> DeckShuffle()
     {
-        var x = CardTotalDealer(Dcards, player);
-
-        if(x >= 16)
+        Stack<string> deck = new Stack<string>(52);
+        while(deck.Count < 52)
         {
-            return Dcards;
-        }
 
-        else
-        {
-            var newDcard = deck.Pop(); //BlackJackCards();
-            Dcards.Add(newDcard);
-            DealerHitHold(Dcards, deck, player);
-        }
-        return Dcards;
+        string[] bjcards = new [] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
+        Random rand = new Random();
+        Thread.Sleep(500);
+        var bjrando = rand.Next(0, 13);
+        var bjcard = bjcards[bjrando];
+        
+        string[] cardsuit = new string[] { "♥", "♦", "♠", "♣" };
+        Random rands = new Random();
+        Thread.Sleep(500);
+        var suitrand = rands.Next(0, 4);
+        var suit = cardsuit[suitrand];
 
+        var newbjcard = bjcard+suit;
+        if(!deck.Contains(newbjcard))
+            {
+                deck.Push(newbjcard);
+            }
+
+
+        }
+        return deck;
     }
+    */
 
- 
 
 }

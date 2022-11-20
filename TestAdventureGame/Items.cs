@@ -34,8 +34,7 @@ public class Items
            WWWW
 
 
-
-      The SS V-wing 
+      >The SS V-wing<
     ";
         
         string VwingStats = "Attack: 13\nDefense: 8\nSpeed: 13";
@@ -76,8 +75,7 @@ public class Items
             VV
 
 
-
-      The SS Falcon
+      >The SS Falcon<
      ";
         string FalconStats = "Attack: 5\nDefense: 8\nSpeed: 8";
 
@@ -120,8 +118,7 @@ public class Items
        VV   VVVV   VV
     
 
-
-      The SS Leviathan
+      >The SS Leviathan<
     ";
 
         string LevStats = "Attack: 21\nDefense: 13\nSpeed: 5";
