@@ -51,7 +51,7 @@ public class Player
 
     public static void PlayerBalance(Player player)
     {
-        Console.Write($"\nYour current balance is ");
+        Console.Write($"\nYour current balance is: ");
         Game.Dialog($"{PlayerCredits} credits.", "blue");
     }
 
@@ -83,7 +83,8 @@ public class Player
         if(player.PlayerShip != null)
         {
             Console.Clear();
-            Console.WriteLine($"You already have a space ship in the hangar, you will have to sell your current ship before purchasing a new one.");
+            Console.WriteLine($"You already have a space ship in the hangar, you will have to go sell your current ship before purchasing a new one.");
+            Console.WriteLine("Please come back when you have an empty hangar.");
             SellShip(player);
         }
         player.PlayerShip += ship;
@@ -96,7 +97,7 @@ public class Player
 
     public static void SellShip(Player player)
     {
-        Console.WriteLine($"Would you like to sell your current ship?");
+        Game.Dialog($"\nWould you like to sell your current ship?", "blue");
         Console.Write("\n1) Yes\n2) No\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
@@ -143,9 +144,16 @@ public class Player
 
     public static void CheckShip(Player player)
     {
-        Console.WriteLine("Your current ship is;");
-        Game.Dialog($"{player.PlayerShip}", "darkmagenta");
-        Game.Dialog($"{player.ShipStats}");
+        if (player.PlayerShip == null)
+        {
+            Console.WriteLine("\nYou currently do not have a ship. Please visit the Ship Bazaar to view the current options.");
+        }
+        else
+        {
+            Console.WriteLine("\nHere is a live feed to the hangar showing your current ship.");
+            Game.Dialog($"{player.PlayerShip}", "darkmagenta");
+            Game.Dialog($"{player.ShipStats}");
+        }
 
     }
 

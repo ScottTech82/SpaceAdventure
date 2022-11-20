@@ -72,8 +72,9 @@ public class Game
     public static void MainArea(Player player)
     {
         Console.Clear();
-        Console.WriteLine("You are currently in the main hub next to the information booth.\n");
-        Console.Write("Where would you like to go?\n1) Information Booth\n2) Casino\n3) Ship Bazaar\n\nResponse: ");
+        Console.WriteLine("** You are currently in the main hub next to the information booth. **\n");
+        Dialog("\nWhere would you like to go?", "blue");
+        Console.Write("\n1) Information Booth (check credit balance or current ship)\n2) The Casino\n3) The Ship Bazaar\n\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if (x == "1") { InfoBooth(player); }
@@ -90,7 +91,7 @@ public class Game
     public static void InfoBooth(Player player)
     {
         Dialog("\nAttendant:\"Would you like to check your current credit balance or see your space ship?\"");
-        Console.Write("Please select your response\n1) Check Balance\n2) See Space Ship\n3) Neither\n\nResponse: ");
+        Console.Write("\nPlease select your response\n1) Check Balance\n2) See Space Ship\n3) Neither\n\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if (x == "1")
@@ -110,6 +111,7 @@ public class Game
         }
         else if (x == "2")
         {
+            Console.Clear();
             Player.CheckShip(player);
             PressContinue();
             MainArea(player);

@@ -66,37 +66,34 @@ public class Casino
     public static void PlayBlackJack(Player player)
     {
         Console.WriteLine("\nWelcome to the BlackJack table!");
-
         Console.WriteLine("\nThe robotic dealer greets you and waits for your bet before continuing.");
         var betx = Bet(player);
         Console.WriteLine("\n\nThe dealer begins to shuffle the cards.");
         Console.WriteLine("  (please do not press enter..)\n");
-
-        var card1 = Cards.BlackJackCards();
-        var suit1 = Cards.BlackJackSuit();
+        
+        
+        var cardP1 = Cards.BlackJackCards();
+        
         Thread.Sleep(500);
         var cardD1 = Cards.BlackJackCards();
-        var suitD1 = Cards.BlackJackSuit();
+        
         Thread.Sleep(500);
-        var card2 = Cards.BlackJackCards();
-        var suit2 = Cards.BlackJackSuit();
+        var cardP2 = Cards.BlackJackCards();
+       
         Thread.Sleep(500);
         var cardD2 = Cards.BlackJackCards();
-        var suitD2 = Cards.BlackJackSuit();
+        
 
-        List<string> Pcards = new List<string>();
-        Pcards.Add(card1);
-        Pcards.Add(card2);
-        List<string> Pcardsuit = new List<string>();
-        Pcardsuit.Add(suit1);
-        Pcardsuit.Add(suit2);
-        List<string> Dcards = new List<string>();
-        Dcards.Add(cardD1);
+        List<string> Pcards = new() { cardP1};
+        cardP2 = Cards.ChkCardDup(cardP1, cardP2);
+        Pcards.Add(cardP2);
+
+
+        List<string> Dcards = new() { cardD1};
+        cardD2 = Cards.ChkCardDup(cardD1, cardD2);
         Dcards.Add(cardD2);
-        List<string> Dcardsuit = new List<string>();
-        Dcardsuit.Add(suitD1);
-        Dcardsuit.Add(suitD2);
 
+        /*
         Console.WriteLine("After satisfied with the shuffle or according to their programming,\nthe dealer has begun dealing the cards out...");
         Thread.Sleep(1500);
         
@@ -117,13 +114,38 @@ public class Casino
 
         Game.PressContinue();
         BlackJackTurn(betx, Pcards, Dcards, Pcardsuit, Dcardsuit, player);
+        */
+        Console.WriteLine("After satisfied with the shuffle or according to their programming,\nthe dealer has begun dealing the cards out...");
+        Thread.Sleep(1500);
+
+        Console.Write($"\nThe first card dealt to you is a ");
+        Game.Dialog($"| {Pcards[0]} |", "green");
+        Thread.Sleep(3000);
+
+        Console.Write($"\nThe dealer takes their first card face down.");
+        Console.WriteLine("Then deals your 2nd card...");
+        Game.Dialog($"| {Pcards[1]} |", "green");
+        Thread.Sleep(3000);
+
+        Console.Write($"The dealer's second card is placed face up showing, ");
+        Game.Dialog($"| {Dcards[1]} |", "green");
+        Thread.Sleep(3000);
+
+        Console.Write($"\nYou look at your cards again before deciding what to do ");
+        Game.Dialog($"| {Pcards[0]} | {Pcards[1]} |", "green");
+
+        Game.PressContinue();
+        BlackJackTurn(betx, Pcards, Dcards, player);
 
     }
-    public static void BlackJackTurn(decimal betx, List<string> Pcards, List<string> Dcards, List<string> Pcardsuit, List<string> Dcardsuit, Player player)
+    //removed List<string>Pcardsuit & List<string>Dcardsuit.  Above removed the passing in Pcardsuit & Dcardsuit.
+    public static void BlackJackTurn(decimal betx, List<string> Pcards, List<string> Dcards, Player player)
     {
 
         var newC = BlackJackNewCard();
-        var newS = Cards.BlackJackSuit();
+        newC = Cards.ChkCardExists(newC, Pcards);
+        /* var newS = Cards.BlackJackSuit(); */
+
         if (newC == "hold")
         {
             Console.Clear();
@@ -136,6 +158,7 @@ public class Casino
             Console.Write("|");
             Console.ResetColor();
             Thread.Sleep(1000);
+
             var newDcards = Cards.DealerHitHold(Dcards, player);
             Console.Write($"\nThe dealer shows their hand of ");
             Console.ForegroundColor = ConsoleColor.Green;
@@ -153,7 +176,7 @@ public class Casino
         else
         {
             Pcards.Add(newC);
-            Pcardsuit.Add(newS);
+            /* Pcardsuit.Add(newS); */
             Console.Write("You now have ");
             Console.ForegroundColor = ConsoleColor.Green;
             foreach (var card in Pcards)
@@ -170,7 +193,7 @@ public class Casino
                 BlackJackWinLose(betx, pTotal, dTotal, player);
             }
             else 
-                BlackJackTurn(betx, Pcards, Dcards, Pcardsuit, Dcardsuit, player);
+                BlackJackTurn(betx, Pcards, Dcards, player); //removed Pcardsuit & Dcardsuit
         }
 
     }
@@ -183,10 +206,11 @@ public class Casino
         if (input == "1")
         {
             Console.WriteLine("\nYou request another card.");
-            var card3 = Cards.BlackJackCards();
+            var card3 = Cards.BlackJackCards(); //deck.Pop();
             Thread.Sleep(1000);
             Console.Write($"\nThe dealer flips over another card, it's a ");
             Game.Dialog($"| {card3} |", "green");
+            Thread.Sleep(1000);
             return card3;
         }
         else if (input == "2")
