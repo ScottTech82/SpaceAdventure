@@ -122,8 +122,8 @@ public class Casino
         Game.Dialog($"| {Pcards[0]} |", "green");
         Thread.Sleep(3000);
 
-        Console.Write($"\nThe dealer takes their first card face down.");
-        Console.WriteLine("Then deals your 2nd card...");
+        Console.WriteLine($"\nThe dealer takes their first card face down.");
+        Console.Write("\nThen deals your 2nd card...");
         Game.Dialog($"| {Pcards[1]} |", "green");
         Thread.Sleep(3000);
 

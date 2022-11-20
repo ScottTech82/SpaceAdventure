@@ -150,9 +150,9 @@ public class Player
         }
         else
         {
-            Console.WriteLine("\nHere is a live feed to the hangar showing your current ship.");
-            Game.Dialog($"{player.PlayerShip}", "darkmagenta");
-            Game.Dialog($"{player.ShipStats}");
+            Game.Dialog("\nHere is a live feed to the hangar showing your current ship.", "green");
+            Game.Dialog($"\n{player.PlayerShip}", "darkmagenta");
+            Game.Dialog($"\n{player.ShipStats}");
         }
 
     }

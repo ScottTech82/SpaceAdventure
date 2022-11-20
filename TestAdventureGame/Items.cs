@@ -50,10 +50,17 @@ public class Items
         input = Convert.ToString(input);
         if(input == "1")
         {
+            if(Player.PlayerCredits < 500)
+            {
+                Game.Dialog("\n\nI'm sorry you dont have enough credits to purchase this ship.", "red");
+                Game.PressContinue();
+                Game.ShipBazaar(player);
+            }
             Player.AddShip(Vwing, VwingStats, player);
             Player.RemoveCredits(500, player);
             Game.MainArea(player);
-        }else
+        }
+        else
         {
         Game.PressContinue();
         }
@@ -90,6 +97,12 @@ public class Items
         input = Convert.ToString(input);
         if (input == "1")
         {
+            if (Player.PlayerCredits < 250)
+            {
+                Game.Dialog("\n\nI'm sorry you dont have enough credits to purchase this ship.", "red");
+                Game.PressContinue();
+                Game.ShipBazaar(player);
+            }
             Player.AddShip(Falcon, FalconStats, player);
             Player.RemoveCredits(250, player);
             Game.MainArea(player);
@@ -134,6 +147,12 @@ public class Items
         input = Convert.ToString(input);
         if (input == "1")
         {
+            if (Player.PlayerCredits < 1150)
+            {
+                Game.Dialog("\n\nI'm sorry you dont have enough credits to purchase this ship.", "red");
+                Game.PressContinue();
+                Game.ShipBazaar(player);
+            }
             Player.AddShip(Lev, LevStats, player);
             Player.RemoveCredits(1150, player);
             Game.MainArea(player);
