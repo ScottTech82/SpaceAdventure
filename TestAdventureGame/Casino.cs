@@ -123,7 +123,7 @@ public class Casino
         Thread.Sleep(3000);
 
         Console.WriteLine($"\nThe dealer takes their first card face down.");
-        Console.Write("\nThen deals your 2nd card...");
+        Console.Write("\nThen deals your 2nd card ");
         Game.Dialog($"| {Pcards[1]} |", "green");
         Thread.Sleep(3000);
 
