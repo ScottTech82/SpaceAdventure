@@ -25,7 +25,7 @@ Console.ReadKey(); //stays at the bottom to keep the window open for now until a
  * 
  * Ideas
  * 
- * 1. *COMPLETE*  Move Title to its own class and have other Titles for Casino and Ship Bazaar.  <--- in progress.
+ * 1. *COMPLETE*  Move Title to its own class and have other Titles for Casino and Ship Bazaar.  
  * 2. Expand on the Ship Bazaar, where purchasing parts increases the base stats of the ship.
  * 3. Can I create a small mini shooting game with the ship? <--maybe a windows form app??
  * 4. Create a ship class with ship model, ship stats, ship title that can be expanded on later.
