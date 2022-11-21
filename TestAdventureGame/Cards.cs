@@ -319,7 +319,9 @@ public class Cards
                 dealerTotal = 0;
                 foreach(var dcalcard in dealerCalc)
                     {
-                        dealerTotal += dcalcard;
+                    dealerTotal += dcalcard;
+                    DealerHitHold(Dcards, player);
+                    return dealerTotal;
                     }
                 }
             
