@@ -131,7 +131,7 @@ public class Items
        VV   VVVV   VV
     
 
-      >The SS Leviathan<
+     >The SS Leviathan<
     ";
 
         string LevStats = "Attack: 21\nDefense: 13\nSpeed: 5";

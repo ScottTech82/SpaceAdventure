@@ -72,6 +72,7 @@ public class Game
     public static void MainArea(Player player)
     {
         Console.Clear();
+        Title.TradeHubTitle();
         Console.WriteLine("** You are currently in the main hub next to the information booth. **\n");
         Dialog("\nWhere would you like to go?", "blue");
         Console.Write("\n1) Information Booth (check credit balance or current ship)\n2) The Casino\n3) The Ship Bazaar\n\nResponse: ");
@@ -166,6 +167,7 @@ public class Game
     public static void CasinoOptions(Player player)
     {
         Console.Clear();
+        Title.CasinoTitle();
         Console.WriteLine("\nWelcome to the Casino!");
         Console.WriteLine("\nCurrently our poker tables are closed for an upcoming tournament.");
         Console.WriteLine("You can, however, test your luck at the slot machines or the blackjack table.");
