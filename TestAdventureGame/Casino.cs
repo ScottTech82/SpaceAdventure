@@ -308,7 +308,7 @@ public class Casino
         List<string> PlayerDealt = new List<string>();
         List<string> CompDealt= new List<string>();
         Console.WriteLine("Welcome to the secret underground game of Pazaak!");
-        Console.WriteLine("This game was brought here by a vistor from what they described as a galaxy far, far away...\nEnjoy!");
+        Console.WriteLine("\nThis game was brought here by a vistor from what they described as a galaxy, far, far away...\nEnjoy!");
         Game.PressContinue();
         PazPlayerTurns(player, PlayerDealt, CompDealt);
 
