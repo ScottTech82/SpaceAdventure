@@ -301,19 +301,21 @@ public class Casino
     }
 
 
-    public static void PlayPazaak()
+    public static void PlayPazaak(Player player)
     {
 
+        //need to get new cards if they do not stand.  If they stand, no new cards but other player gets new cards.
+        List<string> PlayerDealt = new List<string>();
+        PazPlayerTurns(player, PlayerDealt);
 
 
-        var p1c1 = Cards.PazaakDealCards();
 
 
 
     }
 
 
-    public static void PazStandorNot()
+    public static void PazStandorNot(Player player, List<string>PlayerDealt)
     {
         Game.Dialog("\nWould you like to Continue drawing cards or Stand at this amount?", "blue");
         Console.Write("\n1) Continue\n2) Stand\nResponse: ");
@@ -321,17 +323,40 @@ public class Casino
         input = Convert.ToString(input);
         if(input == "1")
         {
-
+            PazPlayerTurns(player, PlayerDealt);
+            
         }
         else if(input == "2") 
         {
-
+            PazStand(player);
+           
         }
         else
         {
             Console.WriteLine("Please enter a valid response");
-            PazStandorNot();
+            PazStandorNot(player, PlayerDealt);
         }
+
+    }
+
+    public static void PazPlayerTurns(Player player, List<string>PDealt)
+    {
+        var p1c1 = Cards.PazaakDealCards();
+        List<string> PlayerDealt = new List<string> { p1c1 };
+        PazStandorNot(player, PlayerDealt);
+
+
+
+    }
+
+    public static void PazCompTurns()
+    {
+
+
+    }
+
+    public static void PazStand(Player player)
+    {
 
     }
 
