@@ -332,7 +332,18 @@ public class Cards
     }
 
 
+    public static string PazaakDealCards()
+    {
+        //pazaak had 4 sets of cards from 1 to 10.
+        string[] cards = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+         "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",  "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        Random rand = new Random();
+        Thread.Sleep(500);
+        var xcard = rand.Next(0, 40);
+        var card = cards[xcard];
 
+        return card;
+    }
 
 
 
