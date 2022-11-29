@@ -190,6 +190,11 @@ public class Game
             Console.WriteLine("Ok, please come by later to test your luck. Have a great day!");
             MainArea(player);
         }
+        else if (input == "8")
+        {
+            Console.Clear();
+            Casino.PlayPazaak(player);
+        }
         else
         {
             Console.WriteLine($"Please press either 1, 2, or 3. {CasinoOptions}");

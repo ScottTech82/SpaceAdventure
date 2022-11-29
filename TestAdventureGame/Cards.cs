@@ -346,7 +346,7 @@ public class Cards
     }
 
 
-    public static int PazTotal(List<string> Dealt, Player player)
+    public static int PazTotal(Player player, List<string> Dealt)
     {
 
         List<int> calc = new List<int>();

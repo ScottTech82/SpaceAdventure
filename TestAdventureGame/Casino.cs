@@ -306,7 +306,11 @@ public class Casino
 
         //need to get new cards if they do not stand.  If they stand, no new cards but other player gets new cards.
         List<string> PlayerDealt = new List<string>();
-        PazPlayerTurns(player, PlayerDealt);
+        List<string> CompDealt= new List<string>();
+        Console.WriteLine("Welcome to the secret underground game of Pazaak!");
+        Console.WriteLine("This game was brought here by a vistor from what they described as a galaxy far, far away...\nEnjoy!");
+        Game.PressContinue();
+        PazPlayerTurns(player, PlayerDealt, CompDealt);
 
 
 
@@ -315,15 +319,22 @@ public class Casino
     }
 
 
-    public static void PazStandorNot(Player player, List<string>PlayerDealt)
+    public static void PazStandorNot(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
-        Console.WriteLine("These are the currently dealt cards;");
+        Console.Clear();
+        var pTotal = Cards.PazTotal(player, PlayerDealt);
+        var cTotal = Cards.PazTotal(player, CompDealt);
+        Game.Dialog($"|| {player.Name}'s Total = {pTotal} || <-> || Opponent's Total = {cTotal} ||");
+        Console.WriteLine("\n\nThese are the currently dealt card(s);");
+        Console.ForegroundColor= ConsoleColor.Green;
         foreach(var p in PlayerDealt)
         {
-            Game.Dialog($"| {p} ", "green");
+            Console.Write($"| {p} ");
         }
-        Game.Dialog($"|", "green");
-
+        Console.Write($"|");
+        Console.ResetColor();
+        
+        
         Game.Dialog("\n\nWould you like to Continue drawing cards or Stand at this amount?", "blue");
         Console.Write("\n1) Continue\n2) Stand\nResponse: ");
         
@@ -331,27 +342,27 @@ public class Casino
         input = Convert.ToString(input);
         if(input == "1")
         {
-            PazPlayerTurns(player, PlayerDealt);
+            PazPlayerTurns(player, PlayerDealt, CompDealt);
             
         }
         else if(input == "2") 
         {
-            PazStand(player, PlayerDealt);
+            PazStand(player, PlayerDealt, CompDealt);
            
         }
         else
         {
             Console.WriteLine("Please enter a valid response");
-            PazStandorNot(player, PlayerDealt);
+            PazStandorNot(player, PlayerDealt, CompDealt);
         }
 
     }
 
-    public static void PazPlayerTurns(Player player, List<string>PlayerDealt)
+    public static void PazPlayerTurns(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
         var p1c1 = Cards.PazaakDealCards();
         PlayerDealt.Add(p1c1);
-        PazStandorNot(player, PlayerDealt);
+        PazStandorNot(player, PlayerDealt, CompDealt);
 
 
 
@@ -363,15 +374,17 @@ public class Casino
 
     }
 
-    public static void PazStand(Player player, List<string>PlayerDealt)
+    public static void PazStand(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
         Console.WriteLine("You stand at the current cards of ");
+        Console.ForegroundColor= ConsoleColor.Green;
         foreach(var p in PlayerDealt)
         {
-            Game.Dialog($"| {p} ", "green");
+            Console.Write($"| {p} ");
         }
-        Game.Dialog("|", "green");
-        var playerTotal = Cards.PazTotal(PlayerDealt, player);
+        Game.Dialog("|");
+        Console.ResetColor();
+        var playerTotal = Cards.PazTotal(player, PlayerDealt);
         Console.Write("This totals ");
         Game.Dialog($"{playerTotal}", "blue");
 
