@@ -170,8 +170,9 @@ public class Game
         Title.CasinoTitle();
         Console.WriteLine("\nWelcome to the Casino!");
         Console.WriteLine("\nCurrently our poker tables are closed for an upcoming tournament.");
-        Console.WriteLine("You can, however, test your luck at the slot machines or the blackjack table.");
-        Console.Write("\nWhich would you like to try?\n1) Slot Machines\n2) BlackJack\n3) Exit\n\nResponse: ");
+        Console.WriteLine("You could test your luck at the slot machines or the blackjack table.");
+        Dialog("\nWhich would you like to try?", "blue");
+        Console.Write("\n1) Slot Machines\n2) BlackJack\n3) Exit\n\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if (input == "1") 

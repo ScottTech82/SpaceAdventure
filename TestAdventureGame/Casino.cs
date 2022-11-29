@@ -30,7 +30,7 @@ public class Casino
 
     public static void CasinoSlots(Player player)
     {
-        //add in bet amounts and track in variables
+       
         Console.WriteLine("You enter and read the sign.. \"Casino Slot Machines!\"" +
             "\nWe currently have two levels. The beginner level with 3 reels, and the expert with 5 reels");
         Console.Write("\nWhich would you like to play today?" +
@@ -57,10 +57,6 @@ public class Casino
         }
     }
 
-
-
-     //Need a method that allows the dealer to take another card if below a certain level,
-    //but maybe, have it randomly choose, so the dealer isnt always super good?
 
 
     public static void PlayBlackJack(Player player)
