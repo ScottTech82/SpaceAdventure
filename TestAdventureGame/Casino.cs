@@ -328,7 +328,7 @@ public class Casino
         }
         else if(input == "2") 
         {
-            PazStand(player);
+            PazStand(player, PlayerDealt);
            
         }
         else
@@ -355,7 +355,7 @@ public class Casino
 
     }
 
-    public static void PazStand(Player player)
+    public static void PazStand(Player player, List<string>PlayerDealt)
     {
 
     }
