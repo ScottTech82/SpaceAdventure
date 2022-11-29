@@ -365,7 +365,15 @@ public class Casino
 
     public static void PazStand(Player player, List<string>PlayerDealt)
     {
-
+        Console.WriteLine("You stand at the current cards of ");
+        foreach(var p in PlayerDealt)
+        {
+            Game.Dialog($"| {p} ", "green");
+        }
+        Game.Dialog("|", "green");
+        var playerTotal = Cards.PazTotal(PlayerDealt, player);
+        Console.Write("This totals ");
+        Game.Dialog($"{playerTotal}", "blue");
 
     }
 

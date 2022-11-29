@@ -346,13 +346,66 @@ public class Cards
     }
 
 
+    public static int PazTotal(List<string> Dealt, Player player)
+    {
+
+        List<int> calc = new List<int>();
+
+        foreach (var card in Dealt)
+        {
+            switch (card)
+            {
+                case "1":
+                    calc.Add(1);
+                    break;
+                case "2":
+                    calc.Add(2);
+                    break;
+                case "3":
+                    calc.Add(3);
+                    break;
+                case "4":
+                    calc.Add(4);
+                    break;
+                case "5":
+                    calc.Add(5);
+                    break;
+                case "6":
+                    calc.Add(6);
+                    break;
+                case "7":
+                    calc.Add(7);
+                    break;
+                case "8":
+                    calc.Add(8);
+                    break;
+                case "9":
+                    calc.Add(9);
+                    break;
+                case "10":
+                    calc.Add(10);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        var dealtTotal = 0;
+        foreach (var c in calc)
+        {
+            dealtTotal += c;
+        }
+        return dealtTotal;
+
+    }
 
 
 
 
 
 
-//Previously tried solutions, I like the current one the best.
+    //Previously tried solutions, I like the current one the best.
 
     /* Didnt work, tried array in an array, or jaggedarray. But I should be able to do it with just 
          * two different arrays, one for suit one for cards and put them together in the return.
@@ -371,18 +424,18 @@ public class Cards
     //unicode hex is Heart = 2665, Diamond = 2666, Spade = 2660, Club = 2663, must use '\uXXXX' to print char to console.
     //didnt work, could not return char.  copy & paste the symbol as a string instead.
     //separating the suit and card number since the calculation was not reading correctly.
-/*
-public static string BlackJackDeck()
-{
-    string[] cards = new string[] { "\U0001F0A1", "\U0001F0A2", "\U0001F0A3", "\U0001F0A4", "\U0001F0A5", "\U0001F0A6",
-    "\U0001F0A7", "\U0001F0A8", "\U0001F0A9", "\U0001F0AA", "\U0001F0AB", "\U0001F0AC", "\U0001F0AD", "\U0001F0AE" };
-    Random random = new Random();
-    Thread.Sleep(500);
-    var xxr = random.Next(0, 13);
-    var card = cards[xxr];
-    return card;
-}
-*/
+    /*
+    public static string BlackJackDeck()
+    {
+        string[] cards = new string[] { "\U0001F0A1", "\U0001F0A2", "\U0001F0A3", "\U0001F0A4", "\U0001F0A5", "\U0001F0A6",
+        "\U0001F0A7", "\U0001F0A8", "\U0001F0A9", "\U0001F0AA", "\U0001F0AB", "\U0001F0AC", "\U0001F0AD", "\U0001F0AE" };
+        Random random = new Random();
+        Thread.Sleep(500);
+        var xxr = random.Next(0, 13);
+        var card = cards[xxr];
+        return card;
+    }
+    */
 
     //the odds of randomly selecting the same number from the same array is slim, but possible.
     //need to think of a way to prevent this?
