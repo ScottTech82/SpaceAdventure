@@ -317,8 +317,16 @@ public class Casino
 
     public static void PazStandorNot(Player player, List<string>PlayerDealt)
     {
-        Game.Dialog("\nWould you like to Continue drawing cards or Stand at this amount?", "blue");
+        Console.WriteLine("These are the currently dealt cards;");
+        foreach(var p in PlayerDealt)
+        {
+            Game.Dialog($"| {p} ", "green");
+        }
+        Game.Dialog($"|", "green");
+
+        Game.Dialog("\n\nWould you like to Continue drawing cards or Stand at this amount?", "blue");
         Console.Write("\n1) Continue\n2) Stand\nResponse: ");
+        
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if(input == "1")
@@ -339,10 +347,10 @@ public class Casino
 
     }
 
-    public static void PazPlayerTurns(Player player, List<string>PDealt)
+    public static void PazPlayerTurns(Player player, List<string>PlayerDealt)
     {
         var p1c1 = Cards.PazaakDealCards();
-        List<string> PlayerDealt = new List<string> { p1c1 };
+        PlayerDealt.Add(p1c1);
         PazStandorNot(player, PlayerDealt);
 
 
@@ -357,6 +365,7 @@ public class Casino
 
     public static void PazStand(Player player, List<string>PlayerDealt)
     {
+
 
     }
 
