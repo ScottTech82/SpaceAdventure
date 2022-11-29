@@ -299,6 +299,42 @@ public class Casino
         }
 
     }
+
+
+    public static void PlayPazaak()
+    {
+
+
+
+        var p1c1 = Cards.PazaakDealCards();
+
+
+
+    }
+
+
+    public static void PazStandorNot()
+    {
+        Game.Dialog("\nWould you like to Continue drawing cards or Stand at this amount?", "blue");
+        Console.Write("\n1) Continue\n2) Stand\nResponse: ");
+        var input = Console.ReadLine();
+        input = Convert.ToString(input);
+        if(input == "1")
+        {
+
+        }
+        else if(input == "2") 
+        {
+
+        }
+        else
+        {
+            Console.WriteLine("Please enter a valid response");
+            PazStandorNot();
+        }
+
+    }
+
 }
 
 
