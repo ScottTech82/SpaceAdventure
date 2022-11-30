@@ -325,7 +325,8 @@ public class Casino
         var pTotal = Cards.PazTotal(player, PlayerDealt);
         var cTotal = Cards.PazTotal(player, CompDealt);
         Game.Dialog($"|| {player.Name}'s Total = {pTotal} || <-> || Opponent's Total = {cTotal} ||");
-        Console.WriteLine("\n\nThese are the currently dealt card(s);");
+        Console.WriteLine($"\n\nThese are the currently dealt card(s): ");
+        Game.Dialog($"{player.Name}", "darkgreen");
         Console.ForegroundColor= ConsoleColor.Green;
         foreach(var p in PlayerDealt)
         {
@@ -333,8 +334,17 @@ public class Casino
         }
         Console.Write($"|");
         Console.ResetColor();
-        
-        
+
+        Game.Dialog($"Opponent", "darkgreen");
+        Console.ForegroundColor = ConsoleColor.Green;
+        foreach (var c in CompDealt)
+        {
+            Console.Write($"| {c} ");
+        }
+        Console.Write($"|");
+        Console.ResetColor();
+
+
         Game.Dialog("\n\nWould you like to Continue drawing cards or Stand at this amount?", "blue");
         Console.Write("\n1) Continue\n2) Stand\nResponse: ");
         
@@ -376,7 +386,12 @@ public class Casino
 
     public static void PazStand(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
-        Console.WriteLine("You stand at the current cards of ");
+        Console.Clear();
+        var pTotal = Cards.PazTotal(player, PlayerDealt);
+        var cTotal = Cards.PazTotal(player, CompDealt);
+        Game.Dialog($"|| {player.Name}'s Total = {pTotal} || <-> || Opponent's Total = {cTotal} ||");
+
+        Console.WriteLine("You stand at the current cards of: ");
         Console.ForegroundColor= ConsoleColor.Green;
         foreach(var p in PlayerDealt)
         {
@@ -384,11 +399,11 @@ public class Casino
         }
         Game.Dialog("|");
         Console.ResetColor();
-        var playerTotal = Cards.PazTotal(player, PlayerDealt);
-        Console.Write("This totals ");
-        Game.Dialog($"{playerTotal}", "blue");
+
 
     }
+
+    
 
 }
 
