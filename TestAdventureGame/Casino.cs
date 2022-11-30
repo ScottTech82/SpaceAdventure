@@ -308,25 +308,23 @@ public class Casino
         List<string> PlayerDealt = new List<string>();
         List<string> CompDealt= new List<string>();
         Console.WriteLine("Welcome to the secret underground game of Pazaak!");
-        Console.WriteLine("\nThis game was brought here by a vistor from what they described as a galaxy, far, far away...\nEnjoy!");
+        Console.WriteLine("\nThis game was brought here by a vistor from what they described as a galaxy, far, far away...\n\nEnjoy!");
         Game.PressContinue();
-        PazPlayerTurns(player, PlayerDealt, CompDealt);
-
-
+        PazPlayerCard(player, PlayerDealt, CompDealt);
 
 
 
     }
 
 
-    public static void PazStandorNot(Player player, List<string>PlayerDealt, List<string>CompDealt)
+    public static void PazGamePlay(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
         Console.Clear();
         var pTotal = Cards.PazTotal(player, PlayerDealt);
         var cTotal = Cards.PazTotal(player, CompDealt);
         Game.Dialog($"|| {player.Name}'s Total = {pTotal} || <-> || Opponent's Total = {cTotal} ||");
-        Console.WriteLine($"\n\nThese are the currently dealt card(s): ");
-        Game.Dialog($"{player.Name}", "darkgreen");
+        Console.WriteLine($"\n\nThis is what is currently dealt to each player.");
+        Game.Dialog($"{player.Name}: ");
         Console.ForegroundColor= ConsoleColor.Green;
         foreach(var p in PlayerDealt)
         {
@@ -335,7 +333,7 @@ public class Casino
         Console.Write($"|");
         Console.ResetColor();
 
-        Game.Dialog($"Opponent", "darkgreen");
+        Game.Dialog($"\n\nOpponent: ");
         Console.ForegroundColor = ConsoleColor.Green;
         foreach (var c in CompDealt)
         {
@@ -352,7 +350,7 @@ public class Casino
         input = Convert.ToString(input);
         if(input == "1")
         {
-            PazPlayerTurns(player, PlayerDealt, CompDealt);
+            PazPlayerCard(player, PlayerDealt, CompDealt);
             
         }
         else if(input == "2") 
@@ -363,25 +361,33 @@ public class Casino
         else
         {
             Console.WriteLine("Please enter a valid response");
-            PazStandorNot(player, PlayerDealt, CompDealt);
+            PazGamePlay(player, PlayerDealt, CompDealt);
+        }
+
+        //here for comp cards.
+        if(cTotal < 16)
+        {
+            PazCompCard(player, PlayerDealt, CompDealt);
+        }
+        else
+        {
+            PazCompStand();
         }
 
     }
 
-    public static void PazPlayerTurns(Player player, List<string>PlayerDealt, List<string>CompDealt)
+    public static void PazPlayerCard(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
-        var p1c1 = Cards.PazaakDealCards();
-        PlayerDealt.Add(p1c1);
-        PazStandorNot(player, PlayerDealt, CompDealt);
-
-
-
+        var p = Cards.PazaakDealCards();
+        PlayerDealt.Add(p);
+        PazGamePlay(player, PlayerDealt, CompDealt);
     }
 
-    public static void PazCompTurns()
+    public static void PazCompCard(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
-
-
+        var c = Cards.PazaakDealCards();
+        CompDealt.Add(c);
+        PazGamePlay(player, PlayerDealt, CompDealt);
     }
 
     public static void PazStand(Player player, List<string>PlayerDealt, List<string>CompDealt)
@@ -400,9 +406,15 @@ public class Casino
         Game.Dialog("|");
         Console.ResetColor();
 
+        Console.Write("\n\nYour Opponent ");
+        PazCompCard(player, PlayerDealt, CompDealt);
 
     }
 
+    public static void PazCompStand()
+    {
+
+    }
     
 
 }
