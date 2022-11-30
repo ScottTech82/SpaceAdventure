@@ -320,11 +320,10 @@ public class Casino
     public static void PazGamePlay(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
         Console.Clear();
-        var pTotal = Cards.PazTotal(player, PlayerDealt);
-        var cTotal = Cards.PazTotal(player, CompDealt);
-        Game.Dialog($"|| {player.Name}'s Total = {pTotal} || <-> || Opponent's Total = {cTotal} ||");
+        PazTotalTitle(player, PlayerDealt, CompDealt);
+
         Console.WriteLine($"\n\nThis is what is currently dealt to each player.");
-        Game.Dialog($"{player.Name}: ");
+        Game.Dialog($"\n{player.Name}: ");
         Console.ForegroundColor= ConsoleColor.Green;
         foreach(var p in PlayerDealt)
         {
@@ -351,12 +350,27 @@ public class Casino
         if(input == "1")
         {
             PazPlayerCard(player, PlayerDealt, CompDealt);
-            
+            if (cTotal < 16)
+            {
+                PazCompCard(player, PlayerDealt, CompDealt);
+            }
+            else
+            {
+                PazCompStand();
+            }
         }
         else if(input == "2") 
         {
             PazStand(player, PlayerDealt, CompDealt);
-           
+            if (cTotal < 16)
+            {
+                PazCompCard(player, PlayerDealt, CompDealt);
+            }
+            else
+            {
+                PazCompStand();
+            }
+
         }
         else
         {
@@ -364,15 +378,7 @@ public class Casino
             PazGamePlay(player, PlayerDealt, CompDealt);
         }
 
-        //here for comp cards.
-        if(cTotal < 16)
-        {
-            PazCompCard(player, PlayerDealt, CompDealt);
-        }
-        else
-        {
-            PazCompStand();
-        }
+
 
     }
 
@@ -393,9 +399,7 @@ public class Casino
     public static void PazStand(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
         Console.Clear();
-        var pTotal = Cards.PazTotal(player, PlayerDealt);
-        var cTotal = Cards.PazTotal(player, CompDealt);
-        Game.Dialog($"|| {player.Name}'s Total = {pTotal} || <-> || Opponent's Total = {cTotal} ||");
+        PazTotalTitle(player, PlayerDealt, CompDealt);
 
         Console.WriteLine("You stand at the current cards of: ");
         Console.ForegroundColor= ConsoleColor.Green;
@@ -406,15 +410,41 @@ public class Casino
         Game.Dialog("|");
         Console.ResetColor();
 
-        Console.Write("\n\nYour Opponent ");
-        PazCompCard(player, PlayerDealt, CompDealt);
+        Console.Write("\n\nYour Opponents cards: ");
+        
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        foreach (var c in CompDealt)
+        {
+            Console.Write($"| {c} ");
+        }
+        Console.Write($"|");
+        Console.ResetColor();
 
     }
 
-    public static void PazCompStand()
+    public static void PazTotalTitle(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
-
+        var pTotal = Cards.PazTotal(player, PlayerDealt);
+        var cTotal = Cards.PazTotal(player, CompDealt);
+        Game.Dialog($"|| {player.Name}'s Total = {pTotal} || <-> || Opponent's Total = {cTotal} ||");
     }
+
+
+    public static void PazCompTurn(Player player, List<string> PlayerDealt, List<string>CompDealt)
+    {
+        var cTotal = Cards.PazTotal(player, CompDealt);
+
+        if (cTotal < 16)
+        {
+            PazCompCard(player, PlayerDealt, CompDealt);
+        }
+        else
+        {
+            PazGamePlay(player, PlayerDealt, CompDealt);
+        }
+    }
+    
     
 
 }
