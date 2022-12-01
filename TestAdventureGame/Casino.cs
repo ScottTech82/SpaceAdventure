@@ -307,8 +307,12 @@ public class Casino
         //need to get new cards if they do not stand.  If they stand, no new cards but other player gets new cards.
         List<string> PlayerDealt = new List<string>();
         List<string> CompDealt= new List<string>();
-        Console.WriteLine("Welcome to the secret underground game of Pazaak!");
-        Console.WriteLine("\nThis game was brought here by a vistor, from what they described as a galaxy, far, far away...\n\nEnjoy!");
+        Game.Dialog("Welcome to the secret underground game of Pazaak!", "green");
+        Game.Dialog("\nThis game was brought here by a vistor, from what they described as a galaxy, far, far away...");
+        Game.Dialog("\n\nAnyway, the rules are simple. Get 20 points without going over.  " +
+            "\nThe dealer deals a new card to you each turn unless you stand.  Your opponent can continue to draw until they stand." +
+            "\nThe person with the highest total without going over wins the round. Win 3 rounds and you win the match.");
+        Game.Dialog("\nThere is a side deck of 4 cards randomly drawn that you can use to raise or lower your total.");
         player.PazStand = false;
         player.PazCompStand= false;
         player.PazT1Card= false;
@@ -361,11 +365,13 @@ public class Casino
 
     public static void PazPlayerTurn(Player player, List<string>PlayerDealt, List<string>CompDealt)
     {
-        if(PlayerDealt.Count == 0) 
+        if(PlayerDealt.Count == 0 && CompDealt.Count == 0) 
         {
             PazPlayerCard(player, PlayerDealt, CompDealt);
+            PazCompCard(player, PlayerDealt, CompDealt);
             PazGamePlay(player, PlayerDealt, CompDealt);
         }
+        
         Game.Dialog("\n\nWould you like to Continue drawing cards or Stand at this amount?", "blue");
         Console.Write("\n1) Continue\n2) Stand\nResponse: ");
 
@@ -421,14 +427,14 @@ public class Casino
         else if(cTotal >= 16 && player.PazCompStand == false && player.PazStand == false)
         {
             player.PazCompStand = true;
-            Console.WriteLine($"Your oppenent has decided to stand at {cTotal}");
+            Console.WriteLine($"\nYour oppenent has decided to stand at {cTotal}");
             Game.PressContinue();
             PazGamePlay(player, PlayerDealt, CompDealt);
         }
         else if (cTotal >= 16 && player.PazCompStand == false && player.PazStand == true)
         {
             player.PazCompStand = true;
-            Console.WriteLine($"Your oppenent has decided to stand at {cTotal}");
+            Console.WriteLine($"\nYour oppenent has decided to stand at {cTotal}");
             Game.PressContinue();
             PazStand(player, PlayerDealt, CompDealt);
         }
@@ -499,25 +505,25 @@ public class Casino
         var cTotal = Cards.PazTotal(player, CompDealt);
         if (pTotal > 20)
         {
-            Console.WriteLine("You bust by going over 20 total points!");
+            Console.WriteLine("\n\nYou bust by going over 20 total points!");
             Game.PressContinue();
             Game.CasinoOptions(player);
         }
         else if (cTotal > 20)
         {
-            Console.WriteLine("Your opponent has busted by going over 20 total points. You Win!!");
+            Console.WriteLine("\n\nYour opponent has busted by going over 20 total points. You Win!!");
             Game.PressContinue();
             Game.CasinoOptions(player);
         }
         else if (pTotal > cTotal)
         {
-            Console.WriteLine("Your total is higher than your opponents without busting. You WIN!!");
+            Console.WriteLine("\n\nYour total is higher than your opponents without busting. You WIN!!");
             Game.PressContinue();
             Game.CasinoOptions(player);
         }
         else if (pTotal < cTotal)
         {
-            Console.WriteLine("Your Opponent's total is higher than yours. Please try again.");
+            Console.WriteLine("\n\nYour Opponent's total is higher than yours. Please try again.");
             Game.PressContinue();
             Game.CasinoOptions(player);
         }
