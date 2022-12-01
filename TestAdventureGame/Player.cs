@@ -22,6 +22,7 @@ public class Player
     public Player(string Name)
     {
         this.Name = Name;
+        this.PazSideDeck= new List<string>();
        
     }
     

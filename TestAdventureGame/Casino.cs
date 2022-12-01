@@ -313,12 +313,20 @@ public class Casino
             "\nThe dealer deals a new card to you each turn unless you stand.  Your opponent can continue to draw until they stand." +
             "\nThe person with the highest total without going over wins the round. Win 3 rounds and you win the match.");
         Game.Dialog("\nThere is a side deck of 4 cards randomly drawn that you can use to raise or lower your total.");
+        if(player.PazSideDeck.Count == 0)
+        {
+            Game.Dialog("\nYou get a basic side deck for free. You can add to it with better cards as you find them.");
+            player.PazSideDeck.Add("+1");
+            player.PazSideDeck.Add("+2");
+            player.PazSideDeck.Add("+3");
+            player.PazSideDeck.Add("+4");
+            Console.WriteLine("\n***You received the +1, +2, +3, +4 cards in your side deck.***");
+        }
         player.PazStand = false;
         player.PazCompStand= false;
         player.PazT1Card= false;
         var pSideDeck = PazSideDeck(player);
-        Thread.Sleep(500);
-        var cSideDeck = PazSideDeck(player);
+        var cSideDeck = PazCompEasySD();
         Game.PressContinue();
         PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
 
@@ -376,9 +384,16 @@ public class Casino
             PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
 
-        Game.Dialog($"This is your dealt side deck {pSideDeck}");
-        Game.Dialog("\n\nWould you like to Continue drawing cards, Stand at this amount, or use your side deck?", "blue");
-        Console.Write("\n1) Continue\n2) Stand\n3) Side Deck\nResponse: ");
+        Game.Dialog($"\n\n\nThis is your dealt side deck ");
+        Console.ForegroundColor = ConsoleColor.Green;
+        foreach(var c in pSideDeck)
+        {
+            Console.Write($"| {c} ");
+        }
+        Console.Write("|");
+        Console.ResetColor();
+        Game.Dialog("\nWould you like to Continue drawing cards, Stand at this amount, or use your side deck?", "blue");
+        Console.Write("\n1) Continue\n2) Stand\n3) Side Deck\n\nResponse: ");
 
         var input = Console.ReadLine();
         input = Convert.ToString(input);
@@ -558,6 +573,12 @@ public class Casino
         return NewSideDeck;
     }
 
+    //create multiple comp side decks scaled for difficulty
+    public static List<string> PazCompEasySD()
+    {
+        List<string> CompSideDeck = new List<string> { "+1", "+2", "+3", "+5" };
+        return CompSideDeck;
+    }
     
 
 }
