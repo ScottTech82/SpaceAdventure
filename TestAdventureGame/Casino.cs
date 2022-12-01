@@ -316,18 +316,22 @@ public class Casino
         player.PazStand = false;
         player.PazCompStand= false;
         player.PazT1Card= false;
+        var pSideDeck = PazSideDeck(player);
+        Thread.Sleep(500);
+        var cSideDeck = PazSideDeck(player);
         Game.PressContinue();
-        PazGamePlay(player, PlayerDealt, CompDealt);
+        PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
 
 
     }
 
 
-    public static void PazGamePlay(Player player, List<string>PlayerDealt, List<string>CompDealt)
+    public static void PazGamePlay(Player player, List<string>PlayerDealt, List<string>CompDealt, List<string>pSideDeck, List<string>cSideDeck)
     {
         Console.Clear();
         PazTotalTitle(player, PlayerDealt, CompDealt);
 
+        
         Console.WriteLine($"\n\nThese are the cards currently dealt to each player.");
 
         Game.Dialog($"\n{player.Name}: ");
@@ -354,7 +358,7 @@ public class Casino
         //    PazPlayerCard(player, PlayerDealt, CompDealt);
         //}
         //else 
-        PazPlayerTurn(player, PlayerDealt, CompDealt);
+        PazPlayerTurn(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
 
 
         
@@ -363,64 +367,65 @@ public class Casino
 
     }
 
-    public static void PazPlayerTurn(Player player, List<string>PlayerDealt, List<string>CompDealt)
+    public static void PazPlayerTurn(Player player, List<string>PlayerDealt, List<string>CompDealt, List<string>pSideDeck, List<string>cSideDeck)
     {
         if(PlayerDealt.Count == 0 && CompDealt.Count == 0) 
         {
             PazPlayerCard(player, PlayerDealt, CompDealt);
             PazCompCard(player, PlayerDealt, CompDealt);
-            PazGamePlay(player, PlayerDealt, CompDealt);
+            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
-        
-        Game.Dialog("\n\nWould you like to Continue drawing cards or Stand at this amount?", "blue");
-        Console.Write("\n1) Continue\n2) Stand\nResponse: ");
+
+        Game.Dialog($"This is your dealt side deck {pSideDeck}");
+        Game.Dialog("\n\nWould you like to Continue drawing cards, Stand at this amount, or use your side deck?", "blue");
+        Console.Write("\n1) Continue\n2) Stand\n3) Side Deck\nResponse: ");
 
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if (input == "1" && player.PazCompStand == false)
         {
             PazPlayerCard(player, PlayerDealt, CompDealt);
-            PazCompTurn(player, PlayerDealt, CompDealt);
-            PazGamePlay(player, PlayerDealt, CompDealt);
+            PazCompTurn(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
+            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
         else if (input == "1" && player.PazCompStand == true)
         {
             PazPlayerCard(player, PlayerDealt, CompDealt);
-            PazGamePlay(player, PlayerDealt, CompDealt);
+            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
         else if (input == "2" && player.PazCompStand == false)
         {
             Console.WriteLine("\nYou stand with your current total, your opponents turn will continue until they stand.");
             player.PazStand = true;
             Game.PressContinue();
-            PazStand(player, PlayerDealt, CompDealt);
+            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
         else if (input == "2" && player.PazCompStand == true)
         {
             Console.WriteLine("\nYou stand with your current total and your opponent has already decided to stand with their total");
             player.PazStand = true;
             Game.PressContinue();
-            PazStand(player, PlayerDealt, CompDealt);
+            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
         else
         {
             Console.WriteLine("Please enter a valid response");
-            PazPlayerTurn(player, PlayerDealt, CompDealt);
+            PazPlayerTurn(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
     }
 
-    public static void PazCompTurn(Player player, List<string>PlayerDealt, List<string>CompDealt)
+    public static void PazCompTurn(Player player, List<string>PlayerDealt, List<string>CompDealt, List<string>pSideDeck, List<string>cSideDeck)
     {
         var cTotal = Cards.PazTotal(player, CompDealt);
         if (cTotal < 16 && player.PazStand == false)
         {
             PazCompCard(player, PlayerDealt, CompDealt);
-            PazGamePlay(player, PlayerDealt, CompDealt);
+            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
         else if(cTotal < 16 && player.PazStand == true)
         {
             PazCompCard(player, PlayerDealt, CompDealt);
-            PazStand(player, PlayerDealt, CompDealt);
+            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
             //Thinking of just putting PazGamePlayer here with a note that the Opponent stands.
             //but want to only say it once, so maybe create a boolean in the class, set to false default
@@ -429,18 +434,18 @@ public class Casino
             player.PazCompStand = true;
             Console.WriteLine($"\nYour oppenent has decided to stand at {cTotal}");
             Game.PressContinue();
-            PazGamePlay(player, PlayerDealt, CompDealt);
+            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
         else if (cTotal >= 16 && player.PazCompStand == false && player.PazStand == true)
         {
             player.PazCompStand = true;
             Console.WriteLine($"\nYour oppenent has decided to stand at {cTotal}");
             Game.PressContinue();
-            PazStand(player, PlayerDealt, CompDealt);
+            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
         else 
         {
-            PazGamePlay(player, PlayerDealt, CompDealt);
+            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
         
     }
@@ -462,7 +467,7 @@ public class Casino
         //PazGamePlay(player, PlayerDealt, CompDealt);
     }
 
-    public static void PazStand(Player player, List<string>PlayerDealt, List<string>CompDealt)
+    public static void PazStand(Player player, List<string>PlayerDealt, List<string>CompDealt, List<string>pSideDeck, List<string>cSideDeck)
     {
         Console.Clear();
         PazTotalTitle(player, PlayerDealt, CompDealt);
@@ -488,7 +493,7 @@ public class Casino
 
         if(player.PazCompStand == false)
         {
-            PazCompTurn(player, PlayerDealt, CompDealt);
+            PazCompTurn(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
         else
         {
@@ -536,7 +541,22 @@ public class Casino
         Game.Dialog($"|| {player.Name}'s Total = {pTotal} || <-> || Opponent's Total = {cTotal} ||");
     }
 
+    public static List<string> PazSideDeck(Player player)
+    {
+        List<string> NewSideDeck = new List<string>();
+        var count = player.PazSideDeck.Count();
+        while(NewSideDeck.Count < 4 )
+        {
+            Random random = new Random();
+            var r = random.Next(0, count +1);
+            var sidecard = player.PazSideDeck[r];
+            NewSideDeck.Add(sidecard);
+            Thread.Sleep(500);
+        }
 
+
+        return NewSideDeck;
+    }
 
     
 
