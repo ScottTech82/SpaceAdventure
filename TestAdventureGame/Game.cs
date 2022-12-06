@@ -185,7 +185,7 @@ public class Game
         Console.WriteLine("\nCurrently our poker tables are closed for an upcoming tournament.");
         Console.WriteLine("You could test your luck at the slot machines or the blackjack table.");
         Dialog("\nWhich would you like to try?", "blue");
-        Console.Write("\n1) Slot Machines\n2) BlackJack\n3) Exit\n\nResponse: ");
+        Console.Write("\n1) Slot Machines\n2) BlackJack\n3) *New* Pazaak\n4) Exit\n\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
         if (input == "1") 
@@ -200,13 +200,13 @@ public class Game
         }
         else if (input == "3")
         {
-            Console.WriteLine("Ok, please come by later to test your luck. Have a great day!");
-            MainArea(player);
-        }
-        else if (input == "8")
-        {
             Console.Clear();
             Casino.PlayPazaak(player);
+        }
+        else if (input == "4")
+        {
+            Console.WriteLine("Ok, please come by later to test your luck. Have a great day!");
+            MainArea(player);
         }
         else
         {

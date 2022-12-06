@@ -384,13 +384,19 @@ public class Casino
         }
         Console.Write($"|");
         Console.ResetColor();
- 
+
         //if(player.PazT1Card == false)
         //{
         //    player.PazT1Card = true;
         //    PazPlayerCard(player, PlayerDealt, CompDealt);
         //}
         //else 
+        var pTotal = Cards.PazTotal(player, PlayerDealt);
+        var cTotal = Cards.PazTotal(player, CompDealt);
+        if(pTotal > 20 || cTotal > 20)
+        {
+            PazEndGame(player, PlayerDealt, CompDealt, betx, pWins, cWins);
+        }
         PazPlayerTurn(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
 
 
@@ -505,14 +511,14 @@ public class Casino
         else if (cTotal >= 16 && player.PazStand == true && player.PazCompStand == false)
         {
             player.PazCompStand = true;
-            Console.WriteLine($"\n\nYour oppenent has decided to stand at {cTotal}");
+            Console.WriteLine($"\n\nYour opponent has decided to stand at {cTotal}");
             Game.PressContinue();
             PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
         }
         else if(cTotal >= 16 && player.PazStand == false && player.PazCompStand == false)
         {
             player.PazCompStand = true;
-            Console.WriteLine($"\n\nYour oppenent has decided to stand at {cTotal}");
+            Console.WriteLine($"\n\nYour opponent has decided to stand at {cTotal}");
             Game.PressContinue();
             PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
         }
@@ -576,12 +582,12 @@ public class Casino
 
     }
 
-    public static void PazRound(Player player, decimal betx, int pWins, int cWins)
+    public static void PazRound(Player player, List<string>PlayerDealt, List<string>CompDealt, decimal betx, int pWins, int cWins)
     {
-        
+        Console.Clear();
+        PazTotalTitle(player, PlayerDealt, CompDealt, pWins, cWins);
+
         Console.WriteLine("\n\nThe next round will begin shortly, first to win 3 rounds wins the match.");
-        List<string> PlayerDealt = new List<string>();
-        List<string> CompDealt = new List<string>();
 
         player.PazStand = false;
         player.PazCompStand = false;
@@ -589,6 +595,8 @@ public class Casino
 
         var pSideDeck = PazSideDeck(player);
         var cSideDeck = PazCompEasySD();
+        PlayerDealt.Clear();
+        CompDealt.Clear();
 
         Game.PressContinue();
         PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
@@ -611,7 +619,7 @@ public class Casino
             }
             else
             {
-                PazRound(player, betx, pWins, cWins); //should make different method for new round starts.
+                PazRound(player, PlayerDealt, CompDealt, betx, pWins, cWins); //should make different method for new round starts.
             }
             
         }
@@ -626,7 +634,7 @@ public class Casino
             }
             else
             {
-                PazRound(player, betx, pWins, cWins); //should make different method for new round starts.
+                PazRound(player, PlayerDealt, CompDealt, betx, pWins, cWins); //should make different method for new round starts.
             }
            
         }
@@ -641,7 +649,7 @@ public class Casino
             }
             else
             {
-                PazRound(player, betx, pWins, cWins); //should make different method for new round starts.
+                PazRound(player, PlayerDealt, CompDealt, betx, pWins, cWins); //should make different method for new round starts.
             }
         }
         else if (pTotal < cTotal)
@@ -655,7 +663,7 @@ public class Casino
             }
             else
             {
-                PazRound(player, betx, pWins, cWins); //should make different method for new round starts.
+                PazRound(player, PlayerDealt, CompDealt, betx, pWins, cWins); //should make different method for new round starts.
             }
         }
     }
@@ -692,7 +700,7 @@ public class Casino
         var pWin = PazTitleWins(pWins);
         var cWin = PazTitleWins(cWins); 
 
-        Game.Dialog($"||   {player.Name}'s Total = {pTotal}   || {pWin}  <- Wins ->  {cWin} ||   Opponent's Total = {cTotal}   ||");
+        Game.Dialog($"||   {player.Name}'s Total = {pTotal}   || {pWin} <- Wins -> {cWin} ||   Opponent's Total = {cTotal}   ||");
         
     }
 
