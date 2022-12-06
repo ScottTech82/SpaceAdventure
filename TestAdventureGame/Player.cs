@@ -12,7 +12,7 @@ public class Player
     public static decimal PlayerCredits { get; set; }
     public string? PlayerShip { get; set; }
     public string? ShipStats { get; set; }
-
+    public bool visitPazaak { get; set; } = false;
     public List<string> PazSideDeck { get; set; }
     public bool? PazT1Card { get; set; }
     public bool? PazStand { get; set; }

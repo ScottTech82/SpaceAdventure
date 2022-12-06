@@ -143,7 +143,7 @@ public class Game
         }
         else
         {
-            Console.WriteLine("Welcome back to the Ship Bazaar.");
+            Console.WriteLine($"Welcome back to the Ship Bazaar {player.Name}.");
         }
         Game.Dialog("\nWhich ship would you like to view?", "blue");
         Console.Write("\n1) The SS V-wing\n2) The SS Falcon\n3) The SS Leviathan\n4) Exit back to main hub\n\nResponse: ");
@@ -249,6 +249,12 @@ public class Game
                 break;
             case "darkgreen":
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
+                break;
+            case "gray":
+                Console.ForegroundColor = ConsoleColor.Gray;
+                break;
+            case "darkcyan":
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
                 break;
             default:
                 Console.ForegroundColor = ConsoleColor.White;

@@ -309,18 +309,39 @@ public class Casino
         List<string> CompDealt= new List<string>();
         Game.Dialog("Welcome to the secret underground game of Pazaak!", "green");
         Game.Dialog("\nThis game was brought here by a vistor, from what they described as a galaxy, far, far away...");
-        Game.Dialog("\n\nAnyway, the rules are simple. Get 20 points without going over.  " +
-            "\nThe dealer deals a new card to you each turn unless you stand.  Your opponent can continue to draw until they stand." +
-            "\nThe person with the highest total without going over wins the round. Win 3 rounds and you win the match.");
-        Game.Dialog("\nThere is a side deck of 4 cards randomly drawn that you can use to raise or lower your total.");
-        if(player.PazSideDeck.Count == 0)
+        if(player.visitPazaak == false)
         {
-            Game.Dialog("\nYou get a basic side deck for free. You can add to it with better cards as you find them.");
-            player.PazSideDeck.Add("+1");
-            player.PazSideDeck.Add("+2");
-            player.PazSideDeck.Add("+3");
-            player.PazSideDeck.Add("+4");
-            Console.WriteLine("\n***You received the +1, +2, +3, +4 cards in your side deck.***");
+            Game.Dialog("\n\nAnyway, the rules are simple. Get 20 points without going over.  " +
+                "\nThe dealer deals a new card to you each turn unless you stand.  Your opponent can continue to draw until they stand." +
+                "\nThe person with the highest total without going over wins the round. Win 3 rounds and you win the match.");
+            Game.Dialog("\nThere is a side deck of 4 cards randomly drawn that you can use to raise or lower your total.");
+            player.visitPazaak = true;
+            if(player.PazSideDeck.Count == 0)
+            {
+                Game.Dialog("\nYou get a basic side deck for free. You can add to it with better cards as you find them.");
+                player.PazSideDeck.Add("+1");
+                player.PazSideDeck.Add("+2");
+                player.PazSideDeck.Add("+3");
+                player.PazSideDeck.Add("+4");
+                Console.WriteLine("\n***You received the +1, +2, +3, +4 cards in your side deck.***");
+            }
+
+        }
+        else
+        {
+            Game.Dialog($"\n\nHi {player.Name}, Do you want to hear the rules again?", "darkcyan");
+            Console.Write("\n1) Yes\n2) No\nResponse: ");
+            var input = Console.ReadLine();
+            input = Convert.ToString(input);
+            if(input == "1")
+            {
+                Game.Dialog("\n\nBasically get 20 points without going over." +
+                    "\nThe dealer deals a new card to you each turn unless you stand.  Your opponent can continue to draw until they stand." +
+                    "\nThe person with the highest total without going over wins the round. Win 3 rounds and you win the match.", "darkcyan");
+                Game.Dialog("\n\nThere is also a side deck of 4 cards randomly drawn that you can use to raise or lower your total " +
+                    "depending on what cards you have.", "darkcyan");
+            }
+
         }
         player.PazStand = false;
         player.PazCompStand= false;
@@ -392,7 +413,7 @@ public class Casino
         }
         Console.Write("|");
         Console.ResetColor();
-        Game.Dialog("\nWould you like to Continue drawing cards, Stand at this amount, or use your side deck?", "blue");
+        Game.Dialog("\n\nWould you like to Continue drawing cards, Stand at this amount, or use your side deck?", "blue");
         Console.Write("\n1) Continue\n2) Stand\n3) Side Deck\n\nResponse: ");
 
         var input = Console.ReadLine();
