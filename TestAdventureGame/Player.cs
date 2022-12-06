@@ -18,7 +18,9 @@ public class Player
     public bool? PazStand { get; set; }
     public bool? PazCompStand { get; set; }
 
-    
+    public bool visitShipBazaar { get; set; } = false;
+
+
     public Player(string Name)
     {
         this.Name = Name;

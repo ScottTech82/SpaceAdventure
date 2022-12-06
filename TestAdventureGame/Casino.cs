@@ -563,7 +563,7 @@ public class Casino
         while(NewSideDeck.Count < 4 )
         {
             Random random = new Random();
-            var r = random.Next(0, count +1);
+            var r = random.Next(0, count);
             var sidecard = player.PazSideDeck[r];
             NewSideDeck.Add(sidecard);
             Thread.Sleep(500);
