@@ -45,11 +45,18 @@ public class Items
  
         Game.Dialog($"{VwingStats}\nCost: 500 Credits");
 
-        if (Player.PlayerCredits < 500)
+        if (Player.PlayerCredits < 500 && player.PlayerShip == null)
         {
             Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
             Game.PressContinue();
             Game.ShipBazaar(player);
+        }
+        else if (Player.PlayerCredits < 500 && player.PlayerShip != null)
+        {
+            Console.Clear();
+            Console.WriteLine($"You already have a space ship in the hangar, you will have to go sell your current ship before purchasing a new one.");
+            Console.WriteLine("Please come back when you have an empty hangar.");
+            Player.SellShip(player);
         }
         else
         {
@@ -95,11 +102,18 @@ public class Items
         Game.Dialog(Falcon, "darkmagenta");
         
         Game.Dialog($"{FalconStats}\nCost: 250 Credits");
-        if (Player.PlayerCredits < 250)
+        if (Player.PlayerCredits < 250 && player.PlayerShip == null)
         {
             Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
             Game.PressContinue();
             Game.ShipBazaar(player);
+        }
+        else if(Player.PlayerCredits < 250 && player.PlayerShip != null)
+        {      
+                Console.Clear();
+                Console.WriteLine($"You already have a space ship in the hangar, you will have to go sell your current ship before purchasing a new one.");
+                Console.WriteLine("Please come back when you have an empty hangar.");
+                Player.SellShip(player);
         }
         else
         {
@@ -149,11 +163,18 @@ public class Items
         
         Game.Dialog($"{LevStats}\nCost: 1150 Credits");
 
-        if (Player.PlayerCredits < 1150)
+        if (Player.PlayerCredits < 1150 && player.PlayerShip == null)
         {
             Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
             Game.PressContinue();
             Game.ShipBazaar(player);
+        }
+        else if (Player.PlayerCredits < 1150 && player.PlayerShip != null)
+        {
+            Console.Clear();
+            Console.WriteLine($"You already have a space ship in the hangar, you will have to go sell your current ship before purchasing a new one.");
+            Console.WriteLine("Please come back when you have an empty hangar.");
+            Player.SellShip(player);
         }
         else
         {
