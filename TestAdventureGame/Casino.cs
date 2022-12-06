@@ -441,7 +441,21 @@ public class Casino
         }
         else if (input == "3" && player.PazCompStand == false) 
         {
-            Console.WriteLine("\nWhich card do you want to use?", "blue");
+            var selectCard = UsePazSD(player);
+                //getting the input index for the list.
+
+            if(psd == null) 
+            {
+                Console.WriteLine("Please enter a valid response");
+            }
+            else
+            {
+                
+
+            }
+
+            //psd is the chosen index or idx +1. Have to convert that back to the index to read the card
+            //need a method with switch statement, pass in psd and return card
 
 
         }
@@ -602,6 +616,35 @@ public class Casino
         return CompSideDeck;
     }
     
+
+    public static int UsePazSD(Player player)
+    {
+        Console.WriteLine("\nWhich card would you like to use?", "blue");
+        foreach (var c in player.PazSideDeck)
+        {
+            int idx = player.PazSideDeck.IndexOf(c) + 1;
+            Console.Write($"\n{idx}) | {c} |");
+        }
+        Console.Write("\nResponse: ");
+        var psd = Console.ReadLine();
+        psd = Convert.ToString(psd);
+        if(psd != null)
+        {
+            var inputIdx = Cards.GetPazSDIndex(psd);
+            if(inputIdx == -1) 
+            {
+                Console.WriteLine("Please enter a valid response");
+                UsePazSD(player);
+            }
+            return inputIdx;
+        }
+        else
+        {
+            Console.WriteLine("Please enter a valid response");
+            UsePazSD(player);
+        }
+        return 0;
+    }
 
 }
 

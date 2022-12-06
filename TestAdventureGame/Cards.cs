@@ -401,7 +401,59 @@ public class Cards
     }
 
 
+    public static int GetPazSDIndex(string psd)
+    {
+        
+        switch(psd)
+        {
+            case "1":
+                return 1 -1;             
+            case "2":
+                return 2 -1;
+            case "3":
+                return 3 -1;            
+            case "4":
+                return 4 -1;
+            case "5":
+                return 5 -1;
+            case "6":
+                return 6 -1;            
+            case "7":
+                return 7 -1;             
+            case "8":
+                return 8 -1;
+            case "9":
+                return 9 -1;            
+            case "10":
+                return 10 -1;
+            case "11":
+                return 11 -1;
+            case "12":
+                return 12 -1;            
+            case "13":
+                return 13 -1;             
+            case "14":
+                return 14 -1;
+            case "15":
+                return 15 -1;            
+            case "16":
+                return 16 -1;
+            case "17":
+                return 17 -1;
+            case "18":
+                return 18 -1;            
+            case "19":
+                return 19 -1;             
+            case "20":
+                return 20 -1;
 
+            default: return -1;
+
+        }
+
+        
+
+    }
 
 
 
