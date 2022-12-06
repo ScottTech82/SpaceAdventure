@@ -441,7 +441,7 @@ public class Casino
         }
         else if (input == "3" && player.PazCompStand == false) 
         {
-            var sdIndex = UsePazSD(player);
+            var sdIndex = UsePazSD(player, pSideDeck);
             //getting the input index for the list.
             var sdCard = player.PazSideDeck.ElementAt(sdIndex);
             //I now have the chosen side deck card in a string format.
@@ -456,7 +456,7 @@ public class Casino
                 Game.PressContinue();
                 PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
             }
-            else if (player.PazCompStand != true)
+            else if (player.PazCompStand == false)
             {
                 PazCompTurn(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
                 PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
@@ -489,14 +489,14 @@ public class Casino
         }
             //Thinking of just putting PazGamePlayer here with a note that the Opponent stands.
             //but want to only say it once, so maybe create a boolean in the class, set to false default
-        else if(cTotal >= 16 && player.PazCompStand == false && player.PazStand == false)
+        else if(cTotal >= 16 && player.PazStand == false && player.PazCompStand == false)
         {
             player.PazCompStand = true;
             Console.WriteLine($"\nYour oppenent has decided to stand at {cTotal}");
             Game.PressContinue();
             PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
-        else if (cTotal >= 16 && player.PazCompStand == false && player.PazStand == true)
+        else if (cTotal >= 16 && player.PazStand == true && player.PazCompStand == false)
         {
             player.PazCompStand = true;
             Console.WriteLine($"\nYour oppenent has decided to stand at {cTotal}");
@@ -505,7 +505,7 @@ public class Casino
         }
         else 
         {
-            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
+            PazEndGame(player, PlayerDealt, CompDealt);
         }
         
     }
@@ -625,12 +625,12 @@ public class Casino
     }
     
 
-    public static int UsePazSD(Player player)
+    public static int UsePazSD(Player player, List<string>pSideDeck)
     {
         Console.WriteLine("\nWhich card would you like to use?", "blue");
-        foreach (var c in player.PazSideDeck)
+        foreach (var c in pSideDeck)
         {
-            int idx = player.PazSideDeck.IndexOf(c) + 1;
+            int idx = pSideDeck.IndexOf(c) + 1;
             Console.Write($"\n{idx}) | {c} |");
         }
         Console.Write("\nResponse: ");
@@ -642,14 +642,14 @@ public class Casino
             if(inputIdx == -1) 
             {
                 Console.WriteLine("Please enter a valid response");
-                UsePazSD(player);
+                UsePazSD(player, pSideDeck);
             }
             return inputIdx;
         }
         else
         {
             Console.WriteLine("Please enter a valid response");
-            UsePazSD(player);
+            UsePazSD(player, pSideDeck);
         }
         return 0;
     }
