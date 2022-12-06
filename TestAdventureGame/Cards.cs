@@ -386,6 +386,38 @@ public class Cards
                     calc.Add(10);
                     break;
 
+                case "+1":
+                    calc.Add(1);
+                    break;
+                case "+2":
+                    calc.Add(2);
+                    break;
+                case "+3":
+                    calc.Add(3);
+                    break;
+                case "+4":
+                    calc.Add(4);
+                    break;
+                case "+5":
+                    calc.Add(5);
+                    break;
+
+                case "-1":
+                    calc.Add(-1);
+                    break;
+                case "-2":
+                    calc.Add(-2);
+                    break;
+                case "-3":
+                    calc.Add(-3);
+                    break;
+                case "-4":
+                    calc.Add(-4);
+                    break;
+                case "-5":
+                    calc.Add(-5);
+                    break;
+
                 default:
                     break;
             }
@@ -403,7 +435,7 @@ public class Cards
 
     public static int GetPazSDIndex(string psd)
     {
-        
+            //need to limit the side deck size to 20.
         switch(psd)
         {
             case "1":

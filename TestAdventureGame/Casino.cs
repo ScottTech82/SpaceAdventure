@@ -441,22 +441,30 @@ public class Casino
         }
         else if (input == "3" && player.PazCompStand == false) 
         {
-            var selectCard = UsePazSD(player);
-                //getting the input index for the list.
+            var sdIndex = UsePazSD(player);
+            //getting the input index for the list.
+            var sdCard = player.PazSideDeck.ElementAt(sdIndex);
+            //I now have the chosen side deck card in a string format.
 
-            if(psd == null) 
+            //add to the player dealt list and calc it later or add that to the total?
+            PlayerDealt.Add(sdCard);
+            var xTotal = Cards.PazTotal(player, PlayerDealt);
+            if(xTotal == 20)
             {
-                Console.WriteLine("Please enter a valid response");
+                player.PazStand = true;
+                Console.WriteLine("Your total equals 20 and you stand automatically");
+                Game.PressContinue();
+                PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
+            }
+            else if (player.PazCompStand != true)
+            {
+                PazCompTurn(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
+                PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
             }
             else
             {
-                
-
+                PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
             }
-
-            //psd is the chosen index or idx +1. Have to convert that back to the index to read the card
-            //need a method with switch statement, pass in psd and return card
-
 
         }
         else
