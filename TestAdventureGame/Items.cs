@@ -44,25 +44,29 @@ public class Items
         Game.Dialog(Vwing, "darkmagenta");
  
         Game.Dialog($"{VwingStats}\nCost: 500 Credits");
-        Game.Dialog("\n\nWould you like to purchase this one?", "blue");
-        Console.Write("\n1) Yes\n2) No\nResponse: ");
-        var input = Console.ReadLine();
-        input = Convert.ToString(input);
-        if(input == "1")
+
+        if (Player.PlayerCredits < 500)
         {
-            if(Player.PlayerCredits < 500)
-            {
-                Game.Dialog("\n\nI'm sorry you dont have enough credits to purchase this ship.", "red");
-                Game.PressContinue();
-                Game.ShipBazaar(player);
-            }
-            Player.AddShip(Vwing, VwingStats, player);
-            Player.RemoveCredits(500, player);
-            Game.MainArea(player);
+            Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
+            Game.PressContinue();
+            Game.ShipBazaar(player);
         }
         else
         {
-        Game.PressContinue();
+            Game.Dialog("\n\nWould you like to purchase this one?", "blue");
+            Console.Write("\n1) Yes\n2) No\nResponse: ");
+            var input = Console.ReadLine();
+            input = Convert.ToString(input);
+            if (input == "1")
+            {
+                Player.AddShip(Vwing, VwingStats, player);
+                Player.RemoveCredits(500, player);
+                Game.MainArea(player);
+            }
+            else
+            {
+                Game.PressContinue();
+            }
         }
     }
     
@@ -87,29 +91,32 @@ public class Items
         string FalconStats = "Attack: 5\nDefense: 8\nSpeed: 8";
 
 
-        Game.Dialog("\n\nThis is the SS Falcon a typical type of ship, with basic abilities.");
+        Game.Dialog("\n\nThis is the SS Falcon a base model ship, with basic stats.");
         Game.Dialog(Falcon, "darkmagenta");
         
         Game.Dialog($"{FalconStats}\nCost: 250 Credits");
-        Game.Dialog("\n\nWould you like to purchase this one?", "blue");
-        Console.Write("\n1) Yes\n2) No\nResponse: ");
-        var input = Console.ReadLine();
-        input = Convert.ToString(input);
-        if (input == "1")
+        if (Player.PlayerCredits < 250)
         {
-            if (Player.PlayerCredits < 250)
-            {
-                Game.Dialog("\n\nI'm sorry you dont have enough credits to purchase this ship.", "red");
-                Game.PressContinue();
-                Game.ShipBazaar(player);
-            }
-            Player.AddShip(Falcon, FalconStats, player);
-            Player.RemoveCredits(250, player);
-            Game.MainArea(player);
+            Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
+            Game.PressContinue();
+            Game.ShipBazaar(player);
         }
         else
         {
-            Game.PressContinue();
+            Game.Dialog("\n\nWould you like to purchase this one?", "blue");
+            Console.Write("\n1) Yes\n2) No\nResponse: ");
+            var input = Console.ReadLine();
+            input = Convert.ToString(input);
+            if (input == "1")
+            {
+                Player.AddShip(Falcon, FalconStats, player);
+                Player.RemoveCredits(250, player);
+                Game.MainArea(player);
+            }
+            else
+            {
+                Game.PressContinue();
+            }
         }
     }
 
@@ -141,25 +148,29 @@ public class Items
         Game.Dialog(Lev, "darkmagenta");
         
         Game.Dialog($"{LevStats}\nCost: 1150 Credits");
-        Game.Dialog("\n\nWould you like to purchase this one?", "blue");
-        Console.Write("\n1) Yes\n2) No\nResponse: ");
-        var input = Console.ReadLine();
-        input = Convert.ToString(input);
-        if (input == "1")
+
+        if (Player.PlayerCredits < 1150)
         {
-            if (Player.PlayerCredits < 1150)
-            {
-                Game.Dialog("\n\nI'm sorry you dont have enough credits to purchase this ship.", "red");
-                Game.PressContinue();
-                Game.ShipBazaar(player);
-            }
-            Player.AddShip(Lev, LevStats, player);
-            Player.RemoveCredits(1150, player);
-            Game.MainArea(player);
+            Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
+            Game.PressContinue();
+            Game.ShipBazaar(player);
         }
         else
         {
-            Game.PressContinue();
+            Game.Dialog("\n\nWould you like to purchase this one?", "blue");
+            Console.Write("\n1) Yes\n2) No\nResponse: ");
+            var input = Console.ReadLine();
+            input = Convert.ToString(input);
+            if (input == "1")
+            {
+                Player.AddShip(Lev, LevStats, player);
+                Player.RemoveCredits(1150, player);
+                Game.MainArea(player);
+            }
+            else
+            {
+                Game.PressContinue();
+            }
         }
     }
 

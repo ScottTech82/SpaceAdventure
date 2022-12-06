@@ -11,6 +11,9 @@ namespace SpaceAdventure;
 
 public class Game
 {
+    
+
+
     static string PlayerName = "";
 
 
@@ -129,11 +132,21 @@ public class Game
     public static void ShipBazaar(Player player)
     {
         Console.Clear();
-        Console.WriteLine("\nYou enter the ship bazaar.  There are traders everywhere selling ship parts, from top of the line\n" +
+        if(player.visitShipBazaar == false)
+        {
+            Console.WriteLine("\nYou enter the ship bazaar.  There are traders everywhere selling ship parts, from top of the line\n" +
             "aftermarket upgrades, to thermal taped components that appear to be barely pieced together.");
-        Thread.Sleep(1000);
-        Console.Write("\nYou find the area selling space ships (thermal tape excluded) and decide to browse available products." +
-            "\n\nWhich ship would you like to view?\n\n1) The SS V-wing\n2) The SS Falcon\n3) The SS Leviathan\n4) Exit back to main hub\n\nResponse: ");
+            Thread.Sleep(1000);
+            Console.WriteLine("\nYou find the area selling space ships (thermal tape excluded) and decide to browse available products.");
+            player.visitShipBazaar = true;
+            Console.WriteLine("Welcome to the Ship Bazaar.");
+        }
+        else
+        {
+            Console.WriteLine("Welcome back to the Ship Bazaar.");
+        }
+        Game.Dialog("\nWhich ship would you like to view?", "blue");
+        Console.Write("\n1) The SS V-wing\n2) The SS Falcon\n3) The SS Leviathan\n4) Exit back to main hub\n\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if(x == "1")
