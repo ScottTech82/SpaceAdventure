@@ -390,10 +390,6 @@ public class Casino
         PazPlayerTurn(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
 
 
-        
-
-
-
     }
 
     public static void PazPlayerTurn(Player player, List<string>PlayerDealt, List<string>CompDealt, List<string>pSideDeck, List<string>cSideDeck)
@@ -442,6 +438,12 @@ public class Casino
             player.PazStand = true;
             Game.PressContinue();
             PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
+        }
+        else if (input == "3" && player.PazCompStand == false) 
+        {
+            Console.WriteLine("\nWhich card do you want to use?", "blue");
+
+
         }
         else
         {
@@ -589,7 +591,6 @@ public class Casino
             NewSideDeck.Add(sidecard);
             Thread.Sleep(500);
         }
-
 
         return NewSideDeck;
     }
