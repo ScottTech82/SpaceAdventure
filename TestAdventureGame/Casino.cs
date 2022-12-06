@@ -361,9 +361,9 @@ public class Casino
         PazTotalTitle(player, PlayerDealt, CompDealt);
 
         
-        Console.WriteLine($"\n\nThese are the cards currently dealt to each player.");
+        //Console.WriteLine($"\n\nThese are the cards currently dealt to each player.");
 
-        Game.Dialog($"\n{player.Name}: ");
+        Game.Dialog($"\n{player.Name}'s Cards: ");
         Console.ForegroundColor= ConsoleColor.Green;
         foreach(var p in PlayerDealt)
         {
@@ -372,7 +372,7 @@ public class Casino
         Console.Write($"|");
         Console.ResetColor();
 
-        Game.Dialog($"\n\nOpponent: ");
+        Game.Dialog($"\n\nOpponent's Cards: ");
         Console.ForegroundColor = ConsoleColor.Green;
         foreach (var c in CompDealt)
         {
@@ -441,10 +441,17 @@ public class Casino
         }
         else if (input == "3" && player.PazCompStand == false) 
         {
+            if(pSideDeck.Count == 0)
+            {
+                Console.WriteLine("You have no cards in your side deck.");
+                PazPlayerTurn(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
+            }
+                //getting the player chosen index for the side deck.
             var sdIndex = UsePazSD(player, pSideDeck);
-            //getting the input index for the list.
-            var sdCard = player.PazSideDeck.ElementAt(sdIndex);
-            //I now have the chosen side deck card in a string format.
+            
+                //I now have the chosen side deck card in a string format.
+            var sdCard = pSideDeck.ElementAt(sdIndex);
+            pSideDeck.RemoveAt(sdIndex); 
 
             //add to the player dealt list and calc it later or add that to the total?
             PlayerDealt.Add(sdCard);
@@ -489,19 +496,19 @@ public class Casino
         }
             //Thinking of just putting PazGamePlayer here with a note that the Opponent stands.
             //but want to only say it once, so maybe create a boolean in the class, set to false default
-        else if(cTotal >= 16 && player.PazStand == false && player.PazCompStand == false)
-        {
-            player.PazCompStand = true;
-            Console.WriteLine($"\nYour oppenent has decided to stand at {cTotal}");
-            Game.PressContinue();
-            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
-        }
         else if (cTotal >= 16 && player.PazStand == true && player.PazCompStand == false)
         {
             player.PazCompStand = true;
-            Console.WriteLine($"\nYour oppenent has decided to stand at {cTotal}");
+            Console.WriteLine($"\n\nYour oppenent has decided to stand at {cTotal}");
             Game.PressContinue();
             PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
+        }
+        else if(cTotal >= 16 && player.PazStand == false && player.PazCompStand == false)
+        {
+            player.PazCompStand = true;
+            Console.WriteLine($"\n\nYour oppenent has decided to stand at {cTotal}");
+            Game.PressContinue();
+            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck);
         }
         else 
         {
@@ -532,8 +539,8 @@ public class Casino
         Console.Clear();
         PazTotalTitle(player, PlayerDealt, CompDealt);
 
-        Console.WriteLine($"\n\nThese are the cards currently dealt to each player.");
-        Game.Dialog($"\n{player.Name}: ");
+        //Console.WriteLine($"\n\nThese are the cards currently dealt to each player.");
+        Game.Dialog($"\n{player.Name}'s Cards: ");
         Console.ForegroundColor = ConsoleColor.Green;
         foreach (var p in PlayerDealt)
         {
@@ -542,7 +549,7 @@ public class Casino
         Console.Write($"|");
         Console.ResetColor();
 
-        Game.Dialog($"\n\nOpponent: ");
+        Game.Dialog($"\n\nOpponent's Cards: ");
         Console.ForegroundColor = ConsoleColor.Green;
         foreach (var c in CompDealt)
         {
