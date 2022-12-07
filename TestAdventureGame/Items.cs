@@ -134,6 +134,26 @@ public class Items
         }
     }
 
+    public static void SS-Base Model (Player player)
+    {
+        Console.Clear();
+        string SS-Basics = @"
+
+
+            /\
+           /  \ 
+      /|xx|\  /|xx|\
+     | |xx|    |xx| |
+      \|YY|    |YY|/
+           \VV/
+
+
+        ";
+
+
+    }
+               
+
 
 
     public static void SSLeviathan (Player player)
