@@ -78,12 +78,26 @@ public class Game
         Title.TradeHubTitle();
         Console.WriteLine("** You are currently in the main hub next to the information booth. **\n");
         Dialog("\nWhere would you like to go?", "blue");
-        Console.Write("\n1) Information Booth (check credit balance or current ship)\n2) The Casino\n3) The Ship Bazaar\n\nResponse: ");
+        if (player.PlayerShip == null)
+        {
+            Console.Write("\n1) Information Booth (check credit balance or current ship)\n2) The Casino\n3) The Ship Bazaar\n\nResponse: ");
+        }
+        else
+        {
+            Console.Write("\n1) Information Booth (check credit balance or current ship)\n2) The Casino" +
+                "\n3) The Ship Bazaar\n4) Leave the Galactic Trade Hub \n\nResponse: ");
+        }
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if (x == "1") { InfoBooth(player); }
         else if (x == "2") { CasinoOptions(player); }
         else if (x == "3") { ShipBazaar(player); }  
+        else if (x == "4" && player.PlayerShip != null) { LocalSystem(player); }
+        else if (x == "4" && player.PlayerShip == null) 
+        { 
+            Console.WriteLine("Please enter either 1, 2, or 3.");
+            MainArea(player);
+        }
         else
         {
             Console.WriteLine("Please enter either 1, 2, or 3.");
@@ -213,6 +227,12 @@ public class Game
             Console.WriteLine($"Please press either 1, 2, or 3. {CasinoOptions}");
         }
        
+    }
+
+    public static void LocalSystem(Player player)
+    {
+        Console.WriteLine("You decide to leave the Galactic Trade Hub and see what awaits you in the local solar system.");
+        Console.Write($"The {player.PlayerShip} takes off as you head towards the nearest habitable planet");
     }
 
     public static void Dialog(string message)
