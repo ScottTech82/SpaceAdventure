@@ -710,15 +710,30 @@ public class Casino
     {
         List<string> NewSideDeck = new List<string>();
         var count = player.PazSideDeck.Count();
-        while(NewSideDeck.Count < 4 )
+        if(count == 4)
         {
-            Random random = new Random();
-            var r = random.Next(0, count);
-            var sidecard = player.PazSideDeck[r];
-            NewSideDeck.Add(sidecard);
-            Thread.Sleep(500);
+            foreach(var c in player.PazSideDeck) 
+            {
+                NewSideDeck.Add(c);
+            }
         }
+        else
+        {
+            while(NewSideDeck.Count < 4 )
+            {
+                Random random = new Random();
+                var r = random.Next(0, count);
+                var sidecard = player.PazSideDeck[r];
+                if(NewSideDeck.Contains(sidecard)) 
+                {
+                    PazSideDeck(player);
+                }
+                NewSideDeck.Add(sidecard);
+                Thread.Sleep(500);
+            }
 
+        }
+        NewSideDeck.Sort();
         return NewSideDeck;
     }
 
