@@ -428,6 +428,7 @@ public class Casino
         if (input == "1" && player.PazCompStand == false)
         {
             PazPlayerCard(player, PlayerDealt, CompDealt);
+            //check for total over 20 prior to comp being dealt?
             PazCompTurn(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
             PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
         }
@@ -733,7 +734,7 @@ public class Casino
             }
 
         }
-        NewSideDeck.Sort();
+        //NewSideDeck.Sort();
         return NewSideDeck;
     }
 
