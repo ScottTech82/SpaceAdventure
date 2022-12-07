@@ -159,8 +159,16 @@ public class Game
         {
             Console.WriteLine($"Welcome back to the Ship Bazaar {player.Name}.");
         }
+        if(player.PlayerShip != null)
+        {
+            Console.WriteLine("I see you already have a registered ship, would you like to sell it or browse the currently available options?");
+            Console.Write("\n1) Sell Ship\n2)Looking to Browse\nResponse: ");
+            var input = Console.ReadLine();
+            input = Convert.ToString(input);
+            if(input == "1") { Player.SellShip(player); }
+        }
         Game.Dialog("\nWhich ship would you like to view?", "blue");
-        Console.Write("\n1) The SS V-wing\n2) The SS Falcon\n3) The SS Leviathan\n4) Exit back to main hub\n\nResponse: ");
+        Console.Write("\n1) The SS V-wing\n2) The SS Falcon\n3) The SS Leviathan\n4) The SS B1\n5) Exit back to main hub\n\nResponse: ");
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if(x == "1")
@@ -180,11 +188,16 @@ public class Game
         }
         else if(x == "4")
         {
+            Items.SSB1(player);
+            ShipBazaar(player);
+        }        
+        else if(x == "5")
+        {
             MainArea(player);
         }
         else
         {
-            Console.WriteLine("Please enter either 1, 2, 3, or 4");
+            Console.WriteLine("Please enter a valid response");
             ShipBazaar(player);
         }
 

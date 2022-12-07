@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,8 +92,8 @@ public class Items
       |88|=||||=|88|
        \W  VXXV  W/
             VV
-
-
+      
+      
       >The SS Falcon<
      ";
         string FalconStats = "Attack: 5\nDefense: 8\nSpeed: 8";
@@ -134,11 +135,10 @@ public class Items
         }
     }
 
-    public static void SS-Base Model (Player player)
+    public static void SSB1(Player player)
     {
         Console.Clear();
-        string SS-Basics = @"
-
+        string SSBase = @"
 
             /\
            /  \ 
@@ -146,11 +146,45 @@ public class Items
      | |xx|    |xx| |
       \|YY|    |YY|/
            \VV/
+            VV 
 
-
+       > The SSB1 <
         ";
+        string SSBaseStats = "Attack: 3\nDefense: 5\nSpeed: 13";
+        Game.Dialog("\n\nThis is the SS Falcon a base model ship, with basic stats.");
+        Game.Dialog(SSBase, "darkmagenta");
 
-
+        Game.Dialog($"{SSBaseStats}\nCost: 100 Credits");
+        if (Player.PlayerCredits < 100 && player.PlayerShip == null)
+        {
+            Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
+            Game.PressContinue();
+            Game.ShipBazaar(player);
+        }
+        else if (Player.PlayerCredits < 100 && player.PlayerShip != null)
+        {
+            Console.Clear();
+            Console.WriteLine($"You already have a space ship in the hangar, you will have to go sell your current ship before purchasing a new one.");
+            Console.WriteLine("Please come back when you have an empty hangar.");
+            Player.SellShip(player);
+        }
+        else
+        {
+            Game.Dialog("\n\nWould you like to purchase this one?", "blue");
+            Console.Write("\n1) Yes\n2) No\nResponse: ");
+            var input = Console.ReadLine();
+            input = Convert.ToString(input);
+            if (input == "1")
+            {
+                Player.AddShip(SSBase, SSBaseStats, player);
+                Player.RemoveCredits(100, player);
+                Game.MainArea(player);
+            }
+            else
+            {
+                Game.PressContinue();
+            }
+        }
     }
                
 
