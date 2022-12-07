@@ -16,7 +16,7 @@ Console.ReadKey(); //stays at the bottom to keep the window open for now until a
  * 
  * Working On
  * 
- * 
+ * Finished Pazaak.. just need Comp Side Deck implemented and not standing at just 16, but checking player amount first.
  * 
  * 
  * 0. Decided Not to do -- Overriding the ToString method to return the card number & card suite in all other methods.
