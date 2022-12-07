@@ -92,7 +92,7 @@ public class Game
         if (x == "1") { InfoBooth(player); }
         else if (x == "2") { CasinoOptions(player); }
         else if (x == "3") { ShipBazaar(player); }  
-        else if (x == "4" && player.PlayerShip != null) { LocalSystem(player); }
+        else if (x == "4" && player.PlayerShip != null) { LocalSolarSystem(player); }
         else if (x == "4" && player.PlayerShip == null) 
         { 
             Console.WriteLine("Please enter either 1, 2, or 3.");
@@ -247,7 +247,7 @@ public class Game
         Console.WriteLine("\nYou decide to leave the Galactic Trade Hub and see what awaits you in the local solar system.");
         Game.Dialog($"\n{player.Name}'s {player.PlayerShip} takes off from the trade hub and requests a destination for the nav system.");
         Game.Dialog($"\nPlease select a location.", "blue");
-        Console.Write("\n1) ");
+        Console.Write("\n----Work in Progress. Stay tuned.----");
     }
 
     public static void Dialog(string message)
