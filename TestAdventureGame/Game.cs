@@ -242,10 +242,12 @@ public class Game
        
     }
 
-    public static void LocalSystem(Player player)
+    public static void LocalSolarSystem(Player player)
     {
-        Console.WriteLine("You decide to leave the Galactic Trade Hub and see what awaits you in the local solar system.");
-        Console.Write($"The {player.PlayerShip} takes off as you head towards the nearest habitable planet");
+        Console.WriteLine("\nYou decide to leave the Galactic Trade Hub and see what awaits you in the local solar system.");
+        Game.Dialog($"\n{player.Name}'s {player.PlayerShip} takes off from the trade hub and requests a destination for the nav system.");
+        Game.Dialog($"\nPlease select a location.", "blue");
+        Console.Write("\n1) ");
     }
 
     public static void Dialog(string message)
