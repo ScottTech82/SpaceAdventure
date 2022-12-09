@@ -7,6 +7,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+using SpaceAdventure;
 
 namespace SpaceAdventure;
 
@@ -582,94 +583,26 @@ public class Casino
 
         }
         */
+
+
         else if (cTotal >= 15 && cTotal < 20)
         {
-            foreach(var x in cSdInt)
+            var c = 20;
+            var newCompDealt = PazCompSDTest(player, CompDealt, cSdInt, pTotal, cTotal, c);
+            if (newCompDealt.Count() != 0 && player.PazStand == false)
             {
-                switch(x)
-                {
-                    case 1:
-                        if(cTotal + 1 == 20 && player.PazStand == false)
-                        {
-                            player.PazCompStand = true;
-                            CompDealt.Add("+1");
-                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-
-                        }
-                        else if (cTotal + 1 == 20 && player.PazStand == true)
-                        {
-                            player.PazCompStand = true;
-                            CompDealt.Add("+1");
-                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-                        }
-                        break;                
-                    case 2:
-                        if(cTotal + 2 == 20 && player.PazStand == false)
-                        {
-                            player.PazCompStand = true;
-                            CompDealt.Add("+2");
-                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-
-                        }
-                        else if (cTotal + 2 == 20 && player.PazStand == true)
-                        {
-                            player.PazCompStand = true;
-                            CompDealt.Add("+2");
-                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-                        }
-                        break;                
-                    case 3:
-                        if(cTotal + 3 == 20 && player.PazStand == false)
-                        {
-                            player.PazCompStand = true;
-                            CompDealt.Add("+3");
-                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-
-                        }
-                        else if (cTotal + 3 == 20 && player.PazStand == true)
-                        {
-                            player.PazCompStand = true;
-                            CompDealt.Add("+3");
-                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-                        }
-                        break;                
-                    case 4:
-                        if(cTotal + 4 == 20 && player.PazStand == false)
-                        {
-                            player.PazCompStand = true;
-                            CompDealt.Add("+4");
-                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-
-                        }
-                        else if (cTotal + 4 == 20 && player.PazStand == true)
-                        {
-                            player.PazCompStand = true;
-                            CompDealt.Add("+4");
-                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-                        }
-                        break;                
-                    case 5:
-                        if(cTotal + 5 == 20 && player.PazStand == false)
-                        {
-                            player.PazCompStand = true;
-                            CompDealt.Add("+5");
-                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-
-                        }
-                        else if (cTotal + 5 == 20 && player.PazStand == true)
-                        {
-                            player.PazCompStand = true;
-                            CompDealt.Add("+5");
-                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
+                PazGamePlay(player, PlayerDealt, newCompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+            }
+            else if(newCompDealt.Count() != 0 && player.PazStand == true)
+            {
+                PazStand(player, PlayerDealt, newCompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+            }
+            else
+            {
+                //I want to change var c to 19 and check if that is possible. Then 18, but only if pTotal is not >18.
+                //if so then try another card and bust instead of standing at a lower amount than pTotal.
             }
 
-            
         }
         else
         {
@@ -677,6 +610,110 @@ public class Casino
 
         }
 
+    }
+
+    //change the comparison of 20 to a variable that will change. So if +1 != 20 but does = 18 and there is no +3, then 
+    //add the card to equal 18 and stand if the player total is <= 18.  If player total > 18 take another card?
+    //put the else if with foreach loop in its own method to pass in a different variable for the comparison??
+
+    public static List<string> PazCompSDTest(Player player, List<string> CompDealt, 
+        List<int> cSdInt, int pTotal, int cTotal, int c)
+    {
+
+        //Did not use the pTotal or cTotal yet.  Might need later.
+
+        foreach (var x in cSdInt)
+        {
+            switch (x)
+            {
+                case 1:
+                    if (cTotal + 1 == c)
+                    {
+                        player.PazCompStand = true;
+                        CompDealt.Add("+1");
+                        return CompDealt;
+                    }
+                    break;
+                case 2:
+                    if (cTotal + 2 == c)
+                    {
+                        player.PazCompStand = true;
+                        CompDealt.Add("+2");
+                        return CompDealt;
+                    }
+                    break;
+                case 3:
+                    if (cTotal + 3 == c)
+                    {
+                        player.PazCompStand = true;
+                        CompDealt.Add("+3");
+                        return CompDealt;
+                    }
+                    break;
+                case 4:
+                    if (cTotal + 4 == c)
+                    {
+                        player.PazCompStand = true;
+                        CompDealt.Add("+4");
+                        return CompDealt;
+                    }
+                    break;
+                case 5:
+                    if (cTotal + 5 == c)
+                    {
+                        player.PazCompStand = true;
+                        CompDealt.Add("+5");
+                        return CompDealt;
+
+                    }
+                    break;
+
+                case -1:
+                    if(cTotal -1 == c)
+                    {
+                        player.PazCompStand= true;
+                        CompDealt.Add("-1");
+                        return CompDealt;
+                    }
+                    break;                
+                case -2:
+                    if(cTotal -2 == c)
+                    {
+                        player.PazCompStand= true;
+                        CompDealt.Add("-2");
+                        return CompDealt;
+                    }
+                    break;                
+                case -3:
+                    if(cTotal -3 == c)
+                    {
+                        player.PazCompStand= true;
+                        CompDealt.Add("-3");
+                        return CompDealt;
+                    }
+                    break;                
+                case -4:
+                    if(cTotal -4 == c)
+                    {
+                        player.PazCompStand= true;
+                        CompDealt.Add("-4");
+                        return CompDealt;
+                    }
+                    break;                
+                case -5:
+                    if(cTotal -5 == c)
+                    {
+                        player.PazCompStand= true;
+                        CompDealt.Add("-5");
+                        return CompDealt;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+            return CompDealt;
     }
 
     public static List<string> PazPlayerCard(Player player, List<string>PlayerDealt, List<string>CompDealt)
@@ -942,6 +979,95 @@ public class Casino
         }
         return xWin;
     }
+
+
+
+
+    /* --older idea on comp player paz decisions.
+    foreach(var x in cSdInt)
+            {
+                switch(x)
+                {
+                    case 1:
+                        if(cTotal + 1 == 20 && player.PazStand == false)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+1");
+                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        else if (cTotal + 1 == 20 && player.PazStand == true)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+1");
+                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        break;                
+                    case 2:
+                        if (cTotal + 2 == 20 && player.PazStand == false)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+2");
+                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        else if (cTotal + 2 == 20 && player.PazStand == true)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+2");
+                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        break;                
+                     case 3:
+                        if (cTotal + 3 == 20 && player.PazStand == false)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+3");
+                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        else if (cTotal + 3 == 20 && player.PazStand == true)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+3");
+                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        break;                
+                    case 4:
+                        if (cTotal + 4 == 20 && player.PazStand == false)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+4");
+                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+
+                        }
+                        else if (cTotal + 4 == 20 && player.PazStand == true)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+4");
+                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        break;                
+                    case 5:
+                        if (cTotal + 5 == 20 && player.PazStand == false)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+5");
+                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+
+                        }
+                        else if (cTotal + 5 == 20 && player.PazStand == true)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+5");
+                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+    */
+
+
 
 }
 
