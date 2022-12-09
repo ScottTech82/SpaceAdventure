@@ -487,6 +487,57 @@ public class Cards
 
     }
 
+    public static List<int> PazConvInt(Player player, List<string> SideDeck)
+    {
+        List<int> sdInt= new List<int>();
+        foreach(var c in SideDeck)
+        {
+
+            switch(c)
+            {
+
+                case "+1":
+                    sdInt.Add(1);
+                    break;
+                case "+2":
+                    sdInt.Add(2);
+                    break;
+                case "+3":
+                    sdInt.Add(3);
+                    break;
+                case "+4":
+                    sdInt.Add(4);
+                    break;
+                case "+5":
+                    sdInt.Add(5);
+                    break;
+
+                case "-1":
+                    sdInt.Add(-1);
+                    break;
+                case "-2":
+                    sdInt.Add(-2);
+                    break;
+                case "-3":
+                    sdInt.Add(-3);
+                    break;
+                case "-4":
+                    sdInt.Add(-4);
+                    break;
+                case "-5":
+                    sdInt.Add(-5);
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+        return sdInt;
+    }
+
+    
 
 
     //Previously tried solutions, I like the current one the best.
