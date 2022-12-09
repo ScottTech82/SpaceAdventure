@@ -549,19 +549,133 @@ public class Casino
     {
         var cTotal = Cards.PazTotal(player, CompDealt);
         var pTotal = Cards.PazTotal(player, PlayerDealt);
+        var cSdInt = Cards.PazConvInt(player, cSideDeck);
 
-        if(cTotal +1 == 20 && player.PazStand == false)
+        if (cTotal < 15 && player.PazStand == false)
         {
-            player.PazCompStand = true;
             PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-
         }
-        else if (cTotal +1 == 20 && player.PazStand == true)
+        else if (cTotal < 15 && player.PazStand == true)
         {
             PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
         }
+        
+        /*
+        else if(cSdInt.Contains(1))
+        {
+            if(cTotal +1 == 20 && player.PazStand == false)
+            {
+                player.PazCompStand = true;
+                CompDealt.Add("+1");
+                PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+
+            }
+            else if (cTotal +1 == 20 && player.PazStand == true)
+            {
+                player.PazCompStand = true;
+                CompDealt.Add("+1");
+                PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+            }
+        }
+        else if (cSdInt.Contains(2))
+        {
+
+        }
+        */
+        else if (cTotal >= 15 && cTotal < 20)
+        {
+            foreach(var x in cSdInt)
+            {
+                switch(x)
+                {
+                    case 1:
+                        if(cTotal + 1 == 20 && player.PazStand == false)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+1");
+                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+
+                        }
+                        else if (cTotal + 1 == 20 && player.PazStand == true)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+1");
+                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        break;                
+                    case 2:
+                        if(cTotal + 2 == 20 && player.PazStand == false)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+2");
+                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+
+                        }
+                        else if (cTotal + 2 == 20 && player.PazStand == true)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+2");
+                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        break;                
+                    case 3:
+                        if(cTotal + 3 == 20 && player.PazStand == false)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+3");
+                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+
+                        }
+                        else if (cTotal + 3 == 20 && player.PazStand == true)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+3");
+                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        break;                
+                    case 4:
+                        if(cTotal + 4 == 20 && player.PazStand == false)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+4");
+                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+
+                        }
+                        else if (cTotal + 4 == 20 && player.PazStand == true)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+4");
+                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        break;                
+                    case 5:
+                        if(cTotal + 5 == 20 && player.PazStand == false)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+5");
+                            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+
+                        }
+                        else if (cTotal + 5 == 20 && player.PazStand == true)
+                        {
+                            player.PazCompStand = true;
+                            CompDealt.Add("+5");
+                            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            
+        }
+        else
+        {
 
 
+        }
 
     }
 
