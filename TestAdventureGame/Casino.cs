@@ -497,6 +497,20 @@ public class Casino
         List<string>pSideDeck, List<string>cSideDeck, decimal betx, int pWins, int cWins)
     {
         var cTotal = Cards.PazTotal(player, CompDealt);
+        var pTotal = Cards.PazTotal(player, PlayerDealt);
+
+        //set this up to review the main player total and use the side deck to try and get as close to 20 as possible.
+        //comp has +1, +2, +3, +5
+
+        /*
+        if(cTotal < pTotal && pTotal < 20 && player.PazStand == false)
+        {
+            PazCompCard(player, PlayerDealt, CompDealt);
+            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+        }
+        */
+
+
         if (cTotal < 16 && player.PazStand == false)
         {
             PazCompCard(player, PlayerDealt, CompDealt);
@@ -528,6 +542,27 @@ public class Casino
             PazEndGame(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
         }
         
+    }
+
+    public static void PazCompSideOrNot(Player player, List<string> PlayerDealt, List<string> CompDealt,
+        List<string> pSideDeck, List<string> cSideDeck, decimal betx, int pWins, int cWins)
+    {
+        var cTotal = Cards.PazTotal(player, CompDealt);
+        var pTotal = Cards.PazTotal(player, PlayerDealt);
+
+        if(cTotal +1 == 20 && player.PazStand == false)
+        {
+            player.PazCompStand = true;
+            PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+
+        }
+        else if (cTotal +1 == 20 && player.PazStand == true)
+        {
+            PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
+        }
+
+
+
     }
 
     public static List<string> PazPlayerCard(Player player, List<string>PlayerDealt, List<string>CompDealt)
