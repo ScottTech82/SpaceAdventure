@@ -522,8 +522,6 @@ public class Casino
             PazCompCard(player, PlayerDealt, CompDealt);
             PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
         }
-            //Thinking of just putting PazGamePlayer here with a note that the Opponent stands.
-            //but want to only say it once, so maybe create a boolean in the class, set to false default
         else if (cTotal >= 16 && player.PazStand == true && player.PazCompStand == false)
         {
             player.PazCompStand = true;
