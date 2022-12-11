@@ -10,7 +10,7 @@ public class Encounter
 {
 
 
-    public static void FirstEncVWingOptions(Player player, int x)
+    public static void Encounter1VWingOptions(Player player, int x)
     {
 
         if (x == 1)
@@ -50,6 +50,7 @@ public class Encounter
           .     .       .       .     .     .   .       .           .
 
 ";
+            Console.WriteLine(encounterStart);
         }
 
 
@@ -90,6 +91,7 @@ public class Encounter
           .     .       .       .     .     .   .       .           .
 
 ";
+            Console.WriteLine(encounterPShoot);
         }
 
         else if (x == 3)
@@ -129,6 +131,7 @@ public class Encounter
           .     .       .       .     .     .   .       .           .
 
 ";
+            Console.WriteLine(encounterPHit);
         }
         else if (x == 4)
         {
@@ -167,6 +170,7 @@ public class Encounter
           .     .       .       .     .     .   .       .           .
 
 ";
+            Console.WriteLine(encounterPMiss);
         }
         else if (x == 5)
         {
@@ -205,6 +209,7 @@ public class Encounter
           .     .       .       .     .     .   .       .           .
 
 ";
+            Console.WriteLine(encounterCShoot);
         }
         else if (x == 6)
         {
@@ -243,6 +248,7 @@ public class Encounter
           .     .       .       .     .     .   .       .           .
 
 ";
+            Console.WriteLine(encounterCHit);
         }
         else if (x == 7)
         {
@@ -281,6 +287,7 @@ public class Encounter
           .     .       .       .     .     .   .       .           .
 
 ";
+            Console.WriteLine(encounterCMiss);
         }
 
 
@@ -294,6 +301,43 @@ public class Encounter
     }
 
 
+    public static void EncounterFirst(Player player)
+    {
+        //this will call the options depending on what is selected in the encounter.
+        //make a random to determine if it will be a hit or miss. Maybe something like random 0-8 13567hit 024 miss?
+        //will need to determine how many hits destroys.. maybe make a static health amount but damage is another random number?
+        // damange is from 3-5 maybe.
+
+
+        //testing the look of it;
+        Encounter1VWingOptions(player, 1);
+        Thread.Sleep(500);
+        Game.PressContinue();        
+        Encounter1VWingOptions(player, 2);
+        Thread.Sleep(500);
+        Game.PressContinue();
+        Encounter1VWingOptions(player, 3);
+        Thread.Sleep(500);
+        Game.PressContinue();
+        Encounter1VWingOptions(player, 4);
+        Thread.Sleep(500);
+        Game.PressContinue();   
+        Encounter1VWingOptions(player, 5);
+        Thread.Sleep(500);
+        Game.PressContinue();
+        Encounter1VWingOptions(player, 6);
+        Thread.Sleep(500);
+        Game.PressContinue();
+        Encounter1VWingOptions(player, 7);
+
+        Game.MainArea(player);
+
+
+    }
+
+
+    /*
+     * 
     string testsideways = @"
     ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
@@ -311,5 +355,7 @@ public class Encounter
           ==========
 
 ";
+
+    */
 
 } 

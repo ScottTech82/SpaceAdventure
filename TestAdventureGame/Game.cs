@@ -98,6 +98,7 @@ public class Game
             Console.WriteLine("Please enter either 1, 2, or 3.");
             MainArea(player);
         }
+        else if (x == "8") { Encounter.EncounterFirst(player); }
         else
         {
             Console.WriteLine("Please enter either 1, 2, or 3.");
