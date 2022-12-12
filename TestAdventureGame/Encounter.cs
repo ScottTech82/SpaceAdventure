@@ -12,9 +12,11 @@ public class Encounter
 
     public static void Encounter1VWingOptions(Player player, int x)
     {
+        Console.Clear();
 
         if (x == 1)
         {
+            
             string encounterStart = @"
         .   .  .       .     .   .     .   .  .   .    .   .  .     .
           .       .  .     .    M  . . M  .     .               ..
@@ -47,12 +49,10 @@ public class Encounter
             .                   \[]====[]/.         .        .  . 
           .    .  .  .    .    ..  WWWW .    .  .       .
         .    .       . .    .   .   .  .   .       .        .
-          .     .       .       .     .     .   .       .           .
-
 ";
-            Console.WriteLine(encounterStart);
-        }
+            Game.Dialog(encounterStart, "green");
 
+        }
 
         else if (x == 2)
         {
@@ -88,10 +88,8 @@ public class Encounter
             .                   \[]====[]/.         .        .  . 
           .    .  .  .    .    ..  WWWW .    .  .       .
         .    .       . .    .   .   .  .   .       .        .
-          .     .       .       .     .     .   .       .           .
-
 ";
-            Console.WriteLine(encounterPShoot);
+            Game.Dialog(encounterPShoot, "green");
         }
 
         else if (x == 3)
@@ -128,10 +126,8 @@ public class Encounter
             .                   \[]====[]/.         .        .  . 
           .    .  .  .    .    ..  WWWW .    .  .       .
         .    .       . .    .   .   .  .   .       .        .
-          .     .       .       .     .     .   .       .           .
-
 ";
-            Console.WriteLine(encounterPHit);
+            Game.Dialog(encounterPHit, "green");
         }
         else if (x == 4)
         {
@@ -167,10 +163,8 @@ public class Encounter
             .                   \[]====[]/.         .        .  . 
           .    .  .  .    .    ..  WWWW .    .  .       .
         .    .       . .    .   .   .  .   .       .        .
-          .     .       .       .     .     .   .       .           .
-
 ";
-            Console.WriteLine(encounterPMiss);
+            Game.Dialog(encounterPMiss, "green");
         }
         else if (x == 5)
         {
@@ -206,10 +200,8 @@ public class Encounter
             .                   \[]====[]/.         .        .  . 
           .    .  .  .    .    ..  WWWW .    .  .       .
         .    .       . .    .   .   .  .   .       .        .
-          .     .       .       .     .     .   .       .           .
-
 ";
-            Console.WriteLine(encounterCShoot);
+            Game.Dialog(encounterCShoot, "green");
         }
         else if (x == 6)
         {
@@ -245,10 +237,8 @@ public class Encounter
             .                   \[]====[]/.         .        .  . 
           .    .  .  .    .    ..  WWWW .    .  .       .
         .    .       . .    .   .   .  .   .       .        .
-          .     .       .       .     .     .   .       .           .
-
 ";
-            Console.WriteLine(encounterCHit);
+            Game.Dialog(encounterCHit, "green");
         }
         else if (x == 7)
         {
@@ -284,10 +274,8 @@ public class Encounter
             .                   \[]====[]/.         .        .  . 
           .    .  .  .    .    ..  WWWW .    .  .       .
         .    .       . .    .   .   .  .   .       .        .
-          .     .       .       .     .     .   .       .           .
-
 ";
-            Console.WriteLine(encounterCMiss);
+            Game.Dialog(encounterCMiss, "green");
         }
 
 
@@ -307,6 +295,26 @@ public class Encounter
         //make a random to determine if it will be a hit or miss. Maybe something like random 0-8 13567hit 024 miss?
         //will need to determine how many hits destroys.. maybe make a static health amount but damage is another random number?
         // damange is from 3-5 maybe.
+
+        Console.Clear();
+        Console.WriteLine("You notice a ship on the quantum radar moving towards you at a rapid pace.");
+        Thread.Sleep(500);
+        Console.WriteLine("This can only mean one thing..  pirates!!");
+        Thread.Sleep(500);
+        Console.WriteLine("\nThe pirate hails your comms");
+        Game.Dialog("\n\"Your ship and credits are ours.  You will not make it out.. alive!\"", "darkyellow");
+        Game.PressContinue();
+
+        Encounter1VWingOptions(player, 1);
+        Game.Dialog("\nWhat would you like to do?", "blue");
+        Console.Write("\n1) FIRE!\n2)Attempt an escape\nResponse: ");
+        var input = Console.ReadLine(); 
+        input = Convert.ToString(input);
+        if(input == "1")
+        {
+
+        }
+        
 
 
         //testing the look of it;
@@ -335,27 +343,13 @@ public class Encounter
 
     }
 
+    public static void EcounterRandom()
+    {
+        Random random = new Random();
+        var rand = random.Next(0, 8);
 
-    /*
-     * 
-    string testsideways = @"
-    ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
+    }
 
-          ==========
-       ===VVVVVVVVVV        
-       VVV          VVVV 
-    3||                VVVV> 
-   33||           <VVVV 
-   33||         <D
-   33||           <VVVV    
-    3||               VVVV>
-       VVV          VVVV
-       ===VVVVVVVVVV
-          ==========
-
-";
-
-    */
 
 } 
