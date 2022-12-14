@@ -413,7 +413,7 @@ public class Casino
             PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
         }
 
-        Game.Dialog($"\n\n\nThis is your dealt side deck ");
+        Game.Dialog($"\n\n\nThis is your dealt side deck ", "gray");
         Console.ForegroundColor = ConsoleColor.Green;
         foreach(var c in pSideDeck)
         {
@@ -421,7 +421,7 @@ public class Casino
         }
         Console.Write("|");
         Console.ResetColor();
-        Game.Dialog("\n\nWould you like to Continue drawing cards, Stand at this amount, or use your side deck?", "blue");
+        Game.Dialog("\n\n\nWould you like to Continue drawing cards, Stand at this amount, or use your side deck?", "blue");
         Console.Write("\n1) Continue\n2) Stand\n3) Side Deck\n\nResponse: ");
 
         var input = Console.ReadLine();
@@ -883,7 +883,9 @@ public class Casino
       
         var pWin = PazTitleWins(pWins);
         var cWin = PazTitleWins(cWins);
-        Game.Dialog("                       ****  Pazaak Card Game  ****");
+        string title = "                      ****  Pazaak Card Game  ****";
+        
+        Game.Dialog(title, "gray");
         Game.Dialog($"||   {player.Name}'s Total = {pTotal}   || {pWin} <- Wins -> {cWin} ||   Opponent's Total = {cTotal}   ||\n");
         
     }
