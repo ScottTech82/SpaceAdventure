@@ -556,30 +556,28 @@ public class Casino
         }
         else if (cTotal < 15 && player.PazStand == true)
         {
+            if(pTotal == 20)
+            {
+                var torf = PazCompSDTest(player, CompDealt, cSdInt, pTotal, cTotal, 20);
+            }
+            else if(pTotal == 19)
+            {
+                var torf = PazCompSDTest(player, CompDealt, cSdInt, pTotal, cTotal, 19);
+            }
+            else if (pTotal == 18)
+            {
+                var torf = PazCompSDTest(player, CompDealt, cSdInt, pTotal, cTotal, 18);
+            }
+            else
+            {
+
+            }
             PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
         }
         
-        /*
-        else if(cSdInt.Contains(1))
-        {
-            if(cTotal +1 == 20 && player.PazStand == false)
-            {
-                player.PazCompStand = true;
-                CompDealt.Add("+1");
-                PazGamePlay(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-
-            }
-            else if (cTotal +1 == 20 && player.PazStand == true)
-            {
-                player.PazCompStand = true;
-                CompDealt.Add("+1");
-                PazStand(player, PlayerDealt, CompDealt, pSideDeck, cSideDeck, betx, pWins, cWins);
-            }
-        }
-        else if (cSdInt.Contains(2))
-        {
-
-        }
+        /* Maybe change the PazCompSDTest to return either a true or false.  Pass in the amount, 20, 19, or 18.
+         * it checks if the side deck amount will equal that passed in amount and return true or false.
+         * Then use that to determine if take another card or add side deck card.
         */
 
 
@@ -884,9 +882,9 @@ public class Casino
         var cTotal = Cards.PazTotal(player, CompDealt);
       
         var pWin = PazTitleWins(pWins);
-        var cWin = PazTitleWins(cWins); 
-
-        Game.Dialog($"||   {player.Name}'s Total = {pTotal}   || {pWin} <- Wins -> {cWin} ||   Opponent's Total = {cTotal}   ||");
+        var cWin = PazTitleWins(cWins);
+        Game.Dialog("                       ****  Pazaak Card Game  ****");
+        Game.Dialog($"||   {player.Name}'s Total = {pTotal}   || {pWin} <- Wins -> {cWin} ||   Opponent's Total = {cTotal}   ||\n");
         
     }
 
