@@ -151,7 +151,7 @@ public class Items
        > The SSB1 <
         ";
         string SSBaseStats = "Attack: 3\nDefense: 5\nSpeed: 13";
-        Game.Dialog("\n\nThis is the SS Falcon a base model ship, with basic stats.");
+        Game.Dialog("\n\nThis is the SS B1 a cheaper model ship, with low stats.");
         Game.Dialog(SSBase, "darkmagenta");
 
         Game.Dialog($"{SSBaseStats}\nCost: 100 Credits");

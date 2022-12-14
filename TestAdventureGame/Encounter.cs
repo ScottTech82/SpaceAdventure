@@ -297,7 +297,7 @@ public class Encounter
         // damange is from 3-5 maybe.
 
         Console.Clear();
-        Console.WriteLine("You notice a ship on the quantum radar moving towards you at a rapid pace.");
+        Console.WriteLine("You notice a ship, in local space, on the quantum radar moving towards you at a rapid pace.");
         Thread.Sleep(500);
         Console.WriteLine("This can only mean one thing..  pirates!!");
         Thread.Sleep(500);
@@ -307,7 +307,7 @@ public class Encounter
 
         Encounter1VWingOptions(player, 1);
         Game.Dialog("\nWhat would you like to do?", "blue");
-        Console.Write("\n1) FIRE!\n2)Attempt an escape\nResponse: ");
+        Console.Write("\n1) FIRE!\n2)Attempt a dodge maneuver\n3)Try to escape\nResponse: ");
         var input = Console.ReadLine(); 
         input = Convert.ToString(input);
         if(input == "1")
