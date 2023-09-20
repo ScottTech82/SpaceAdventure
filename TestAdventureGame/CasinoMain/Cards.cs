@@ -5,25 +5,26 @@ using System.Linq;
 using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
+using SpaceAdventure.PlayerCharacter;
 
-namespace SpaceAdventure;
+namespace SpaceAdventure.CasinoMain;
 
 public class Cards
 {
 
-    public string Card { get; set; } 
+    public string Card { get; set; }
     public string Suit { get; set; }
 
     public override string ToString()
     {
         return Card + Suit;
     }
- 
 
-    
+
+
     public static string BlackJackCards()
     {
-        
+
         string[] cards = new string[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A" };
         Random rand = new Random();
         Thread.Sleep(500);
@@ -38,7 +39,7 @@ public class Cards
 
         return card + suit;
 
-        
+
     }
     /*
     public static string BlackJackSuit()
@@ -75,7 +76,7 @@ public class Cards
 
     public static string ChkCardDup(string card1, string card2)
     {
-        if(card2 == card1)
+        if (card2 == card1)
         {
             card2 = BlackJackCards();
             ChkCardDup(card1, card2);
@@ -85,7 +86,7 @@ public class Cards
 
     public static string ChkCardExists(string card, List<string> cards)
     {
-        if(cards.Contains(card))
+        if (cards.Contains(card))
         {
             card = BlackJackCards();
             ChkCardExists(card, cards);
@@ -209,7 +210,7 @@ public class Cards
 
         }
         return playerTotal;
-      
+
     }
 
 
@@ -301,7 +302,7 @@ public class Cards
                     x = 11;
                     dealerCalc.Add(x);
                     break;
-                    
+
                 default:
                     break;
             }
@@ -312,19 +313,19 @@ public class Cards
         {
             dealerTotal += dcalccard;
 
-                if (dealerTotal > 21 && dealerCalc.Contains(11))
-                {
+            if (dealerTotal > 21 && dealerCalc.Contains(11))
+            {
                 dealerCalc.Remove(11);
                 dealerCalc.Add(1);
                 dealerTotal = 0;
-                foreach(var dcalcard in dealerCalc)
-                    {
+                foreach (var dcalcard in dealerCalc)
+                {
                     dealerTotal += dcalcard;
                     DealerHitHold(Dcards, player);
                     return dealerTotal;
-                    }
                 }
-            
+            }
+
         }
         return dealerTotal;
 
@@ -435,65 +436,65 @@ public class Cards
 
     public static int GetPazSDIndex(string psd)
     {
-            //need to limit the side deck size to 20.
-        switch(psd)
+        //need to limit the side deck size to 20.
+        switch (psd)
         {
             case "1":
-                return 1 -1;             
+                return 1 - 1;
             case "2":
-                return 2 -1;
+                return 2 - 1;
             case "3":
-                return 3 -1;            
+                return 3 - 1;
             case "4":
-                return 4 -1;
+                return 4 - 1;
             case "5":
-                return 5 -1;
+                return 5 - 1;
             case "6":
-                return 6 -1;            
+                return 6 - 1;
             case "7":
-                return 7 -1;             
+                return 7 - 1;
             case "8":
-                return 8 -1;
+                return 8 - 1;
             case "9":
-                return 9 -1;            
+                return 9 - 1;
             case "10":
-                return 10 -1;
+                return 10 - 1;
             case "11":
-                return 11 -1;
+                return 11 - 1;
             case "12":
-                return 12 -1;            
+                return 12 - 1;
             case "13":
-                return 13 -1;             
+                return 13 - 1;
             case "14":
-                return 14 -1;
+                return 14 - 1;
             case "15":
-                return 15 -1;            
+                return 15 - 1;
             case "16":
-                return 16 -1;
+                return 16 - 1;
             case "17":
-                return 17 -1;
+                return 17 - 1;
             case "18":
-                return 18 -1;            
+                return 18 - 1;
             case "19":
-                return 19 -1;             
+                return 19 - 1;
             case "20":
-                return 20 -1;
+                return 20 - 1;
 
             default: return -1;
 
         }
 
-        
+
 
     }
 
     public static List<int> PazConvInt(Player player, List<string> SideDeck)
     {
-        List<int> sdInt= new List<int>();
-        foreach(var c in SideDeck)
+        List<int> sdInt = new List<int>();
+        foreach (var c in SideDeck)
         {
 
-            switch(c)
+            switch (c)
             {
 
                 case "+1":
@@ -537,7 +538,7 @@ public class Cards
         return sdInt;
     }
 
-    
+
 
 
     //Previously tried solutions, I like the current one the best.

@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SpaceAdventure.CasinoMain;
+using SpaceAdventure.ConsoleGfx;
+using SpaceAdventure.Convos;
+using SpaceAdventure.Items;
+using SpaceAdventure.PlayerCharacter;
+using SpaceAdventure.SpaceBattles;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceAdventure;
 
 public class Game
 {
-    
 
 
     static string PlayerName = "";
@@ -56,9 +54,10 @@ public class Game
         Thread.Sleep(500);
         Dialog("\n\"One of the traders left these credits for you to get started.\"\n\"You can always come check your balance anytime" +
             " at the information booth.\"");
-        Player.AddCredits(50, player);
+        player.AddCredits(50, player);
+        
         Thread.Sleep(1000);
-        Dialog($"\nPlayer credit balance = {Player.PlayerCredits} credits", "blue");
+        Dialog($"\nPlayer credit balance = {player.PlayerCredits} credits", "blue");
         PressContinue();
         Console.Clear();
     }
@@ -68,6 +67,12 @@ public class Game
     public static void PressContinue()
     {
         Dialog("\n\n---Please press enter to continue---", "darkyellow");
+        Console.ReadKey();
+    }
+
+    public static void PressContinueEncounter()
+    {
+        Dialog("---Please press enter to continue---", "darkyellow");
         Console.ReadKey();
     }
 
@@ -90,7 +95,11 @@ public class Game
         var x = Console.ReadLine();
         x = Convert.ToString(x);
         if (x == "1") { InfoBooth(player); }
-        else if (x == "2") { CasinoOptions(player); }
+        else if (x == "2") 
+        {
+            ICasino casino = new Casino(player);
+            casino.CasinoOptions(player); 
+        }
         else if (x == "3") { ShipBazaar(player); }  
         else if (x == "4" && player.PlayerShip != null) { LocalSolarSystem(player); }
         else if (x == "4" && player.PlayerShip == null) 
@@ -115,13 +124,13 @@ public class Game
         x = Convert.ToString(x);
         if (x == "1")
         {
-            Player.PlayerBalance(player);
+            player.PlayerBalance(player);
 
-            if(Player.PlayerCredits <= 0)
+            if(player.PlayerCredits <= 0)
             {
                 Dialog("\"Here take 50 more credits on the house. Try not to lose it this time.\"");
-                Player.AddCredits(50, player);
-                Player.PlayerBalance(player);
+                player.AddCredits(50, player);
+                player.PlayerBalance(player);
                 PressContinue();
                 Choices.Choice1(player);
             }
@@ -131,7 +140,7 @@ public class Game
         else if (x == "2")
         {
             Console.Clear();
-            Player.CheckShip(player);
+            player.CheckShip(player);
             PressContinue();
             MainArea(player);
         }
@@ -166,7 +175,7 @@ public class Game
             Console.Write("\n1) Sell Ship\n2)Looking to Browse\nResponse: ");
             var input = Console.ReadLine();
             input = Convert.ToString(input);
-            if(input == "1") { Player.SellShip(player); }
+            if(input == "1") { player.SellShip(player); }
         }
         Game.Dialog("\nWhich ship would you like to view?", "blue");
         Console.Write("\n1) The SS V-wing\n2) The SS Falcon\n3) The SS Leviathan\n4) The SS B1\n5) Exit back to main hub\n\nResponse: ");
@@ -174,22 +183,22 @@ public class Game
         x = Convert.ToString(x);
         if(x == "1")
         {
-            Items.SSVwing(player);
+            SpaceShips.SSVwing(player);
             ShipBazaar(player);
         }
         else if(x == "2")
         {
-            Items.SSFalcon(player);
+            SpaceShips.SSFalcon(player);
             ShipBazaar(player);
         }
         else if(x == "3")
         {
-            Items.SSLeviathan(player);
+            SpaceShips.SSLeviathan(player);
             ShipBazaar(player);
         }
         else if(x == "4")
         {
-            Items.SSB1(player);
+            SpaceShips.SSB1(player);
             ShipBazaar(player);
         }        
         else if(x == "5")
@@ -204,44 +213,6 @@ public class Game
 
     }
 
-
-    public static void CasinoOptions(Player player)
-    {
-        Console.Clear();
-        Title.CasinoTitle();
-        Console.WriteLine("\nWelcome to the Casino!");
-        Console.WriteLine("\nCurrently our poker tables are closed for an upcoming tournament.");
-        Console.WriteLine("You could test your luck at the slot machines or the blackjack table.");
-        Dialog("\nWhich would you like to try?", "blue");
-        Console.Write("\n1) Slot Machines\n2) BlackJack\n3) *New* Pazaak\n4) Exit\n\nResponse: ");
-        var input = Console.ReadLine();
-        input = Convert.ToString(input);
-        if (input == "1") 
-        { 
-            Console.Clear(); 
-            Casino.CasinoSlots(player); 
-        }
-        else if (input == "2")
-        {
-            Console.Clear();
-            Casino.PlayBlackJack(player);
-        }
-        else if (input == "3")
-        {
-            Console.Clear();
-            Casino.PlayPazaak(player);
-        }
-        else if (input == "4")
-        {
-            Console.WriteLine("Ok, please come by later to test your luck. Have a great day!");
-            MainArea(player);
-        }
-        else
-        {
-            Console.WriteLine($"Please press either 1, 2, or 3. {CasinoOptions}");
-        }
-       
-    }
 
     public static void LocalSolarSystem(Player player)
     {
