@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SpaceAdventure.PlayerCharacter;
 
-namespace SpaceAdventure;
+namespace SpaceAdventure.Convos;
 
 public class Choices
 {
+    private Player player;
 
+    public Choices(Player player)
+    {
+        this.player = player;
+    }
 
     public static void Choice1(Player player)
     {

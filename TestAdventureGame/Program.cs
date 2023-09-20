@@ -1,5 +1,25 @@
 ﻿using SpaceAdventure;
+using SpaceAdventure.CasinoMain;
+using SpaceAdventure.ConsoleGfx;
+using SpaceAdventure.PlayerCharacter;
 using System.ComponentModel;
+using System.Transactions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using SpaceAdventure.CasinoMain.BlackJack;
+using SpaceAdventure.CasinoMain.Pazaak;
+
+//using var host = Host.CreateDefaultBuilder(args)
+//    .ConfigureServices((_, services) =>
+//    {
+//        services.AddScoped<IPlayer, Player>();
+//        services.AddScoped<IBlackJack, BlackJack>();
+//        services.AddScoped<IPazaak, Pazaak>();
+
+//    }).Build();
+
+
+
 
 Title.GameTitle();
 Game.Starting();
@@ -16,7 +36,9 @@ Console.ReadKey(); //stays at the bottom to keep the window open for now until a
  * 
  * Working On
  * 
- * Finished Pazaak.. just need Comp Side Deck implemented and not standing at just 16, but checking player amount first.
+ * Finishing Pazaak.. just need Comp Side Deck implemented and not standing at just 16, but checking player amount first.
+ *      Seems to be mostly implemented.  Would like to create additional methods breaking up some of the larger methods.
+ *      Have some new methods started at the end of the pazaak class with a few notes.  Trying to make it better.
  * 
  * 
  * 0. Decided Not to do -- Overriding the ToString method to return the card number & card suite in all other methods.

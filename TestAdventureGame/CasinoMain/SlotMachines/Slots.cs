@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpaceAdventure.PlayerCharacter;
 
-namespace SpaceAdventure;
+namespace SpaceAdventure.CasinoMain.SlotMachines;
 
 public class Slots
 {
+
+    private Player player;
+    
+
+    public Slots(Player player)
+    {
+        this.player = player;
+    }
 
 
 
@@ -37,7 +41,8 @@ public class Slots
 
     public static void SimpleSlot(Player player)
     {
-        var betx = Casino.Bet(player);
+        ICasino casino = new Casino(player);
+        var betx = casino.Bet(player);
         Console.WriteLine("With the credits deposited, the reels begin to spin.");
         var result1 = SlotMachineSimple();
         Console.WriteLine($"\n  The first result is.... \n");
@@ -65,7 +70,7 @@ public class Slots
             Console.WriteLine("\nYOU WON!! Congratulations, enjoy your winnings!\n");
             var multiplier = 4;
             decimal x = betx * multiplier;
-            Player.AddCredits(x, player);
+            player.AddCredits(x, player);
             Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
         }
         else if (result1 != result2 && result1 != result3 && result2 != result3)
@@ -78,10 +83,10 @@ public class Slots
             Console.WriteLine("\nYou have two matches!\n");
             var multiplier = 2;
             decimal x = betx * multiplier;
-            Player.AddCredits(x, player);
+            player.AddCredits(x, player);
             Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
         }
-        Player.PlayerBalance(player);
+        player.PlayerBalance(player);
         Game.PressContinue();
         SlotChoice1(player);
 
@@ -90,7 +95,8 @@ public class Slots
 
     public static void MedSlot(Player player)
     {
-        var betx = Casino.Bet(player);
+        ICasino casino = new Casino(player);
+        var betx = casino.Bet(player);
         Console.WriteLine("With the credits deposited, the reels begin to spin.");
         var result1 = SlotMachineMed();
         Console.WriteLine($"\n  The first result is.... \n");
@@ -128,7 +134,7 @@ public class Slots
             Console.WriteLine("\nYOU WON THE JACKPOT!! Congratulations, enjoy your winnings!\n");
             var multiplier = 6;
             decimal x = betx * multiplier;
-            Player.AddCredits(x, player);
+            player.AddCredits(x, player);
             Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
         }
         else if (result1 != result2 && result1 != result3 && result1 != result4 && result1 != result5 ||
@@ -165,10 +171,10 @@ public class Slots
             Console.WriteLine("\nYou win! Congrats, and enjoy your winnings!\n");
             var multiplier = 3;
             decimal x = betx * multiplier;
-            Player.AddCredits(x, player);
+            player.AddCredits(x, player);
             Game.Dialog($"Your bet of {betx} x {multiplier} = {x}", "blue");
         }
-        Player.PlayerBalance(player);
+        player.PlayerBalance(player);
         Game.PressContinue();
         SlotChoice2(player);
 
@@ -183,10 +189,11 @@ public class Slots
         Console.Write("1) Yes \n2) No thanks\n\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
+        ICasino casino = new Casino(player);
         if (input == "1")
         {
             Console.Clear();
-            Casino.CasinoSlots(player);
+            casino.CasinoSlots(player);
         }
         else if (input == "2")
         {
@@ -195,8 +202,8 @@ public class Slots
                 "\n1) Different Slot Machine\n2) Try BlackJack\n3) Exit the Casino\n\nResponse: ");
             var x = Console.ReadLine();
             x = Convert.ToString(x);
-            if (x == "1") { Casino.CasinoSlots(player); }
-            else if (x == "2") { Casino.PlayBlackJack(player); }
+            if (x == "1") { casino.CasinoSlots(player); }
+            else if (x == "2") { casino.PlayBlackJack(player); }
             else if (x == "3") { Game.MainArea(player); }
         }
         else { Console.WriteLine($"Please press either 1 or 2."); SlotChoice1(player); }
@@ -210,6 +217,7 @@ public class Slots
         Console.Write("1) Yes \n2) No thanks\n\nResponse: ");
         var input = Console.ReadLine();
         input = Convert.ToString(input);
+        ICasino casino = new Casino(player);
         if (input == "1")
         {
             Console.Clear();
@@ -222,7 +230,7 @@ public class Slots
                 "\n1) Different Slot Machine\n2) Exit the Casino\n\nResponse: ");
             var x = Console.ReadLine();
             x = Convert.ToString(x);
-            if (x == "1") { Casino.CasinoSlots(player); }
+            if (x == "1") { casino.CasinoSlots(player); }
             else if (x == "2") { Game.MainArea(player); }
         }
         else { Console.WriteLine($"Please press either 1 or 2."); SlotChoice2(player); }

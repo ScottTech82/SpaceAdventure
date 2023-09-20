@@ -6,25 +6,37 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using SpaceAdventure.PlayerCharacter;
 
-namespace SpaceAdventure;
+namespace SpaceAdventure.Items;
 
-public class Items
+public class SpaceShips
 {
 
     public string VwingStats { get; set; }
     public string FalconStats { get; set; }
     public string LevStats { get; set; }
 
+    private Player player;
 
- 
+
+    public SpaceShips(string vwingStats, string falconStats, string levStats, Player player)
+    {
+        VwingStats = vwingStats;
+        FalconStats = falconStats;
+        LevStats = levStats;
+        this.player = player;
+    }
+
+
+
 
     //Setting the VWingStats and want to be able to access it from outside this method below.  Should be able to set the value.
 
-    public static void SSVwing (Player player)
+    public static void SSVwing(Player player)
     {
         Console.Clear();
-    string Vwing = @"
+        string Vwing = @"
 
         /\      /\
        /88\    /88\
@@ -37,27 +49,27 @@ public class Items
 
       >The SS V-wing<
     ";
-        
+
         string VwingStats = "Attack: 13\nDefense: 8\nSpeed: 13";
 
 
         Game.Dialog("\n\nThis is the SS V-wing an interceptor class attack ship.");
         Game.Dialog(Vwing, "darkmagenta");
- 
+
         Game.Dialog($"{VwingStats}\nCost: 500 Credits");
 
-        if (Player.PlayerCredits < 500 && player.PlayerShip == null)
+        if (player.PlayerCredits < 500 && player.PlayerShip == null)
         {
             Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
             Game.PressContinue();
             Game.ShipBazaar(player);
         }
-        else if (Player.PlayerCredits < 500 && player.PlayerShip != null)
+        else if (player.PlayerCredits < 500 && player.PlayerShip != null)
         {
             Console.Clear();
             Console.WriteLine($"You already have a space ship in the hangar, you will have to go sell your current ship before purchasing a new one.");
             Console.WriteLine("Please come back when you have an empty hangar.");
-            Player.SellShip(player);
+            player.SellShip(player);
         }
         else
         {
@@ -67,8 +79,8 @@ public class Items
             input = Convert.ToString(input);
             if (input == "1")
             {
-                Player.AddShip(Vwing, VwingStats, player);
-                Player.RemoveCredits(500, player);
+                player.AddShip(Vwing, VwingStats, player);
+                player.RemoveCredits(500, player);
                 Game.MainArea(player);
             }
             else
@@ -77,13 +89,13 @@ public class Items
             }
         }
     }
-    
 
 
-    public static void SSFalcon (Player player)
+
+    public static void SSFalcon(Player player)
     {
         Console.Clear();
-    string Falcon = @"
+        string Falcon = @"
 
             /\
            |  |
@@ -101,20 +113,20 @@ public class Items
 
         Game.Dialog("\n\nThis is the SS Falcon a base model ship, with basic stats.");
         Game.Dialog(Falcon, "darkmagenta");
-        
+
         Game.Dialog($"{FalconStats}\nCost: 250 Credits");
-        if (Player.PlayerCredits < 250 && player.PlayerShip == null)
+        if (player.PlayerCredits < 250 && player.PlayerShip == null)
         {
             Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
             Game.PressContinue();
             Game.ShipBazaar(player);
         }
-        else if(Player.PlayerCredits < 250 && player.PlayerShip != null)
-        {      
-                Console.Clear();
-                Console.WriteLine($"You already have a space ship in the hangar, you will have to go sell your current ship before purchasing a new one.");
-                Console.WriteLine("Please come back when you have an empty hangar.");
-                Player.SellShip(player);
+        else if (player.PlayerCredits < 250 && player.PlayerShip != null)
+        {
+            Console.Clear();
+            Console.WriteLine($"You already have a space ship in the hangar, you will have to go sell your current ship before purchasing a new one.");
+            Console.WriteLine("Please come back when you have an empty hangar.");
+            player.SellShip(player);
         }
         else
         {
@@ -124,8 +136,8 @@ public class Items
             input = Convert.ToString(input);
             if (input == "1")
             {
-                Player.AddShip(Falcon, FalconStats, player);
-                Player.RemoveCredits(250, player);
+                player.AddShip(Falcon, FalconStats, player);
+                player.RemoveCredits(250, player);
                 Game.MainArea(player);
             }
             else
@@ -155,18 +167,18 @@ public class Items
         Game.Dialog(SSBase, "darkmagenta");
 
         Game.Dialog($"{SSBaseStats}\nCost: 100 Credits");
-        if (Player.PlayerCredits < 100 && player.PlayerShip == null)
+        if (player.PlayerCredits < 100 && player.PlayerShip == null)
         {
             Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
             Game.PressContinue();
             Game.ShipBazaar(player);
         }
-        else if (Player.PlayerCredits < 100 && player.PlayerShip != null)
+        else if (player.PlayerCredits < 100 && player.PlayerShip != null)
         {
             Console.Clear();
             Console.WriteLine($"You already have a space ship in the hangar, you will have to go sell your current ship before purchasing a new one.");
             Console.WriteLine("Please come back when you have an empty hangar.");
-            Player.SellShip(player);
+            player.SellShip(player);
         }
         else
         {
@@ -176,8 +188,8 @@ public class Items
             input = Convert.ToString(input);
             if (input == "1")
             {
-                Player.AddShip(SSBase, SSBaseStats, player);
-                Player.RemoveCredits(100, player);
+                player.AddShip(SSBase, SSBaseStats, player);
+                player.RemoveCredits(100, player);
                 Game.MainArea(player);
             }
             else
@@ -186,14 +198,14 @@ public class Items
             }
         }
     }
-               
 
 
 
-    public static void SSLeviathan (Player player)
+
+    public static void SSLeviathan(Player player)
     {
         Console.Clear();
-    string Lev = @"
+        string Lev = @"
 
              /\
             |  |
@@ -214,21 +226,21 @@ public class Items
 
         Game.Dialog("\n\nThis is the SS Leviathan a large capital class ship.");
         Game.Dialog(Lev, "darkmagenta");
-        
+
         Game.Dialog($"{LevStats}\nCost: 1150 Credits");
 
-        if (Player.PlayerCredits < 1150 && player.PlayerShip == null)
+        if (player.PlayerCredits < 1150 && player.PlayerShip == null)
         {
             Game.Dialog("\n\nI'm sorry, it appears you do not have enough credits to purchase this ship.", "red");
             Game.PressContinue();
             Game.ShipBazaar(player);
         }
-        else if (Player.PlayerCredits < 1150 && player.PlayerShip != null)
+        else if (player.PlayerCredits < 1150 && player.PlayerShip != null)
         {
             Console.Clear();
             Console.WriteLine($"You already have a space ship in the hangar, you will have to go sell your current ship before purchasing a new one.");
             Console.WriteLine("Please come back when you have an empty hangar.");
-            Player.SellShip(player);
+            player.SellShip(player);
         }
         else
         {
@@ -238,8 +250,8 @@ public class Items
             input = Convert.ToString(input);
             if (input == "1")
             {
-                Player.AddShip(Lev, LevStats, player);
-                Player.RemoveCredits(1150, player);
+                player.AddShip(Lev, LevStats, player);
+                player.RemoveCredits(1150, player);
                 Game.MainArea(player);
             }
             else
